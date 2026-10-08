@@ -11,6 +11,9 @@ import { FacilitiesPage } from './pages/FacilitiesPage.tsx';
 import { GalleryPage } from './pages/GalleryPage.tsx';
 import { AboutPage } from './pages/AboutPage.tsx';
 import { ContactPage } from './pages/ContactPage.tsx';
+import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage.tsx';
+import { TermsPage } from './pages/TermsPage.tsx';
+import { CookieConsentBanner } from './components/CookieConsentBanner.tsx';
 import { AdminLoginPage } from './pages/admin/AdminLoginPage.tsx';
 import { AdminDashboard } from './pages/admin/AdminDashboard.tsx';
 import { api, getStoredToken, clearStoredToken } from './lib/api.ts';
@@ -146,6 +149,14 @@ export default function App() {
 
         {currentRoute === '/contact' && <ContactPage settings={settings} />}
 
+        {currentRoute === '/privacy' && (
+          <PrivacyPolicyPage settings={settings} onNavigate={navigate} />
+        )}
+
+        {currentRoute === '/terms' && (
+          <TermsPage settings={settings} onNavigate={navigate} />
+        )}
+
         {currentRoute === '/admin/login' && (
           <AdminLoginPage
             onLoginSuccess={(user) => {
@@ -199,6 +210,9 @@ export default function App() {
         isOpen={isLookupOpen}
         onClose={() => setIsLookupOpen(false)}
       />
+
+      {/* Discrete Privacy & Essential Storage Notice */}
+      <CookieConsentBanner onOpenPrivacy={() => navigate('/privacy')} />
     </div>
   );
 }

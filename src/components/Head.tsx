@@ -82,6 +82,20 @@ const ROUTE_META_MAP: Record<string, RouteMeta> = {
     schemaType: 'WebPage',
     breadcrumbName: 'Staff Portal',
   },
+  '/privacy': {
+    title: 'Privacy Policy | Guest Data Protection | ANABE HOTEL',
+    description: 'Learn how ANABE HOTEL collects, uses, and safeguards guest information and booking details. Transparent data handling and guest confidentiality.',
+    image: DEFAULT_EXTERIOR_IMAGE,
+    schemaType: 'AboutPage',
+    breadcrumbName: 'Privacy Policy',
+  },
+  '/terms': {
+    title: 'Terms & Conditions | Reservation Policy | ANABE HOTEL',
+    description: 'Review ANABE HOTEL reservation terms, check-in and check-out procedures, cancellation policies, guest responsibilities, and hotel guidelines.',
+    image: DEFAULT_EXTERIOR_IMAGE,
+    schemaType: 'AboutPage',
+    breadcrumbName: 'Terms & Conditions',
+  },
 };
 
 /**
