@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Cormorant Garamond", Georgia, Cambria, serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --color-gold-50: #FAF6EF;
+  --color-gold-100: #F3EBDD;
+  --color-gold-200: #E6D4B7;
+  --color-gold-300: #D8BD90;
+  --color-gold-400: #C9A569;
+  --color-gold-500: #B89667;
+  --color-gold-600: #9E7D50;
+  --color-gold-700: #7E613C;
+  --color-gold-800: #5F482B;
+  --color-gold-900: #42321D;
+  --color-charcoal-900: #121316;
+  --color-charcoal-800: #1C1E24;
+  --color-charcoal-700: #292B33;
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-serif);
+}
+
+/* Tabular figures for pricing, room numbers, counters, dates */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}

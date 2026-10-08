@@ -1,0 +1,2154 @@
+{
+  "users": [
+    {
+      "id": "usr_owner_01",
+      "name": "Hotel Owner",
+      "email": "owner@anabehotel.com",
+      "passwordHash": "d0274c253a8e44238368b7cbea54da03:1241b5807b6f0cf42e33c129c288e67627c57e4edd335014c28fd7f5832aeddd7b8310a9b14106154681f5aa2da8aa6075d63638d143d3fb4aef73a22c98472a",
+      "role": "OWNER",
+      "permissions": [
+        "manage_rooms",
+        "manage_bookings",
+        "checkin_checkout",
+        "manage_users",
+        "manage_settings",
+        "view_finances",
+        "manage_facilities",
+        "manage_gallery",
+        "cleaning_updates",
+        "delete_records"
+      ],
+      "status": "ACTIVE",
+      "createdAt": "2026-01-01T08:00:00Z",
+      "lastLoginAt": "2026-10-08T16:39:31.936Z"
+    },
+    {
+      "id": "usr_manager_01",
+      "name": "Operations Manager",
+      "email": "manager@anabehotel.com",
+      "passwordHash": "97cab8161a3697f17ebc69c4eb6d3c5b:fd5d7d43df227778f5c93d82970f4944609cf6067ca586a2d23bb75f11edbb124c764e814a6bb4f57074dc73368f026eb194ddee99c9e23c87bbd3af47f6c1c6",
+      "role": "MANAGER",
+      "permissions": [
+        "manage_rooms",
+        "manage_bookings",
+        "checkin_checkout",
+        "manage_facilities",
+        "manage_gallery",
+        "cleaning_updates"
+      ],
+      "status": "ACTIVE",
+      "createdAt": "2026-01-10T09:00:00Z"
+    },
+    {
+      "id": "usr_staff_reception",
+      "name": "Front Desk Reception",
+      "email": "reception@anabehotel.com",
+      "passwordHash": "6307d2f1e3d8e5a9b2a921df8ee12291:c66d8ea5275182576a1fc018af83536708efadb881e3b51c159a1399491d95db218a511bed633283991a5126446993880bef7f3c9d1413d0467b9a545d7e5451",
+      "role": "STAFF",
+      "permissions": [
+        "manage_bookings",
+        "checkin_checkout"
+      ],
+      "status": "ACTIVE",
+      "createdAt": "2026-01-15T10:00:00Z"
+    },
+    {
+      "id": "usr_staff_housekeeping",
+      "name": "Housekeeping Supervisor",
+      "email": "housekeeping@anabehotel.com",
+      "passwordHash": "47166a5381c94a6612697c1d442d0fca:adaa5ed4f82258cd9b6a8b6bc49934bb5b66402e576887a62c309539a788df9f08f08c95db5bfe2faf52ea50783615ce0866758ecc069b05179fb433f025661b",
+      "role": "STAFF",
+      "permissions": [
+        "cleaning_updates"
+      ],
+      "status": "ACTIVE",
+      "createdAt": "2026-01-20T11:00:00Z"
+    }
+  ],
+  "hotelSettings": {
+    "hotelName": "ANABE HOTEL",
+    "phone1": "0788 845 520",
+    "phone2": "0783 218 170",
+    "email": "info@anabehotel.com",
+    "address": "KG 15 Avenue, Luxury Boulevard",
+    "city": "Kigali",
+    "country": "Rwanda",
+    "description": "ANABE HOTEL is a premier hospitality destination featuring 65 thoughtfully curated rooms, a serene swimming pool, modern escalator and elevator infrastructure, and refined personalized service for both international business travelers and leisure guests.",
+    "checkInTime": "14:00",
+    "checkOutTime": "11:00",
+    "currency": "RWF",
+    "currencySymbol": "FRw",
+    "cancellationPolicy": "Free cancellation up to 48 hours prior to check-in. Cancellations made within 48 hours are subject to a one-night room charge.",
+    "logoUrl": ""
+  },
+  "roomTypes": [
+    {
+      "id": "rt_standard_single",
+      "name": "Standard Single Room",
+      "description": "Ideal for solo business travelers with dedicated workspace, high-speed Wi-Fi, and plush bedding.",
+      "basePrice": 65000,
+      "maxGuests": 1,
+      "defaultAmenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "Flat-screen TV",
+        "Work Desk",
+        "En-suite Bathroom",
+        "Electronic Safe"
+      ]
+    },
+    {
+      "id": "rt_standard_double",
+      "name": "Standard Double Room",
+      "description": "Comfortable double accommodations featuring queen-size bed, city or courtyard views, and modern comforts.",
+      "basePrice": 90000,
+      "maxGuests": 2,
+      "defaultAmenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "Smart TV",
+        "Tea & Coffee Maker",
+        "En-suite Bathroom",
+        "Electronic Safe",
+        "Hairdryer"
+      ]
+    },
+    {
+      "id": "rt_twin_comfort",
+      "name": "Twin Comfort Room",
+      "description": "Two twin beds with premium linens, soundproofing, and ensuite bath, ideal for colleagues or friends.",
+      "basePrice": 95000,
+      "maxGuests": 2,
+      "defaultAmenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "Smart TV",
+        "Work Desk",
+        "En-suite Bathroom",
+        "Mini Fridge",
+        "Electronic Safe"
+      ]
+    },
+    {
+      "id": "rt_deluxe_king",
+      "name": "Deluxe King Room",
+      "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
+      "basePrice": 135000,
+      "maxGuests": 2,
+      "defaultAmenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "55-inch 4K Smart TV",
+        "Private Balcony",
+        "Mini Bar",
+        "Bathrobes & Slippers",
+        "Premium Toiletries",
+        "Nespresso Coffee Machine"
+      ]
+    },
+    {
+      "id": "rt_executive_suite",
+      "name": "Executive Suite",
+      "description": "Expansive two-room layout with separate living salon, dining table, panoramic views, and personalized turndown service.",
+      "basePrice": 220000,
+      "maxGuests": 3,
+      "defaultAmenities": [
+        "High-speed Wi-Fi",
+        "Individual Climate Control",
+        "Living Room & Dining Area",
+        "Walk-in Closet",
+        "Soaking Bathtub & Rain Shower",
+        "Complimentary Mini Bar",
+        "Executive Lounge Access",
+        "Private Balcony"
+      ]
+    }
+  ],
+  "rooms": [
+    {
+      "id": "room_101",
+      "roomNumber": "101",
+      "name": "Standard Single Room 101",
+      "typeId": "rt_standard_single",
+      "typeName": "Standard Single Room",
+      "description": "Ideal for solo business travelers with dedicated workspace, high-speed Wi-Fi, and plush bedding.",
+      "pricePerNight": 65000,
+      "maxGuests": 1,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "Flat-screen TV",
+        "Work Desk",
+        "En-suite Bathroom",
+        "Electronic Safe"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 1,
+      "featured": false
+    },
+    {
+      "id": "room_102",
+      "roomNumber": "102",
+      "name": "Standard Double Room 102",
+      "typeId": "rt_standard_double",
+      "typeName": "Standard Double Room",
+      "description": "Comfortable double accommodations featuring queen-size bed, city or courtyard views, and modern comforts.",
+      "pricePerNight": 90000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "Smart TV",
+        "Tea & Coffee Maker",
+        "En-suite Bathroom",
+        "Electronic Safe",
+        "Hairdryer"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 1,
+      "featured": false
+    },
+    {
+      "id": "room_103",
+      "roomNumber": "103",
+      "name": "Twin Comfort Room 103",
+      "typeId": "rt_twin_comfort",
+      "typeName": "Twin Comfort Room",
+      "description": "Two twin beds with premium linens, soundproofing, and ensuite bath, ideal for colleagues or friends.",
+      "pricePerNight": 95000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "Smart TV",
+        "Work Desk",
+        "En-suite Bathroom",
+        "Mini Fridge",
+        "Electronic Safe"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 1,
+      "featured": false
+    },
+    {
+      "id": "room_104",
+      "roomNumber": "104",
+      "name": "Standard Double Room 104",
+      "typeId": "rt_standard_double",
+      "typeName": "Standard Double Room",
+      "description": "Comfortable double accommodations featuring queen-size bed, city or courtyard views, and modern comforts.",
+      "pricePerNight": 90000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "Smart TV",
+        "Tea & Coffee Maker",
+        "En-suite Bathroom",
+        "Electronic Safe",
+        "Hairdryer"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 1,
+      "featured": false
+    },
+    {
+      "id": "room_105",
+      "roomNumber": "105",
+      "name": "Standard Single Room 105",
+      "typeId": "rt_standard_single",
+      "typeName": "Standard Single Room",
+      "description": "Ideal for solo business travelers with dedicated workspace, high-speed Wi-Fi, and plush bedding.",
+      "pricePerNight": 65000,
+      "maxGuests": 1,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "Flat-screen TV",
+        "Work Desk",
+        "En-suite Bathroom",
+        "Electronic Safe"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 1,
+      "featured": false
+    },
+    {
+      "id": "room_106",
+      "roomNumber": "106",
+      "name": "Twin Comfort Room 106",
+      "typeId": "rt_twin_comfort",
+      "typeName": "Twin Comfort Room",
+      "description": "Two twin beds with premium linens, soundproofing, and ensuite bath, ideal for colleagues or friends.",
+      "pricePerNight": 95000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "Smart TV",
+        "Work Desk",
+        "En-suite Bathroom",
+        "Mini Fridge",
+        "Electronic Safe"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 1,
+      "featured": false
+    },
+    {
+      "id": "room_107",
+      "roomNumber": "107",
+      "name": "Standard Single Room 107",
+      "typeId": "rt_standard_single",
+      "typeName": "Standard Single Room",
+      "description": "Ideal for solo business travelers with dedicated workspace, high-speed Wi-Fi, and plush bedding.",
+      "pricePerNight": 65000,
+      "maxGuests": 1,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "Flat-screen TV",
+        "Work Desk",
+        "En-suite Bathroom",
+        "Electronic Safe"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 1,
+      "featured": false
+    },
+    {
+      "id": "room_108",
+      "roomNumber": "108",
+      "name": "Standard Double Room 108",
+      "typeId": "rt_standard_double",
+      "typeName": "Standard Double Room",
+      "description": "Comfortable double accommodations featuring queen-size bed, city or courtyard views, and modern comforts.",
+      "pricePerNight": 90000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "Smart TV",
+        "Tea & Coffee Maker",
+        "En-suite Bathroom",
+        "Electronic Safe",
+        "Hairdryer"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 1,
+      "featured": false
+    },
+    {
+      "id": "room_109",
+      "roomNumber": "109",
+      "name": "Twin Comfort Room 109",
+      "typeId": "rt_twin_comfort",
+      "typeName": "Twin Comfort Room",
+      "description": "Two twin beds with premium linens, soundproofing, and ensuite bath, ideal for colleagues or friends.",
+      "pricePerNight": 95000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "Smart TV",
+        "Work Desk",
+        "En-suite Bathroom",
+        "Mini Fridge",
+        "Electronic Safe"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 1,
+      "featured": false
+    },
+    {
+      "id": "room_110",
+      "roomNumber": "110",
+      "name": "Standard Double Room 110",
+      "typeId": "rt_standard_double",
+      "typeName": "Standard Double Room",
+      "description": "Comfortable double accommodations featuring queen-size bed, city or courtyard views, and modern comforts.",
+      "pricePerNight": 90000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "Smart TV",
+        "Tea & Coffee Maker",
+        "En-suite Bathroom",
+        "Electronic Safe",
+        "Hairdryer"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 1,
+      "featured": false
+    },
+    {
+      "id": "room_111",
+      "roomNumber": "111",
+      "name": "Standard Single Room 111",
+      "typeId": "rt_standard_single",
+      "typeName": "Standard Single Room",
+      "description": "Ideal for solo business travelers with dedicated workspace, high-speed Wi-Fi, and plush bedding.",
+      "pricePerNight": 65000,
+      "maxGuests": 1,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "Flat-screen TV",
+        "Work Desk",
+        "En-suite Bathroom",
+        "Electronic Safe"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 1,
+      "featured": false
+    },
+    {
+      "id": "room_112",
+      "roomNumber": "112",
+      "name": "Twin Comfort Room 112",
+      "typeId": "rt_twin_comfort",
+      "typeName": "Twin Comfort Room",
+      "description": "Two twin beds with premium linens, soundproofing, and ensuite bath, ideal for colleagues or friends.",
+      "pricePerNight": 95000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "Smart TV",
+        "Work Desk",
+        "En-suite Bathroom",
+        "Mini Fridge",
+        "Electronic Safe"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 1,
+      "featured": false
+    },
+    {
+      "id": "room_113",
+      "roomNumber": "113",
+      "name": "Standard Single Room 113",
+      "typeId": "rt_standard_single",
+      "typeName": "Standard Single Room",
+      "description": "Ideal for solo business travelers with dedicated workspace, high-speed Wi-Fi, and plush bedding.",
+      "pricePerNight": 65000,
+      "maxGuests": 1,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "Flat-screen TV",
+        "Work Desk",
+        "En-suite Bathroom",
+        "Electronic Safe"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 1,
+      "featured": false
+    },
+    {
+      "id": "room_114",
+      "roomNumber": "114",
+      "name": "Standard Double Room 114",
+      "typeId": "rt_standard_double",
+      "typeName": "Standard Double Room",
+      "description": "Comfortable double accommodations featuring queen-size bed, city or courtyard views, and modern comforts.",
+      "pricePerNight": 90000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "Smart TV",
+        "Tea & Coffee Maker",
+        "En-suite Bathroom",
+        "Electronic Safe",
+        "Hairdryer"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 1,
+      "featured": false
+    },
+    {
+      "id": "room_115",
+      "roomNumber": "115",
+      "name": "Twin Comfort Room 115",
+      "typeId": "rt_twin_comfort",
+      "typeName": "Twin Comfort Room",
+      "description": "Two twin beds with premium linens, soundproofing, and ensuite bath, ideal for colleagues or friends.",
+      "pricePerNight": 95000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "Smart TV",
+        "Work Desk",
+        "En-suite Bathroom",
+        "Mini Fridge",
+        "Electronic Safe"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 1,
+      "featured": false
+    },
+    {
+      "id": "room_116",
+      "roomNumber": "116",
+      "name": "Standard Double Room 116",
+      "typeId": "rt_standard_double",
+      "typeName": "Standard Double Room",
+      "description": "Comfortable double accommodations featuring queen-size bed, city or courtyard views, and modern comforts.",
+      "pricePerNight": 90000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "Smart TV",
+        "Tea & Coffee Maker",
+        "En-suite Bathroom",
+        "Electronic Safe",
+        "Hairdryer"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 1,
+      "featured": false
+    },
+    {
+      "id": "room_201",
+      "roomNumber": "201",
+      "name": "Standard Single Room 201",
+      "typeId": "rt_standard_single",
+      "typeName": "Standard Single Room",
+      "description": "Ideal for solo business travelers with dedicated workspace, high-speed Wi-Fi, and plush bedding.",
+      "pricePerNight": 65000,
+      "maxGuests": 1,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "Flat-screen TV",
+        "Work Desk",
+        "En-suite Bathroom",
+        "Electronic Safe"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 2,
+      "featured": false
+    },
+    {
+      "id": "room_202",
+      "roomNumber": "202",
+      "name": "Standard Double Room 202",
+      "typeId": "rt_standard_double",
+      "typeName": "Standard Double Room",
+      "description": "Comfortable double accommodations featuring queen-size bed, city or courtyard views, and modern comforts.",
+      "pricePerNight": 90000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "Smart TV",
+        "Tea & Coffee Maker",
+        "En-suite Bathroom",
+        "Electronic Safe",
+        "Hairdryer"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 2,
+      "featured": false
+    },
+    {
+      "id": "room_203",
+      "roomNumber": "203",
+      "name": "Twin Comfort Room 203",
+      "typeId": "rt_twin_comfort",
+      "typeName": "Twin Comfort Room",
+      "description": "Two twin beds with premium linens, soundproofing, and ensuite bath, ideal for colleagues or friends.",
+      "pricePerNight": 95000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "Smart TV",
+        "Work Desk",
+        "En-suite Bathroom",
+        "Mini Fridge",
+        "Electronic Safe"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 2,
+      "featured": false
+    },
+    {
+      "id": "room_204",
+      "roomNumber": "204",
+      "name": "Standard Double Room 204",
+      "typeId": "rt_standard_double",
+      "typeName": "Standard Double Room",
+      "description": "Comfortable double accommodations featuring queen-size bed, city or courtyard views, and modern comforts.",
+      "pricePerNight": 90000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "Smart TV",
+        "Tea & Coffee Maker",
+        "En-suite Bathroom",
+        "Electronic Safe",
+        "Hairdryer"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 2,
+      "featured": false
+    },
+    {
+      "id": "room_205",
+      "roomNumber": "205",
+      "name": "Standard Single Room 205",
+      "typeId": "rt_standard_single",
+      "typeName": "Standard Single Room",
+      "description": "Ideal for solo business travelers with dedicated workspace, high-speed Wi-Fi, and plush bedding.",
+      "pricePerNight": 65000,
+      "maxGuests": 1,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "Flat-screen TV",
+        "Work Desk",
+        "En-suite Bathroom",
+        "Electronic Safe"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 2,
+      "featured": false
+    },
+    {
+      "id": "room_206",
+      "roomNumber": "206",
+      "name": "Twin Comfort Room 206",
+      "typeId": "rt_twin_comfort",
+      "typeName": "Twin Comfort Room",
+      "description": "Two twin beds with premium linens, soundproofing, and ensuite bath, ideal for colleagues or friends.",
+      "pricePerNight": 95000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "Smart TV",
+        "Work Desk",
+        "En-suite Bathroom",
+        "Mini Fridge",
+        "Electronic Safe"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 2,
+      "featured": false
+    },
+    {
+      "id": "room_207",
+      "roomNumber": "207",
+      "name": "Standard Single Room 207",
+      "typeId": "rt_standard_single",
+      "typeName": "Standard Single Room",
+      "description": "Ideal for solo business travelers with dedicated workspace, high-speed Wi-Fi, and plush bedding.",
+      "pricePerNight": 65000,
+      "maxGuests": 1,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "Flat-screen TV",
+        "Work Desk",
+        "En-suite Bathroom",
+        "Electronic Safe"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 2,
+      "featured": false
+    },
+    {
+      "id": "room_208",
+      "roomNumber": "208",
+      "name": "Standard Double Room 208",
+      "typeId": "rt_standard_double",
+      "typeName": "Standard Double Room",
+      "description": "Comfortable double accommodations featuring queen-size bed, city or courtyard views, and modern comforts.",
+      "pricePerNight": 90000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "Smart TV",
+        "Tea & Coffee Maker",
+        "En-suite Bathroom",
+        "Electronic Safe",
+        "Hairdryer"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 2,
+      "featured": false
+    },
+    {
+      "id": "room_209",
+      "roomNumber": "209",
+      "name": "Twin Comfort Room 209",
+      "typeId": "rt_twin_comfort",
+      "typeName": "Twin Comfort Room",
+      "description": "Two twin beds with premium linens, soundproofing, and ensuite bath, ideal for colleagues or friends.",
+      "pricePerNight": 95000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "Smart TV",
+        "Work Desk",
+        "En-suite Bathroom",
+        "Mini Fridge",
+        "Electronic Safe"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 2,
+      "featured": false
+    },
+    {
+      "id": "room_210",
+      "roomNumber": "210",
+      "name": "Standard Double Room 210",
+      "typeId": "rt_standard_double",
+      "typeName": "Standard Double Room",
+      "description": "Comfortable double accommodations featuring queen-size bed, city or courtyard views, and modern comforts.",
+      "pricePerNight": 90000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "Smart TV",
+        "Tea & Coffee Maker",
+        "En-suite Bathroom",
+        "Electronic Safe",
+        "Hairdryer"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 2,
+      "featured": false
+    },
+    {
+      "id": "room_211",
+      "roomNumber": "211",
+      "name": "Deluxe King Room 211",
+      "typeId": "rt_deluxe_king",
+      "typeName": "Deluxe King Room",
+      "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
+      "pricePerNight": 135000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "55-inch 4K Smart TV",
+        "Private Balcony",
+        "Mini Bar",
+        "Bathrobes & Slippers",
+        "Premium Toiletries",
+        "Nespresso Coffee Machine"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 2,
+      "featured": false
+    },
+    {
+      "id": "room_212",
+      "roomNumber": "212",
+      "name": "Deluxe King Room 212",
+      "typeId": "rt_deluxe_king",
+      "typeName": "Deluxe King Room",
+      "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
+      "pricePerNight": 135000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "55-inch 4K Smart TV",
+        "Private Balcony",
+        "Mini Bar",
+        "Bathrobes & Slippers",
+        "Premium Toiletries",
+        "Nespresso Coffee Machine"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 2,
+      "featured": false
+    },
+    {
+      "id": "room_213",
+      "roomNumber": "213",
+      "name": "Deluxe King Room 213",
+      "typeId": "rt_deluxe_king",
+      "typeName": "Deluxe King Room",
+      "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
+      "pricePerNight": 135000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "55-inch 4K Smart TV",
+        "Private Balcony",
+        "Mini Bar",
+        "Bathrobes & Slippers",
+        "Premium Toiletries",
+        "Nespresso Coffee Machine"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 2,
+      "featured": false
+    },
+    {
+      "id": "room_214",
+      "roomNumber": "214",
+      "name": "Deluxe King Room 214",
+      "typeId": "rt_deluxe_king",
+      "typeName": "Deluxe King Room",
+      "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
+      "pricePerNight": 135000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "55-inch 4K Smart TV",
+        "Private Balcony",
+        "Mini Bar",
+        "Bathrobes & Slippers",
+        "Premium Toiletries",
+        "Nespresso Coffee Machine"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 2,
+      "featured": false
+    },
+    {
+      "id": "room_215",
+      "roomNumber": "215",
+      "name": "Deluxe King Room 215",
+      "typeId": "rt_deluxe_king",
+      "typeName": "Deluxe King Room",
+      "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
+      "pricePerNight": 135000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "55-inch 4K Smart TV",
+        "Private Balcony",
+        "Mini Bar",
+        "Bathrobes & Slippers",
+        "Premium Toiletries",
+        "Nespresso Coffee Machine"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 2,
+      "featured": false
+    },
+    {
+      "id": "room_216",
+      "roomNumber": "216",
+      "name": "Deluxe King Room 216",
+      "typeId": "rt_deluxe_king",
+      "typeName": "Deluxe King Room",
+      "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
+      "pricePerNight": 135000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "55-inch 4K Smart TV",
+        "Private Balcony",
+        "Mini Bar",
+        "Bathrobes & Slippers",
+        "Premium Toiletries",
+        "Nespresso Coffee Machine"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 2,
+      "featured": false
+    },
+    {
+      "id": "room_301",
+      "roomNumber": "301",
+      "name": "Deluxe King Room 301",
+      "typeId": "rt_deluxe_king",
+      "typeName": "Deluxe King Room",
+      "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
+      "pricePerNight": 135000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "55-inch 4K Smart TV",
+        "Private Balcony",
+        "Mini Bar",
+        "Bathrobes & Slippers",
+        "Premium Toiletries",
+        "Nespresso Coffee Machine"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 3,
+      "featured": false
+    },
+    {
+      "id": "room_302",
+      "roomNumber": "302",
+      "name": "Deluxe King Room 302",
+      "typeId": "rt_deluxe_king",
+      "typeName": "Deluxe King Room",
+      "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
+      "pricePerNight": 135000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "55-inch 4K Smart TV",
+        "Private Balcony",
+        "Mini Bar",
+        "Bathrobes & Slippers",
+        "Premium Toiletries",
+        "Nespresso Coffee Machine"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 3,
+      "featured": false
+    },
+    {
+      "id": "room_303",
+      "roomNumber": "303",
+      "name": "Deluxe King Room 303",
+      "typeId": "rt_deluxe_king",
+      "typeName": "Deluxe King Room",
+      "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
+      "pricePerNight": 135000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "55-inch 4K Smart TV",
+        "Private Balcony",
+        "Mini Bar",
+        "Bathrobes & Slippers",
+        "Premium Toiletries",
+        "Nespresso Coffee Machine"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 3,
+      "featured": false
+    },
+    {
+      "id": "room_304",
+      "roomNumber": "304",
+      "name": "Deluxe King Room 304",
+      "typeId": "rt_deluxe_king",
+      "typeName": "Deluxe King Room",
+      "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
+      "pricePerNight": 135000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "55-inch 4K Smart TV",
+        "Private Balcony",
+        "Mini Bar",
+        "Bathrobes & Slippers",
+        "Premium Toiletries",
+        "Nespresso Coffee Machine"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 3,
+      "featured": false
+    },
+    {
+      "id": "room_305",
+      "roomNumber": "305",
+      "name": "Deluxe King Room 305",
+      "typeId": "rt_deluxe_king",
+      "typeName": "Deluxe King Room",
+      "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
+      "pricePerNight": 135000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "55-inch 4K Smart TV",
+        "Private Balcony",
+        "Mini Bar",
+        "Bathrobes & Slippers",
+        "Premium Toiletries",
+        "Nespresso Coffee Machine"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 3,
+      "featured": false
+    },
+    {
+      "id": "room_306",
+      "roomNumber": "306",
+      "name": "Deluxe King Room 306",
+      "typeId": "rt_deluxe_king",
+      "typeName": "Deluxe King Room",
+      "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
+      "pricePerNight": 135000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "55-inch 4K Smart TV",
+        "Private Balcony",
+        "Mini Bar",
+        "Bathrobes & Slippers",
+        "Premium Toiletries",
+        "Nespresso Coffee Machine"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 3,
+      "featured": false
+    },
+    {
+      "id": "room_307",
+      "roomNumber": "307",
+      "name": "Deluxe King Room 307",
+      "typeId": "rt_deluxe_king",
+      "typeName": "Deluxe King Room",
+      "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
+      "pricePerNight": 135000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "55-inch 4K Smart TV",
+        "Private Balcony",
+        "Mini Bar",
+        "Bathrobes & Slippers",
+        "Premium Toiletries",
+        "Nespresso Coffee Machine"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 3,
+      "featured": false
+    },
+    {
+      "id": "room_308",
+      "roomNumber": "308",
+      "name": "Deluxe King Room 308",
+      "typeId": "rt_deluxe_king",
+      "typeName": "Deluxe King Room",
+      "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
+      "pricePerNight": 135000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "55-inch 4K Smart TV",
+        "Private Balcony",
+        "Mini Bar",
+        "Bathrobes & Slippers",
+        "Premium Toiletries",
+        "Nespresso Coffee Machine"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 3,
+      "featured": false
+    },
+    {
+      "id": "room_309",
+      "roomNumber": "309",
+      "name": "Deluxe King Room 309",
+      "typeId": "rt_deluxe_king",
+      "typeName": "Deluxe King Room",
+      "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
+      "pricePerNight": 135000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "55-inch 4K Smart TV",
+        "Private Balcony",
+        "Mini Bar",
+        "Bathrobes & Slippers",
+        "Premium Toiletries",
+        "Nespresso Coffee Machine"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 3,
+      "featured": false
+    },
+    {
+      "id": "room_310",
+      "roomNumber": "310",
+      "name": "Deluxe King Room 310",
+      "typeId": "rt_deluxe_king",
+      "typeName": "Deluxe King Room",
+      "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
+      "pricePerNight": 135000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "55-inch 4K Smart TV",
+        "Private Balcony",
+        "Mini Bar",
+        "Bathrobes & Slippers",
+        "Premium Toiletries",
+        "Nespresso Coffee Machine"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 3,
+      "featured": false
+    },
+    {
+      "id": "room_311",
+      "roomNumber": "311",
+      "name": "Deluxe King Room 311",
+      "typeId": "rt_deluxe_king",
+      "typeName": "Deluxe King Room",
+      "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
+      "pricePerNight": 135000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "55-inch 4K Smart TV",
+        "Private Balcony",
+        "Mini Bar",
+        "Bathrobes & Slippers",
+        "Premium Toiletries",
+        "Nespresso Coffee Machine"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 3,
+      "featured": false
+    },
+    {
+      "id": "room_312",
+      "roomNumber": "312",
+      "name": "Deluxe King Room 312",
+      "typeId": "rt_deluxe_king",
+      "typeName": "Deluxe King Room",
+      "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
+      "pricePerNight": 135000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "55-inch 4K Smart TV",
+        "Private Balcony",
+        "Mini Bar",
+        "Bathrobes & Slippers",
+        "Premium Toiletries",
+        "Nespresso Coffee Machine"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 3,
+      "featured": false
+    },
+    {
+      "id": "room_313",
+      "roomNumber": "313",
+      "name": "Deluxe King Room 313",
+      "typeId": "rt_deluxe_king",
+      "typeName": "Deluxe King Room",
+      "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
+      "pricePerNight": 135000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "55-inch 4K Smart TV",
+        "Private Balcony",
+        "Mini Bar",
+        "Bathrobes & Slippers",
+        "Premium Toiletries",
+        "Nespresso Coffee Machine"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 3,
+      "featured": false
+    },
+    {
+      "id": "room_314",
+      "roomNumber": "314",
+      "name": "Deluxe King Room 314",
+      "typeId": "rt_deluxe_king",
+      "typeName": "Deluxe King Room",
+      "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
+      "pricePerNight": 135000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "55-inch 4K Smart TV",
+        "Private Balcony",
+        "Mini Bar",
+        "Bathrobes & Slippers",
+        "Premium Toiletries",
+        "Nespresso Coffee Machine"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 3,
+      "featured": false
+    },
+    {
+      "id": "room_315",
+      "roomNumber": "315",
+      "name": "Deluxe King Room 315",
+      "typeId": "rt_deluxe_king",
+      "typeName": "Deluxe King Room",
+      "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
+      "pricePerNight": 135000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "55-inch 4K Smart TV",
+        "Private Balcony",
+        "Mini Bar",
+        "Bathrobes & Slippers",
+        "Premium Toiletries",
+        "Nespresso Coffee Machine"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 3,
+      "featured": false
+    },
+    {
+      "id": "room_316",
+      "roomNumber": "316",
+      "name": "Deluxe King Room 316",
+      "typeId": "rt_deluxe_king",
+      "typeName": "Deluxe King Room",
+      "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
+      "pricePerNight": 135000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "55-inch 4K Smart TV",
+        "Private Balcony",
+        "Mini Bar",
+        "Bathrobes & Slippers",
+        "Premium Toiletries",
+        "Nespresso Coffee Machine"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 3,
+      "featured": false
+    },
+    {
+      "id": "room_401",
+      "roomNumber": "401",
+      "name": "Deluxe King Room 401",
+      "typeId": "rt_deluxe_king",
+      "typeName": "Deluxe King Room",
+      "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
+      "pricePerNight": 135000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "55-inch 4K Smart TV",
+        "Private Balcony",
+        "Mini Bar",
+        "Bathrobes & Slippers",
+        "Premium Toiletries",
+        "Nespresso Coffee Machine"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 4,
+      "featured": false
+    },
+    {
+      "id": "room_402",
+      "roomNumber": "402",
+      "name": "Deluxe King Room 402",
+      "typeId": "rt_deluxe_king",
+      "typeName": "Deluxe King Room",
+      "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
+      "pricePerNight": 135000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "55-inch 4K Smart TV",
+        "Private Balcony",
+        "Mini Bar",
+        "Bathrobes & Slippers",
+        "Premium Toiletries",
+        "Nespresso Coffee Machine"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 4,
+      "featured": false
+    },
+    {
+      "id": "room_403",
+      "roomNumber": "403",
+      "name": "Deluxe King Room 403",
+      "typeId": "rt_deluxe_king",
+      "typeName": "Deluxe King Room",
+      "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
+      "pricePerNight": 135000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "55-inch 4K Smart TV",
+        "Private Balcony",
+        "Mini Bar",
+        "Bathrobes & Slippers",
+        "Premium Toiletries",
+        "Nespresso Coffee Machine"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 4,
+      "featured": false
+    },
+    {
+      "id": "room_404",
+      "roomNumber": "404",
+      "name": "Deluxe King Room 404",
+      "typeId": "rt_deluxe_king",
+      "typeName": "Deluxe King Room",
+      "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
+      "pricePerNight": 135000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "55-inch 4K Smart TV",
+        "Private Balcony",
+        "Mini Bar",
+        "Bathrobes & Slippers",
+        "Premium Toiletries",
+        "Nespresso Coffee Machine"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 4,
+      "featured": false
+    },
+    {
+      "id": "room_405",
+      "roomNumber": "405",
+      "name": "Deluxe King Room 405",
+      "typeId": "rt_deluxe_king",
+      "typeName": "Deluxe King Room",
+      "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
+      "pricePerNight": 135000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "55-inch 4K Smart TV",
+        "Private Balcony",
+        "Mini Bar",
+        "Bathrobes & Slippers",
+        "Premium Toiletries",
+        "Nespresso Coffee Machine"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 4,
+      "featured": false
+    },
+    {
+      "id": "room_406",
+      "roomNumber": "406",
+      "name": "Deluxe King Room 406",
+      "typeId": "rt_deluxe_king",
+      "typeName": "Deluxe King Room",
+      "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
+      "pricePerNight": 135000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "55-inch 4K Smart TV",
+        "Private Balcony",
+        "Mini Bar",
+        "Bathrobes & Slippers",
+        "Premium Toiletries",
+        "Nespresso Coffee Machine"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 4,
+      "featured": false
+    },
+    {
+      "id": "room_407",
+      "roomNumber": "407",
+      "name": "Deluxe King Room 407",
+      "typeId": "rt_deluxe_king",
+      "typeName": "Deluxe King Room",
+      "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
+      "pricePerNight": 135000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "55-inch 4K Smart TV",
+        "Private Balcony",
+        "Mini Bar",
+        "Bathrobes & Slippers",
+        "Premium Toiletries",
+        "Nespresso Coffee Machine"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 4,
+      "featured": false
+    },
+    {
+      "id": "room_408",
+      "roomNumber": "408",
+      "name": "Deluxe King Room 408",
+      "typeId": "rt_deluxe_king",
+      "typeName": "Deluxe King Room",
+      "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
+      "pricePerNight": 135000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "55-inch 4K Smart TV",
+        "Private Balcony",
+        "Mini Bar",
+        "Bathrobes & Slippers",
+        "Premium Toiletries",
+        "Nespresso Coffee Machine"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 4,
+      "featured": false
+    },
+    {
+      "id": "room_409",
+      "roomNumber": "409",
+      "name": "Deluxe King Room 409",
+      "typeId": "rt_deluxe_king",
+      "typeName": "Deluxe King Room",
+      "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
+      "pricePerNight": 135000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "55-inch 4K Smart TV",
+        "Private Balcony",
+        "Mini Bar",
+        "Bathrobes & Slippers",
+        "Premium Toiletries",
+        "Nespresso Coffee Machine"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 4,
+      "featured": false
+    },
+    {
+      "id": "room_410",
+      "roomNumber": "410",
+      "name": "Deluxe King Room 410",
+      "typeId": "rt_deluxe_king",
+      "typeName": "Deluxe King Room",
+      "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
+      "pricePerNight": 135000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "55-inch 4K Smart TV",
+        "Private Balcony",
+        "Mini Bar",
+        "Bathrobes & Slippers",
+        "Premium Toiletries",
+        "Nespresso Coffee Machine"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 4,
+      "featured": false
+    },
+    {
+      "id": "room_411",
+      "roomNumber": "411",
+      "name": "Deluxe King Room 411",
+      "typeId": "rt_deluxe_king",
+      "typeName": "Deluxe King Room",
+      "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
+      "pricePerNight": 135000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "55-inch 4K Smart TV",
+        "Private Balcony",
+        "Mini Bar",
+        "Bathrobes & Slippers",
+        "Premium Toiletries",
+        "Nespresso Coffee Machine"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 4,
+      "featured": false
+    },
+    {
+      "id": "room_412",
+      "roomNumber": "412",
+      "name": "Deluxe King Room 412",
+      "typeId": "rt_deluxe_king",
+      "typeName": "Deluxe King Room",
+      "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
+      "pricePerNight": 135000,
+      "maxGuests": 2,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Air Conditioning",
+        "55-inch 4K Smart TV",
+        "Private Balcony",
+        "Mini Bar",
+        "Bathrobes & Slippers",
+        "Premium Toiletries",
+        "Nespresso Coffee Machine"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 4,
+      "featured": false
+    },
+    {
+      "id": "room_413",
+      "roomNumber": "413",
+      "name": "Executive Suite 413",
+      "typeId": "rt_executive_suite",
+      "typeName": "Executive Suite",
+      "description": "Expansive two-room layout with separate living salon, dining table, panoramic views, and personalized turndown service.",
+      "pricePerNight": 220000,
+      "maxGuests": 3,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Individual Climate Control",
+        "Living Room & Dining Area",
+        "Walk-in Closet",
+        "Soaking Bathtub & Rain Shower",
+        "Complimentary Mini Bar",
+        "Executive Lounge Access",
+        "Private Balcony"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 4,
+      "featured": false
+    },
+    {
+      "id": "room_414",
+      "roomNumber": "414",
+      "name": "Executive Suite 414",
+      "typeId": "rt_executive_suite",
+      "typeName": "Executive Suite",
+      "description": "Expansive two-room layout with separate living salon, dining table, panoramic views, and personalized turndown service.",
+      "pricePerNight": 220000,
+      "maxGuests": 3,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Individual Climate Control",
+        "Living Room & Dining Area",
+        "Walk-in Closet",
+        "Soaking Bathtub & Rain Shower",
+        "Complimentary Mini Bar",
+        "Executive Lounge Access",
+        "Private Balcony"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 4,
+      "featured": false
+    },
+    {
+      "id": "room_415",
+      "roomNumber": "415",
+      "name": "Executive Suite 415",
+      "typeId": "rt_executive_suite",
+      "typeName": "Executive Suite",
+      "description": "Expansive two-room layout with separate living salon, dining table, panoramic views, and personalized turndown service.",
+      "pricePerNight": 220000,
+      "maxGuests": 3,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Individual Climate Control",
+        "Living Room & Dining Area",
+        "Walk-in Closet",
+        "Soaking Bathtub & Rain Shower",
+        "Complimentary Mini Bar",
+        "Executive Lounge Access",
+        "Private Balcony"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 4,
+      "featured": false
+    },
+    {
+      "id": "room_416",
+      "roomNumber": "416",
+      "name": "Executive Suite 416",
+      "typeId": "rt_executive_suite",
+      "typeName": "Executive Suite",
+      "description": "Expansive two-room layout with separate living salon, dining table, panoramic views, and personalized turndown service.",
+      "pricePerNight": 220000,
+      "maxGuests": 3,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Individual Climate Control",
+        "Living Room & Dining Area",
+        "Walk-in Closet",
+        "Soaking Bathtub & Rain Shower",
+        "Complimentary Mini Bar",
+        "Executive Lounge Access",
+        "Private Balcony"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 4,
+      "featured": false
+    },
+    {
+      "id": "room_417",
+      "roomNumber": "417",
+      "name": "Executive Suite 417",
+      "typeId": "rt_executive_suite",
+      "typeName": "Executive Suite",
+      "description": "Expansive two-room layout with separate living salon, dining table, panoramic views, and personalized turndown service.",
+      "pricePerNight": 220000,
+      "maxGuests": 3,
+      "amenities": [
+        "High-speed Wi-Fi",
+        "Individual Climate Control",
+        "Living Room & Dining Area",
+        "Walk-in Closet",
+        "Soaking Bathtub & Rain Shower",
+        "Complimentary Mini Bar",
+        "Executive Lounge Access",
+        "Private Balcony"
+      ],
+      "images": [
+        "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+        "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+        "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+      ],
+      "status": "AVAILABLE",
+      "floor": 4,
+      "featured": false
+    }
+  ],
+  "bookings": [
+    {
+      "roomId": "room_101",
+      "roomNumber": "101",
+      "roomName": "Standard Single Room 101",
+      "typeName": "Standard Single Room",
+      "checkIn": "2026-11-01",
+      "checkOut": "2026-11-04",
+      "nights": 3,
+      "guestsCount": 1,
+      "guestName": "WhatsApp Test Guest",
+      "guestEmail": "guest@example.com",
+      "guestPhone": "+250788111222",
+      "pricePerNight": 65000,
+      "totalPrice": 195000,
+      "status": "PENDING",
+      "paymentStatus": "PAYMENT_PENDING",
+      "paymentMethod": "MTN MoMo",
+      "id": "bkg_1791477917226_6svmk",
+      "bookingReference": "ANB-20261008-1G5T",
+      "createdAt": "2026-10-08T16:45:17.226Z",
+      "updatedAt": "2026-10-08T16:45:17.226Z"
+    },
+    {
+      "id": "bkg_101_sample",
+      "bookingReference": "ANB-2026-8812",
+      "roomId": "room_204",
+      "roomNumber": "204",
+      "roomName": "Standard Double 204",
+      "typeName": "Standard Double Room",
+      "checkIn": "2026-10-10",
+      "checkOut": "2026-10-15",
+      "nights": 5,
+      "guestsCount": 2,
+      "guestName": "Aimable Mugisha",
+      "guestEmail": "aimable.m@example.com",
+      "guestPhone": "+250 788 123 456",
+      "specialRequests": "Quiet room away from elevators if possible.",
+      "pricePerNight": 90000,
+      "totalPrice": 450000,
+      "status": "CONFIRMED",
+      "paymentStatus": "PAYMENT_PENDING",
+      "paymentMethod": "MTN MoMo",
+      "transactionReference": "MOMO-REF-992144",
+      "createdAt": "2026-10-01T12:00:00Z",
+      "updatedAt": "2026-10-01T12:00:00Z"
+    },
+    {
+      "id": "bkg_102_sample",
+      "bookingReference": "ANB-2026-4491",
+      "roomId": "room_415",
+      "roomNumber": "415",
+      "roomName": "Executive Suite 415",
+      "typeName": "Executive Suite",
+      "checkIn": "2026-10-08",
+      "checkOut": "2026-10-11",
+      "nights": 3,
+      "guestsCount": 2,
+      "guestName": "Claire Uwera",
+      "guestEmail": "claire.u@example.com",
+      "guestPhone": "+250 783 987 654",
+      "pricePerNight": 220000,
+      "totalPrice": 660000,
+      "status": "CHECKED_IN",
+      "paymentStatus": "PAID",
+      "paymentMethod": "Bank / Card",
+      "transactionReference": "CARD-TX-551029",
+      "amountPaid": 660000,
+      "paidAt": "2026-10-08T09:00:00Z",
+      "createdAt": "2026-10-02T15:30:00Z",
+      "updatedAt": "2026-10-08T09:15:00Z"
+    }
+  ],
+  "facilities": [
+    {
+      "id": "fac_pool",
+      "name": "Swimming Pool",
+      "description": "Lush outdoor swimming pool with crystal clear water, comfortable sun loungers, and tranquil evening illumination.",
+      "image": "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+      "icon": "Waves",
+      "status": "ACTIVE",
+      "displayOrder": 1
+    },
+    {
+      "id": "fac_elevator",
+      "name": "High-Speed Elevators",
+      "description": "Smooth and modern elevators serving all four floors and accommodation wings for effortless accessibility.",
+      "image": "/src/assets/images/hotel_lobby_escalator_1791471914533.jpg",
+      "icon": "Building",
+      "status": "ACTIVE",
+      "displayOrder": 2
+    },
+    {
+      "id": "fac_escalator",
+      "name": "Central Escalators",
+      "description": "Convenient escalator systems connecting the grand ground lobby, reception, and upper mezzanine areas seamlessly.",
+      "image": "/src/assets/images/hotel_lobby_escalator_1791471914533.jpg",
+      "icon": "ArrowUpRight",
+      "status": "ACTIVE",
+      "displayOrder": 3
+    },
+    {
+      "id": "fac_rooms",
+      "name": "Accommodation Rooms",
+      "description": "65 private rooms and suites featuring soundproofing, premium bedding, climate control, and en-suite bathrooms.",
+      "image": "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+      "icon": "BedDouble",
+      "status": "ACTIVE",
+      "displayOrder": 4
+    }
+  ],
+  "gallery": [
+    {
+      "id": "gal_1",
+      "title": "ANABE HOTEL Grand Twilight View",
+      "caption": "Architectural front facade of ANABE HOTEL at evening with welcoming ambient entrance.",
+      "category": "Exterior",
+      "imageUrl": "/src/assets/images/hero_hotel_exterior_1791471883513.jpg",
+      "createdAt": "2026-03-01T10:00:00Z"
+    },
+    {
+      "id": "gal_2",
+      "title": "Serene Swimming Pool",
+      "caption": "The outdoor turquoise swimming pool and sun terrace surrounded by tropical garden greenery.",
+      "category": "Swimming Pool",
+      "imageUrl": "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
+      "createdAt": "2026-03-02T11:00:00Z"
+    },
+    {
+      "id": "gal_3",
+      "title": "Deluxe Guest Room",
+      "caption": "Carefully appointed king guest room with plush linens, warm oak finishes, and reading armchairs.",
+      "category": "Rooms",
+      "imageUrl": "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
+      "createdAt": "2026-03-03T14:30:00Z"
+    },
+    {
+      "id": "gal_4",
+      "title": "Grand Lobby & Escalators",
+      "caption": "Spacious hotel atrium featuring marble floors, escalator connection, glass elevators, and reception.",
+      "category": "Lobby",
+      "imageUrl": "/src/assets/images/hotel_lobby_escalator_1791471914533.jpg",
+      "createdAt": "2026-03-04T16:00:00Z"
+    }
+  ],
+  "activityLogs": [
+    {
+      "userId": "guest_portal",
+      "userName": "WhatsApp Test Guest",
+      "userRole": "STAFF",
+      "action": "BOOKING_CREATED",
+      "details": "Booking ANB-20261008-1G5T created for Room 101 (2026-11-01 to 2026-11-04). Total: 195000 RWF.",
+      "resourceType": "booking",
+      "resourceId": "bkg_1791477917226_6svmk",
+      "id": "log_1791477917227_pwct",
+      "timestamp": "2026-10-08T16:45:17.227Z"
+    },
+    {
+      "userId": "usr_owner_01",
+      "userName": "Hotel Owner",
+      "userRole": "OWNER",
+      "action": "USER_LOGIN",
+      "details": "Hotel Owner (OWNER) logged in successfully.",
+      "ip": "127.0.0.1",
+      "id": "log_1791477571937_gapr",
+      "timestamp": "2026-10-08T16:39:31.937Z"
+    },
+    {
+      "userId": "usr_owner_01",
+      "userName": "Hotel Owner",
+      "userRole": "OWNER",
+      "action": "USER_LOGIN",
+      "details": "Hotel Owner (OWNER) logged in successfully.",
+      "ip": "127.0.0.1",
+      "id": "log_1791474371486_d86a",
+      "timestamp": "2026-10-08T15:46:11.486Z"
+    },
+    {
+      "id": "log_01",
+      "userId": "usr_owner_01",
+      "userName": "Hotel Owner",
+      "userRole": "OWNER",
+      "action": "SYSTEM_INITIALIZED",
+      "details": "ANABE HOTEL system initialized with 65 rooms across 4 floors.",
+      "timestamp": "2026-01-01T08:00:00Z"
+    },
+    {
+      "id": "log_02",
+      "userId": "usr_staff_reception",
+      "userName": "Front Desk Reception",
+      "userRole": "STAFF",
+      "action": "GUEST_CHECKED_IN",
+      "details": "Guest Claire Uwera checked into Executive Suite 415 (Ref: ANB-2026-4491).",
+      "resourceType": "booking",
+      "resourceId": "bkg_102_sample",
+      "timestamp": "2026-10-08T09:15:00Z"
+    }
+  ],
+  "contactMessages": []
+}

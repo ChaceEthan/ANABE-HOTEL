@@ -1,0 +1,6 @@
+{
+  "name": "ANABE HOTEL",
+  "description": "Luxury hotel booking portal and comprehensive property management system for ANABE HOTEL.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

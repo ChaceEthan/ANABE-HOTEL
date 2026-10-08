@@ -1,0 +1,15 @@
+node_modules/
+build/
+dist/
+.next/
+coverage/
+.DS_Store
+*.log
+logs/
+.env
+.env.local
+.env.development
+.env.production
+.env*
+!.env.example
+data/*.tmp*
