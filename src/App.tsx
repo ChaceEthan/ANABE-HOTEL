@@ -94,7 +94,7 @@ export default function App() {
       <Head
         route={currentRoute}
         settings={settings}
-        room={inspectRoom}
+        room={inspectRoom || (currentRoute === '/booking' ? selectedBookingRoom : null)}
       />
 
       {/* Show Public Navbar on non-dashboard routes */}
