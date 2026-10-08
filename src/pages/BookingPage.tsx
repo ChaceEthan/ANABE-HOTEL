@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { api } from '../lib/api.ts';
 import type { Room, Booking, PaymentMethod, HotelSettings } from '../types/hotel.ts';
+import { BookingSuccessAnimation } from '../components/BookingSuccessAnimation.tsx';
 import {
   CheckCircle2,
   AlertCircle,
@@ -216,12 +217,12 @@ export const BookingPage: React.FC<BookingPageProps> = ({
       <div className="max-w-3xl mx-auto px-4 py-16">
         <div className="bg-white rounded-xl border border-[#E2DED4] p-8 sm:p-12 shadow-lg space-y-8">
           <div className="text-center space-y-3 pb-8 border-b border-[#ECE8DE]">
-            <div className="w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center mx-auto text-emerald-600 border border-emerald-200">
-              <CheckCircle2 className="w-9 h-9" />
-            </div>
-            <span className="text-xs font-semibold uppercase tracking-widest text-emerald-700 block">
-              ✓ Booking Created
-            </span>
+            {/* Celebratory Success Animation */}
+            <BookingSuccessAnimation
+              guestName={confirmedBooking.guestName}
+              roomNumber={confirmedBooking.roomNumber}
+            />
+
             <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1A1A18]">
               Thank You, {confirmedBooking.guestName}!
             </h1>

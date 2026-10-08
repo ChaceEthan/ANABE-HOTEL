@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Head } from './components/Head.tsx';
 import { Navbar } from './components/Navbar.tsx';
 import { Footer } from './components/Footer.tsx';
 import { BookingLookupModal } from './components/BookingLookupModal.tsx';
@@ -89,6 +90,13 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#FBFBFA] text-[#1A1A18] font-sans">
+      {/* Dynamic SEO, OpenGraph and Schema.org Structured Metadata */}
+      <Head
+        route={currentRoute}
+        settings={settings}
+        room={inspectRoom}
+      />
+
       {/* Show Public Navbar on non-dashboard routes */}
       {(!isAdminRoute || currentRoute === '/admin/login') && (
         <Navbar

@@ -30,3 +30,84 @@ h1, h2, h3, .font-display {
 .tabular-nums {
   font-variant-numeric: tabular-nums;
 }
+
+/* Success Animation Keyframes */
+@keyframes circle-draw {
+  0% {
+    stroke-dashoffset: 166;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes check-draw {
+  0% {
+    stroke-dashoffset: 48;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes success-scale {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  75% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes confetti-burst {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(0.2);
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--target-x), var(--target-y)) rotate(var(--target-rot)) scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-circle-draw {
+  animation: circle-draw 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.animate-check-draw {
+  animation: check-draw 0.45s 0.35s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.animate-success-scale {
+  animation: success-scale 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.animate-confetti-burst {
+  animation: confetti-burst 1.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.5s 0.4s ease-out forwards;
+}
