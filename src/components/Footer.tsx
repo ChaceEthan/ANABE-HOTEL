@@ -1,5 +1,5 @@
 import React from 'react';
-import { Phone, Mail, MapPin, ShieldCheck, ArrowUpRight, Calendar, BedDouble } from 'lucide-react';
+import { Phone, Mail, MapPin, ShieldCheck, ArrowUpRight, Calendar, BedDouble, HelpCircle } from 'lucide-react';
 import type { HotelSettings } from '../types/hotel.ts';
 
 interface FooterProps {
@@ -21,11 +21,21 @@ export const Footer: React.FC<FooterProps> = ({ settings, onNavigate, onOpenLook
     <footer className="bg-[#141518] text-[#D8D7D2] pt-16 pb-12 border-t border-[#25272C]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-14 border-b border-[#25272C]">
-          {/* Brand & Identity */}
+          {/* Brand & Identity with Luxury Logo */}
           <div className="space-y-4">
-            <h3 className="font-serif text-2xl tracking-widest text-[#FFFFFF] font-semibold uppercase">
-              {hotelName}
-            </h3>
+            <button
+              onClick={() => onNavigate('/')}
+              className="inline-block p-2.5 bg-[#FAF8F5] rounded-xl border border-[#2D3039] shadow-md hover:border-[#B89667] transition-all cursor-pointer"
+              aria-label="ANABE HOTEL Homepage"
+            >
+              <img
+                src="/anabe-hotel-logo.png"
+                alt="ANABE HOTEL Logo"
+                className="h-12 w-auto object-contain"
+                width={120}
+                height={48}
+              />
+            </button>
             <p className="text-sm text-[#A09F98] leading-relaxed">
               65 thoughtfully appointed guest rooms, serene swimming pool, high-speed escalators and elevators, offering unmatched hospitality and comfort in Rwanda.
             </p>
@@ -129,6 +139,15 @@ export const Footer: React.FC<FooterProps> = ({ settings, onNavigate, onOpenLook
               </li>
               <li>
                 <button
+                  onClick={() => onNavigate('/faq')}
+                  className="hover:text-[#FFFFFF] transition-colors text-left text-xs cursor-pointer flex items-center gap-1.5"
+                >
+                  <HelpCircle className="w-3.5 h-3.5 text-[#B89667]" />
+                  <span>Frequently Asked Questions (FAQ)</span>
+                </button>
+              </li>
+              <li>
+                <button
                   onClick={() => onNavigate('/about')}
                   className="hover:text-[#FFFFFF] transition-colors text-left text-xs cursor-pointer"
                 >
@@ -180,6 +199,13 @@ export const Footer: React.FC<FooterProps> = ({ settings, onNavigate, onOpenLook
           </div>
 
           <div className="flex flex-wrap items-center gap-4 sm:gap-6 text-xs">
+            <button
+              onClick={() => onNavigate('/faq')}
+              className="text-[#9E9D96] hover:text-[#FFFFFF] transition-colors cursor-pointer"
+            >
+              FAQ
+            </button>
+            <span>·</span>
             <button
               onClick={() => onNavigate('/privacy')}
               className="text-[#9E9D96] hover:text-[#FFFFFF] transition-colors cursor-pointer"

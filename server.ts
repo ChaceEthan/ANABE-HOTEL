@@ -28,7 +28,8 @@ async function startServer() {
   // Mount API router
   app.use('/api', apiRouter);
 
-  // Serve generated asset images if requested directly
+  // Serve static public assets (logos, favicons) and generated asset images
+  app.use(express.static(path.resolve(__dirname, 'public')));
   app.use('/src/assets/images', express.static(path.resolve(__dirname, 'src/assets/images')));
 
   if (!isProd) {

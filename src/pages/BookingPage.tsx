@@ -253,6 +253,17 @@ export const BookingPage: React.FC<BookingPageProps> = ({
       <div className="max-w-3xl mx-auto px-4 py-16">
         <div className="bg-white rounded-xl border border-[#E2DED4] p-8 sm:p-12 shadow-lg space-y-8">
           <div className="text-center space-y-3 pb-8 border-b border-[#ECE8DE]">
+            {/* ANABE HOTEL Luxury Brand Identity */}
+            <div className="inline-block p-2.5 bg-[#FAF8F5] border border-[#EAE6DC] rounded-xl shadow-xs mb-1">
+              <img
+                src="/anabe-hotel-logo.png"
+                alt="ANABE HOTEL Logo"
+                className="h-14 w-auto object-contain mx-auto"
+                width={140}
+                height={56}
+              />
+            </div>
+
             {/* Celebratory Success Animation */}
             <BookingSuccessAnimation
               guestName={confirmedBooking.guestName}

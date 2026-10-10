@@ -1,0 +1,25 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="favGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C59B28"/>
+      <stop offset="30%" stop-color="#F2D075"/>
+      <stop offset="70%" stop-color="#C79924"/>
+      <stop offset="100%" stop-color="#9A6F14"/>
+    </linearGradient>
+    <linearGradient id="favSwoosh" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#B2821B"/>
+      <stop offset="50%" stop-color="#FDE59C"/>
+      <stop offset="100%" stop-color="#C89A25"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="108" fill="#141518"/>
+  <g transform="translate(256, 252) scale(0.82)">
+    <path d="M 0,-155 C -2,-155 -15,-125 -30,-85 L -140,195 C -162,248 -200,268 -245,274 L -245,285 L -135,285 L -135,274 C -175,270 -178,252 -160,210 L -125,125 L -40,125 L 0,22 L -65,22 L -20,-105 Z" fill="url(#favGold)"/>
+    <path d="M 0,-155 C 3,-155 18,-115 35,-70 L 155,215 C 176,262 198,272 250,274 L 250,285 L 115,285 L 115,274 C 155,270 152,252 135,212 L 95,125 L 38,-15 L 0,-155 Z" fill="url(#favGold)"/>
+    <path d="M -160,195 C -110,95 -10,38 120,42 C 185,44 240,65 295,95 C 240,96 175,98 120,115 C -5,152 -100,220 -160,285 C -166,260 -168,225 -160,195 Z" fill="url(#favSwoosh)"/>
+    <polygon points="-65,275 -65,148 -32,126 -32,275" fill="url(#favGold)"/>
+    <polygon points="-20,275 -20,105 0,84 20,105 20,275" fill="url(#favGold)"/>
+    <polygon points="32,275 32,126 65,148 65,275" fill="url(#favGold)"/>
+  </g>
+</svg>

@@ -21,6 +21,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { label: 'Rooms', route: '/rooms' },
     { label: 'Facilities', route: '/facilities' },
     { label: 'Gallery', route: '/gallery' },
+    { label: 'FAQ', route: '/faq' },
     { label: 'About', route: '/about' },
     { label: 'Contact', route: '/contact' },
   ];
@@ -35,14 +36,19 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <header className="sticky top-0 z-40 bg-[#FAF9F5]/95 backdrop-blur-md border-b border-[#E8E4DA] transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        {/* Zone 1: Single text element wordmark in display face */}
+        {/* Zone 1: Luxury Brand Identity Logo linking to Homepage */}
         <button
           onClick={() => handleLinkClick('/')}
-          className="text-left group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B89667] rounded-sm"
+          className="flex items-center gap-2 group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B89667] rounded-sm py-1"
+          aria-label="ANABE HOTEL - Return to Homepage"
         >
-          <span className="font-serif text-2xl sm:text-3xl tracking-widest text-[#1A1A18] font-semibold uppercase group-hover:text-[#B89667] transition-colors">
-            {hotelName}
-          </span>
+          <img
+            src="/anabe-hotel-logo.png"
+            alt="ANABE HOTEL Logo"
+            className="h-11 sm:h-13 w-auto object-contain transition-transform duration-200 group-hover:scale-102"
+            width={120}
+            height={48}
+          />
         </button>
 
         {/* Zone 2: 4-6 clean text navigation links with subtle underlines */}

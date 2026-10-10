@@ -118,6 +118,15 @@ export const HomePage: React.FC<HomePageProps> = ({ settings, onNavigate, onSele
 
         {/* Hero Content */}
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-24 pb-36">
+          <div className="inline-block p-3 bg-[#FAF8F5]/95 backdrop-blur-sm rounded-2xl border border-white/20 shadow-xl mb-6">
+            <img
+              src="/anabe-hotel-logo.png"
+              alt="ANABE HOTEL Logo"
+              className="h-16 sm:h-20 w-auto object-contain mx-auto"
+              width={180}
+              height={72}
+            />
+          </div>
           <p className="text-xs sm:text-sm font-semibold uppercase tracking-[0.25em] text-[#D8BD90] mb-4">
             Welcome to Kigali's Premier Destination
           </p>

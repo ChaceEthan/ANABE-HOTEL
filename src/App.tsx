@@ -13,6 +13,7 @@ import { AboutPage } from './pages/AboutPage.tsx';
 import { ContactPage } from './pages/ContactPage.tsx';
 import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage.tsx';
 import { TermsPage } from './pages/TermsPage.tsx';
+import { FAQPage } from './pages/FAQPage.tsx';
 import { CookieConsentBanner } from './components/CookieConsentBanner.tsx';
 import { AdminLoginPage } from './pages/admin/AdminLoginPage.tsx';
 import { AdminDashboard } from './pages/admin/AdminDashboard.tsx';
@@ -155,6 +156,10 @@ export default function App() {
 
         {currentRoute === '/terms' && (
           <TermsPage settings={settings} onNavigate={navigate} />
+        )}
+
+        {currentRoute === '/faq' && (
+          <FAQPage settings={settings} onNavigate={navigate} />
         )}
 
         {currentRoute === '/admin/login' && (

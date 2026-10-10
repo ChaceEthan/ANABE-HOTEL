@@ -305,12 +305,24 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     <div className="min-h-screen bg-[#F5F4EE] flex flex-col">
       {/* Top Bar for Admin */}
       <header className="bg-[#121316] text-white px-4 sm:px-6 py-3.5 flex items-center justify-between border-b border-neutral-800">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <button
             onClick={onNavigateHome}
-            className="font-serif text-lg sm:text-xl font-bold tracking-widest uppercase hover:text-[#B89667] transition-colors cursor-pointer"
+            className="flex items-center gap-2.5 hover:opacity-90 transition-opacity cursor-pointer"
+            title="Return to ANABE HOTEL Homepage"
           >
-            {hotelSettings?.hotelName || 'ANABE HOTEL'}
+            <div className="p-1 bg-[#FAF8F5] rounded-md border border-[#2D3039]">
+              <img
+                src="/anabe-hotel-logo.png"
+                alt="ANABE HOTEL Logo"
+                className="h-7 w-auto object-contain"
+                width={70}
+                height={28}
+              />
+            </div>
+            <span className="font-serif text-base sm:text-lg font-bold tracking-widest uppercase hidden md:inline">
+              {hotelSettings?.hotelName || 'ANABE HOTEL'}
+            </span>
           </button>
           <span className="text-xs text-neutral-400 hidden sm:inline">|</span>
           <span className="text-xs text-[#D8BD90] font-medium hidden sm:inline">
@@ -360,7 +372,16 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         {/* Navigation Sidebar */}
         <aside className="w-full md:w-64 bg-white border-r border-[#E2DED4] p-4 flex flex-col justify-between shrink-0">
           <div className="space-y-1">
-            <div className="px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-[#8C8A82]">
+            <div className="p-2.5 mb-3 bg-[#FAF8F5] border border-[#EAE6DC] rounded-xl flex items-center justify-center">
+              <img
+                src="/anabe-hotel-logo.png"
+                alt="ANABE HOTEL Logo"
+                className="h-10 w-auto object-contain"
+                width={100}
+                height={40}
+              />
+            </div>
+            <div className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#8C8A82]">
               Management Modules
             </div>
 

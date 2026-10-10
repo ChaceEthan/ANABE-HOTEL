@@ -1,0 +1,160 @@
+import { Resvg } from '@resvg/resvg-js';
+import fs from 'node:fs';
+import path from 'node:path';
+
+// Clean luxury SVG for ANABE HOTEL matching user uploaded artwork
+const createLogoSvg = (transparent = false) => `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 1000" width="1500" height="1000">
+  <defs>
+    <!-- Background subtle gradient if not transparent -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FCFAF7"/>
+      <stop offset="100%" stop-color="#F8F5EE"/>
+    </linearGradient>
+
+    <!-- Metallic Gold Multi-Stop Linear Gradient -->
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C59B28"/>
+      <stop offset="22%" stop-color="#EBC65D"/>
+      <stop offset="45%" stop-color="#F5DB88"/>
+      <stop offset="68%" stop-color="#C79924"/>
+      <stop offset="88%" stop-color="#E3BD54"/>
+      <stop offset="100%" stop-color="#9A6F14"/>
+    </linearGradient>
+
+    <!-- Arc Swoosh Gold Gradient with highlight -->
+    <linearGradient id="swooshGradient" x1="10%" y1="100%" x2="90%" y2="0%">
+      <stop offset="0%" stop-color="#B2821B"/>
+      <stop offset="35%" stop-color="#F2CE6E"/>
+      <stop offset="55%" stop-color="#FAF0B0"/>
+      <stop offset="75%" stop-color="#D7A933"/>
+      <stop offset="100%" stop-color="#9C6E12"/>
+    </linearGradient>
+
+    <!-- Tower Columns Gold Gradient -->
+    <linearGradient id="towerGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#E8C45A"/>
+      <stop offset="40%" stop-color="#CA9D28"/>
+      <stop offset="80%" stop-color="#B0811B"/>
+      <stop offset="100%" stop-color="#8A5F0E"/>
+    </linearGradient>
+
+    <!-- Wordmark & Tagline Gold Gradient -->
+    <linearGradient id="textGoldGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#B98B22"/>
+      <stop offset="25%" stop-color="#E5BF58"/>
+      <stop offset="50%" stop-color="#C99B26"/>
+      <stop offset="75%" stop-color="#E9C561"/>
+      <stop offset="100%" stop-color="#A57717"/>
+    </linearGradient>
+
+    <!-- Five-point Star Definition -->
+    <g id="star">
+      <polygon points="0,-14 4.3,-4.3 14.7,-4.3 6.3,1.9 9.5,12 0,5.8 -9.5,12 -6.3,1.9 -14.7,-4.3 -4.3,-4.3" fill="url(#textGoldGradient)"/>
+    </g>
+  </defs>
+
+  ${transparent ? '' : '<rect width="1500" height="1000" fill="url(#bgGrad)"/>'}
+
+  <g id="anabe-logo-mark">
+    <!-- ==================== MONOGRAM A ==================== -->
+    <g transform="translate(750, 270)">
+      <!-- Left Leg of A with flared serif base -->
+      <path d="M 0,-155 C -2,-155 -15,-125 -30,-85 L -140,195 C -162,248 -200,268 -245,274 L -245,285 L -135,285 L -135,274 C -175,270 -178,252 -160,210 L -125,125 L -40,125 L 0,22 L -65,22 L -20,-105 Z" fill="url(#goldGradient)"/>
+
+      <!-- Right Leg of A with flared serif base -->
+      <path d="M 0,-155 C 3,-155 18,-115 35,-70 L 155,215 C 176,262 198,272 250,274 L 250,285 L 115,285 L 115,274 C 155,270 152,252 135,212 L 95,125 L 38,-15 L 0,-155 Z" fill="url(#goldGradient)"/>
+
+      <!-- Stylized Dynamic Swoosh Arc Crossing Right Leg -->
+      <path d="M -160,195 C -110,95 -10,38 120,42 C 185,44 240,65 295,95 C 240,96 175,98 120,115 C -5,152 -100,220 -160,285 C -166,260 -168,225 -160,195 Z" fill="url(#swooshGradient)"/>
+
+      <!-- 3 Stylized Vertical Hotel Towers inside the Arch -->
+      <!-- Left Tower (Beveled Top) -->
+      <polygon points="-65,275 -65,148 -32,126 -32,275" fill="url(#towerGradient)"/>
+
+      <!-- Center Tower (Tallest, Pointed Triangular Crown) -->
+      <polygon points="-20,275 -20,105 0,84 20,105 20,275" fill="url(#towerGradient)"/>
+
+      <!-- Right Tower (Beveled Top) -->
+      <polygon points="32,275 32,126 65,148 65,275" fill="url(#towerGradient)"/>
+    </g>
+
+    <!-- ==================== WORDMARK: ANABE HOTEL ==================== -->
+    <text x="750" y="695" text-anchor="middle" font-family="'Cormorant Garamond', 'Playfair Display', 'Cinzel', 'Liberation Serif', FreeSerif, serif" font-size="94" font-weight="600" letter-spacing="24" fill="url(#textGoldGradient)">ANABE HOTEL</text>
+
+    <!-- ==================== 5-STAR LUXURY DIVIDER ==================== -->
+    <g transform="translate(0, 755)">
+      <!-- Left Horizontal Rule -->
+      <line x1="280" y1="0" x2="560" y2="0" stroke="url(#textGoldGradient)" stroke-width="3" stroke-linecap="round"/>
+
+      <!-- 5 Five-Point Stars -->
+      <use href="#star" x="610" y="0"/>
+      <use href="#star" x="680" y="0"/>
+      <use href="#star" x="750" y="0" transform="scale(1.15) translate(-98, -1)"/>
+      <use href="#star" x="820" y="0"/>
+      <use href="#star" x="890" y="0"/>
+
+      <!-- Right Horizontal Rule -->
+      <line x1="940" y1="0" x2="1220" y2="0" stroke="url(#textGoldGradient)" stroke-width="3" stroke-linecap="round"/>
+    </g>
+
+    <!-- ==================== TAGLINE ==================== -->
+    <text x="750" y="828" text-anchor="middle" font-family="'Plus Jakarta Sans', 'Montserrat', 'Liberation Sans', sans-serif" font-size="28" font-weight="500" letter-spacing="14" fill="url(#textGoldGradient)">COMFORT   •   LUXURY   •   HOSPITALITY</text>
+  </g>
+</svg>
+`;
+
+// Favicon SVG (distinctive gold A monogram with towers)
+const createFaviconSvg = () => `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="favGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C59B28"/>
+      <stop offset="30%" stop-color="#F2D075"/>
+      <stop offset="70%" stop-color="#C79924"/>
+      <stop offset="100%" stop-color="#9A6F14"/>
+    </linearGradient>
+    <linearGradient id="favSwoosh" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#B2821B"/>
+      <stop offset="50%" stop-color="#FDE59C"/>
+      <stop offset="100%" stop-color="#C89A25"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="108" fill="#141518"/>
+  <g transform="translate(256, 252) scale(0.82)">
+    <path d="M 0,-155 C -2,-155 -15,-125 -30,-85 L -140,195 C -162,248 -200,268 -245,274 L -245,285 L -135,285 L -135,274 C -175,270 -178,252 -160,210 L -125,125 L -40,125 L 0,22 L -65,22 L -20,-105 Z" fill="url(#favGold)"/>
+    <path d="M 0,-155 C 3,-155 18,-115 35,-70 L 155,215 C 176,262 198,272 250,274 L 250,285 L 115,285 L 115,274 C 155,270 152,252 135,212 L 95,125 L 38,-15 L 0,-155 Z" fill="url(#favGold)"/>
+    <path d="M -160,195 C -110,95 -10,38 120,42 C 185,44 240,65 295,95 C 240,96 175,98 120,115 C -5,152 -100,220 -160,285 C -166,260 -168,225 -160,195 Z" fill="url(#favSwoosh)"/>
+    <polygon points="-65,275 -65,148 -32,126 -32,275" fill="url(#favGold)"/>
+    <polygon points="-20,275 -20,105 0,84 20,105 20,275" fill="url(#favGold)"/>
+    <polygon points="32,275 32,126 65,148 65,275" fill="url(#favGold)"/>
+  </g>
+</svg>
+`;
+
+fs.mkdirSync('public', { recursive: true });
+fs.mkdirSync('src/assets/images', { recursive: true });
+
+const svgMain = createLogoSvg(false);
+const svgTrans = createLogoSvg(true);
+const svgFav = createFaviconSvg();
+
+fs.writeFileSync('public/anabe-hotel-logo.svg', svgMain);
+fs.writeFileSync('src/assets/images/anabe-hotel-logo.svg', svgMain);
+
+const resvgMain = new Resvg(svgMain, { fitTo: { mode: 'width', value: 1500 } });
+const pngBuffer = resvgMain.render().asPng();
+fs.writeFileSync('public/anabe-hotel-logo.png', pngBuffer);
+fs.writeFileSync('src/assets/images/anabe-hotel-logo.png', pngBuffer);
+
+const resvgTrans = new Resvg(svgTrans, { fitTo: { mode: 'width', value: 1500 } });
+const transBuffer = resvgTrans.render().asPng();
+fs.writeFileSync('public/anabe-hotel-logo-transparent.png', transBuffer);
+fs.writeFileSync('src/assets/images/anabe-hotel-logo-transparent.png', transBuffer);
+
+const resvgFav = new Resvg(svgFav, { fitTo: { mode: 'width', value: 512 } });
+const favBuffer = resvgFav.render().asPng();
+fs.writeFileSync('public/favicon.png', favBuffer);
+fs.writeFileSync('public/favicon.svg', svgFav);
+
+console.log('All logo and favicon assets built successfully!');

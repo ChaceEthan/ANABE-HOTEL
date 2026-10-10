@@ -96,6 +96,13 @@ const ROUTE_META_MAP: Record<string, RouteMeta> = {
     schemaType: 'AboutPage',
     breadcrumbName: 'Terms & Conditions',
   },
+  '/faq': {
+    title: 'Frequently Asked Questions (FAQ) | ANABE HOTEL Guide',
+    description: 'Answers to common questions about booking, room availability, check-in, pool, elevators, WhatsApp communication, and policies at ANABE HOTEL.',
+    image: '/anabe-hotel-logo.png',
+    schemaType: 'FAQPage',
+    breadcrumbName: 'FAQ',
+  },
 };
 
 /**
@@ -159,7 +166,7 @@ export const Head: React.FC<HeadProps> = ({
       legalName: hotelName,
       alternateName: 'Hôtel Anabe',
       url: origin,
-      logo: `${origin}/favicon.ico`,
+      logo: `${origin}/anabe-hotel-logo.png`,
       image: [
         `${origin}${DEFAULT_EXTERIOR_IMAGE}`,
         `${origin}${DEFAULT_POOL_IMAGE}`,

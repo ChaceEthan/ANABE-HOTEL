@@ -42,16 +42,29 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4 py-12">
       <div className="max-w-md w-full bg-white rounded-xl border border-[#E2DED4] p-8 sm:p-10 shadow-lg space-y-6">
-        <div className="text-center space-y-2">
-          <div className="w-12 h-12 bg-[#FAF6EF] text-[#B89667] rounded-full flex items-center justify-center mx-auto border border-[#E6D4B7]">
-            <ShieldCheck className="w-6 h-6" />
+        <div className="text-center space-y-3">
+          <button
+            type="button"
+            onClick={onNavigateHome}
+            className="inline-block mx-auto cursor-pointer focus:outline-none"
+            title="Return to ANABE HOTEL Homepage"
+          >
+            <img
+              src="/anabe-hotel-logo.png"
+              alt="ANABE HOTEL Logo"
+              className="h-16 w-auto mx-auto object-contain"
+              width={160}
+              height={64}
+            />
+          </button>
+          <div>
+            <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#1A1A18]">
+              Management Portal
+            </h1>
+            <p className="text-xs text-[#7A7870] mt-1">
+              Secure staff, manager, and owner management console.
+            </p>
           </div>
-          <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#1A1A18]">
-            ANABE HOTEL Portal
-          </h1>
-          <p className="text-xs text-[#7A7870]">
-            Secure staff, manager, and owner management console.
-          </p>
         </div>
 
         {error && (
