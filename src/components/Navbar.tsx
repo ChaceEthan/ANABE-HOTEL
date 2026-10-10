@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Menu, X, Calendar, UserCheck, PhoneCall } from 'lucide-react';
+import { Logo } from './Logo.tsx';
 import type { HotelSettings } from '../types/hotel.ts';
 
 interface NavbarProps {
@@ -42,13 +43,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           className="flex items-center gap-2 group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B89667] rounded-sm py-1"
           aria-label="ANABE HOTEL - Return to Homepage"
         >
-          <img
-            src="/anabe-hotel-logo.png"
-            alt="ANABE HOTEL Logo"
-            className="h-11 sm:h-13 w-auto object-contain transition-transform duration-200 group-hover:scale-102"
-            width={120}
-            height={48}
-          />
+          <Logo size="md" priority={true} interactive={true} />
         </button>
 
         {/* Zone 2: 4-6 clean text navigation links with subtle underlines */}

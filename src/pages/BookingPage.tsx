@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { api } from '../lib/api.ts';
 import type { Room, Booking, PaymentMethod, HotelSettings } from '../types/hotel.ts';
 import { BookingSuccessAnimation } from '../components/BookingSuccessAnimation.tsx';
+import { Logo } from '../components/Logo.tsx';
 import {
   CheckCircle2,
   AlertCircle,
@@ -254,14 +255,8 @@ export const BookingPage: React.FC<BookingPageProps> = ({
         <div className="bg-white rounded-xl border border-[#E2DED4] p-8 sm:p-12 shadow-lg space-y-8">
           <div className="text-center space-y-3 pb-8 border-b border-[#ECE8DE]">
             {/* ANABE HOTEL Luxury Brand Identity */}
-            <div className="inline-block p-2.5 bg-[#FAF8F5] border border-[#EAE6DC] rounded-xl shadow-xs mb-1">
-              <img
-                src="/anabe-hotel-logo.png"
-                alt="ANABE HOTEL Logo"
-                className="h-14 w-auto object-contain mx-auto"
-                width={140}
-                height={56}
-              />
+            <div className="mb-1">
+              <Logo size="lg" variant="badge" />
             </div>
 
             {/* Celebratory Success Animation */}

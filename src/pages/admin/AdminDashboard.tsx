@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { api, clearStoredToken } from '../../lib/api.ts';
+import { Logo } from '../../components/Logo.tsx';
 import type {
   User,
   DashboardMetrics,
@@ -311,15 +312,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             className="flex items-center gap-2.5 hover:opacity-90 transition-opacity cursor-pointer"
             title="Return to ANABE HOTEL Homepage"
           >
-            <div className="p-1 bg-[#FAF8F5] rounded-md border border-[#2D3039]">
-              <img
-                src="/anabe-hotel-logo.png"
-                alt="ANABE HOTEL Logo"
-                className="h-7 w-auto object-contain"
-                width={70}
-                height={28}
-              />
-            </div>
+            <Logo size="xs" variant="badge" />
             <span className="font-serif text-base sm:text-lg font-bold tracking-widest uppercase hidden md:inline">
               {hotelSettings?.hotelName || 'ANABE HOTEL'}
             </span>
@@ -372,14 +365,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         {/* Navigation Sidebar */}
         <aside className="w-full md:w-64 bg-white border-r border-[#E2DED4] p-4 flex flex-col justify-between shrink-0">
           <div className="space-y-1">
-            <div className="p-2.5 mb-3 bg-[#FAF8F5] border border-[#EAE6DC] rounded-xl flex items-center justify-center">
-              <img
-                src="/anabe-hotel-logo.png"
-                alt="ANABE HOTEL Logo"
-                className="h-10 w-auto object-contain"
-                width={100}
-                height={40}
-              />
+            <div className="mb-3 flex items-center justify-center">
+              <Logo size="sm" variant="badge" />
             </div>
             <div className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#8C8A82]">
               Management Modules

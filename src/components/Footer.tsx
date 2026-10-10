@@ -1,5 +1,6 @@
 import React from 'react';
 import { Phone, Mail, MapPin, ShieldCheck, ArrowUpRight, Calendar, BedDouble, HelpCircle } from 'lucide-react';
+import { Logo } from './Logo.tsx';
 import type { HotelSettings } from '../types/hotel.ts';
 
 interface FooterProps {
@@ -25,16 +26,10 @@ export const Footer: React.FC<FooterProps> = ({ settings, onNavigate, onOpenLook
           <div className="space-y-4">
             <button
               onClick={() => onNavigate('/')}
-              className="inline-block p-2.5 bg-[#FAF8F5] rounded-xl border border-[#2D3039] shadow-md hover:border-[#B89667] transition-all cursor-pointer"
+              className="inline-block cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B89667] rounded-xl"
               aria-label="ANABE HOTEL Homepage"
             >
-              <img
-                src="/anabe-hotel-logo.png"
-                alt="ANABE HOTEL Logo"
-                className="h-12 w-auto object-contain"
-                width={120}
-                height={48}
-              />
+              <Logo size="md" variant="badge" interactive={true} />
             </button>
             <p className="text-sm text-[#A09F98] leading-relaxed">
               65 thoughtfully appointed guest rooms, serene swimming pool, high-speed escalators and elevators, offering unmatched hospitality and comfort in Rwanda.

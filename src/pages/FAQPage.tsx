@@ -10,6 +10,7 @@ import {
   ArrowRight,
   ShieldCheck,
 } from 'lucide-react';
+import { Logo } from '../components/Logo.tsx';
 import type { HotelSettings } from '../types/hotel.ts';
 
 interface FAQPageProps {
@@ -277,14 +278,8 @@ export const FAQPage: React.FC<FAQPageProps> = ({ settings, onNavigate }) => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         {/* Header with Luxury Brand Identity */}
         <div className="text-center space-y-4">
-          <div className="inline-flex items-center justify-center p-3 bg-[#FAF8F5] border border-[#EAE6DC] rounded-full shadow-xs mb-2">
-            <img
-              src="/anabe-hotel-logo.png"
-              alt="ANABE HOTEL Logo"
-              className="h-12 w-auto object-contain"
-              width={72}
-              height={48}
-            />
+          <div className="mb-2">
+            <Logo size="md" variant="badge" />
           </div>
           <span className="text-xs uppercase tracking-widest text-[#B89667] font-semibold block">
             Guest Assistance & Answers

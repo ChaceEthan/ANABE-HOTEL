@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { api, setStoredToken } from '../../lib/api.ts';
+import { Logo } from '../../components/Logo.tsx';
 import type { User } from '../../types/hotel.ts';
 import { ShieldCheck, Lock, Mail, ArrowRight, UserCheck, KeyRound } from 'lucide-react';
 
@@ -49,13 +50,7 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({
             className="inline-block mx-auto cursor-pointer focus:outline-none"
             title="Return to ANABE HOTEL Homepage"
           >
-            <img
-              src="/anabe-hotel-logo.png"
-              alt="ANABE HOTEL Logo"
-              className="h-16 w-auto mx-auto object-contain"
-              width={160}
-              height={64}
-            />
+            <Logo size="lg" />
           </button>
           <div>
             <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#1A1A18]">
