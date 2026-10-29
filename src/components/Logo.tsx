@@ -31,7 +31,7 @@ export const Logo: React.FC<LogoProps> = ({
       height={asset.height}
       loading="eager"
       decoding="async"
-      className={`block object-contain ${tone === 'light' ? 'brightness-0 invert' : ''} ${className}`}
+      className={`block object-contain ${className}`}
     />
   );
 };

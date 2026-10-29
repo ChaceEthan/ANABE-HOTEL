@@ -108,7 +108,7 @@ export const HomePage: React.FC<HomePageProps> = ({ settings, onNavigate, onSele
         {/* Background Image with Measured Scrim */}
         <div className="absolute inset-0 z-0">
           <img
-            src="/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+            src="/images/hero_hotel_exterior_1791471883513.jpg"
             alt="ANABE HOTEL Grand Exterior Architecture"
             className="w-full h-full object-cover object-center filter brightness-90 transform scale-100 transition-transform duration-1000"
             referrerPolicy="no-referrer"
@@ -226,7 +226,7 @@ export const HomePage: React.FC<HomePageProps> = ({ settings, onNavigate, onSele
               >
                 <div className="relative h-48 overflow-hidden bg-neutral-100">
                   <img
-                    src={room.images[0] || '/src/assets/images/hotel_deluxe_room_1791471905013.jpg'}
+                    src={room.images[0] || '/images/hotel_deluxe_room_1791471905013.jpg'}
                     alt={room.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     referrerPolicy="no-referrer"
@@ -401,7 +401,7 @@ export const HomePage: React.FC<HomePageProps> = ({ settings, onNavigate, onSele
 
           <div className="relative rounded-lg overflow-hidden border border-[#E0DCD2] shadow-md">
             <img
-              src="/src/assets/images/hotel_lobby_escalator_1791471914533.jpg"
+              src="/images/hotel_lobby_escalator_1791471914533.jpg"
               alt="ANABE HOTEL Escalators and Glass Elevators"
               className="w-full h-96 object-cover"
               referrerPolicy="no-referrer"

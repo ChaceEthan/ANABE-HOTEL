@@ -19,7 +19,7 @@ export const RoomDetailsModal: React.FC<RoomDetailsModalProps> = ({
 
   const images = room.images && room.images.length > 0
     ? room.images
-    : ['/src/assets/images/hotel_deluxe_room_1791471905013.jpg'];
+    : ['/images/hotel_deluxe_room_1791471905013.jpg'];
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/65 backdrop-blur-xs overflow-y-auto">

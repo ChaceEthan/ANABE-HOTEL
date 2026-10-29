@@ -52,7 +52,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ settings, onBookClick }) =
 
         <div className="relative rounded-xl overflow-hidden border border-[#E2DED4] shadow-md">
           <img
-            src="/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
+            src="/images/hero_hotel_exterior_1791471883513.jpg"
             alt={hotelName}
             className="w-full h-[450px] object-cover"
             referrerPolicy="no-referrer"

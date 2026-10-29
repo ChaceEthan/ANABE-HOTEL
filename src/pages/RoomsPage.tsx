@@ -308,7 +308,7 @@ export const RoomsPage: React.FC<RoomsPageProps> = ({
                 {/* Photo & Availability Indicator */}
                 <div className="relative h-52 bg-neutral-100 overflow-hidden">
                   <img
-                    src={room.images[0] || '/src/assets/images/hotel_deluxe_room_1791471905013.jpg'}
+                    src={room.images[0] || '/images/hotel_deluxe_room_1791471905013.jpg'}
                     alt={room.name}
                     className="w-full h-full object-cover"
                     referrerPolicy="no-referrer"

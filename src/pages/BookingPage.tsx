@@ -510,7 +510,7 @@ export const BookingPage: React.FC<BookingPageProps> = ({
                   }`}
                 >
                   <img
-                    src={room.images[0] || '/src/assets/images/hotel_deluxe_room_1791471905013.jpg'}
+                    src={room.images[0] || '/images/hotel_deluxe_room_1791471905013.jpg'}
                     alt={room.name}
                     className="w-24 h-24 object-cover rounded shrink-0"
                     referrerPolicy="no-referrer"

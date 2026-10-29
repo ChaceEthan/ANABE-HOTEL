@@ -149,9 +149,9 @@ export function getDefaultSeedData(): DatabaseSchema {
         maxGuests: type.maxGuests,
         amenities: [...type.defaultAmenities],
         images: [
-          '/src/assets/images/hotel_deluxe_room_1791471905013.jpg',
-          '/src/assets/images/hotel_swimming_pool_1791471894050.jpg',
-          '/src/assets/images/hero_hotel_exterior_1791471883513.jpg',
+          '/images/hotel_deluxe_room_1791471905013.jpg',
+          '/images/hotel_swimming_pool_1791471894050.jpg',
+          '/images/hero_hotel_exterior_1791471883513.jpg',
         ],
         status,
         floor: f.floor,
@@ -165,7 +165,7 @@ export function getDefaultSeedData(): DatabaseSchema {
       id: 'fac_pool',
       name: 'Swimming Pool',
       description: 'Lush outdoor swimming pool with crystal clear water, comfortable sun loungers, and tranquil evening illumination.',
-      image: '/src/assets/images/hotel_swimming_pool_1791471894050.jpg',
+      image: '/images/hotel_swimming_pool_1791471894050.jpg',
       icon: 'Waves',
       status: 'ACTIVE',
       displayOrder: 1,
@@ -174,7 +174,7 @@ export function getDefaultSeedData(): DatabaseSchema {
       id: 'fac_elevator',
       name: 'High-Speed Elevators',
       description: 'Smooth and modern elevators serving all four floors and accommodation wings for effortless accessibility.',
-      image: '/src/assets/images/hotel_lobby_escalator_1791471914533.jpg',
+      image: '/images/hotel_lobby_escalator_1791471914533.jpg',
       icon: 'Building',
       status: 'ACTIVE',
       displayOrder: 2,
@@ -183,7 +183,7 @@ export function getDefaultSeedData(): DatabaseSchema {
       id: 'fac_escalator',
       name: 'Central Escalators',
       description: 'Convenient escalator systems connecting the grand ground lobby, reception, and upper mezzanine areas seamlessly.',
-      image: '/src/assets/images/hotel_lobby_escalator_1791471914533.jpg',
+      image: '/images/hotel_lobby_escalator_1791471914533.jpg',
       icon: 'ArrowUpRight',
       status: 'ACTIVE',
       displayOrder: 3,
@@ -192,7 +192,7 @@ export function getDefaultSeedData(): DatabaseSchema {
       id: 'fac_rooms',
       name: 'Accommodation Rooms',
       description: '65 private rooms and suites featuring soundproofing, premium bedding, climate control, and en-suite bathrooms.',
-      image: '/src/assets/images/hotel_deluxe_room_1791471905013.jpg',
+      image: '/images/hotel_deluxe_room_1791471905013.jpg',
       icon: 'BedDouble',
       status: 'ACTIVE',
       displayOrder: 4,
@@ -205,7 +205,7 @@ export function getDefaultSeedData(): DatabaseSchema {
       title: 'ANABE HOTEL Grand Twilight View',
       caption: 'Architectural front facade of ANABE HOTEL at evening with welcoming ambient entrance.',
       category: 'Exterior',
-      imageUrl: '/src/assets/images/hero_hotel_exterior_1791471883513.jpg',
+      imageUrl: '/images/hero_hotel_exterior_1791471883513.jpg',
       mediaType: 'IMAGE',
       altText: 'ANABE HOTEL exterior at evening',
       published: true,
@@ -218,7 +218,7 @@ export function getDefaultSeedData(): DatabaseSchema {
       title: 'Serene Swimming Pool',
       caption: 'The outdoor turquoise swimming pool and sun terrace surrounded by tropical garden greenery.',
       category: 'Swimming Pool',
-      imageUrl: '/src/assets/images/hotel_swimming_pool_1791471894050.jpg',
+      imageUrl: '/images/hotel_swimming_pool_1791471894050.jpg',
       mediaType: 'IMAGE',
       altText: 'ANABE HOTEL swimming pool',
       published: true,
@@ -231,7 +231,7 @@ export function getDefaultSeedData(): DatabaseSchema {
       title: 'Deluxe Guest Room',
       caption: 'Carefully appointed king guest room with plush linens, warm oak finishes, and reading armchairs.',
       category: 'Rooms',
-      imageUrl: '/src/assets/images/hotel_deluxe_room_1791471905013.jpg',
+      imageUrl: '/images/hotel_deluxe_room_1791471905013.jpg',
       mediaType: 'IMAGE',
       altText: 'Deluxe guest room at ANABE HOTEL',
       published: true,
@@ -244,7 +244,7 @@ export function getDefaultSeedData(): DatabaseSchema {
       title: 'Grand Lobby & Escalators',
       caption: 'Spacious hotel atrium featuring marble floors, escalator connection, glass elevators, and reception.',
       category: 'Lobby',
-      imageUrl: '/src/assets/images/hotel_lobby_escalator_1791471914533.jpg',
+      imageUrl: '/images/hotel_lobby_escalator_1791471914533.jpg',
       mediaType: 'IMAGE',
       altText: 'ANABE HOTEL lobby with escalators and elevators',
       published: true,
@@ -254,12 +254,17 @@ export function getDefaultSeedData(): DatabaseSchema {
     },
   ];
 
+  // Owner account: use ADMIN_EMAIL / ADMIN_PASSWORD env vars if set, else fall back to defaults.
+  // In production, operators SHOULD set these env vars and change passwords after first login.
+  const ownerEmail = process.env.ADMIN_EMAIL || 'owner@anabehotel.com';
+  const ownerPassword = process.env.ADMIN_PASSWORD || 'Owner@Anabe2026!';
+
   const defaultUsers: StoredUser[] = [
     {
       id: 'usr_owner_01',
       name: 'Hotel Owner',
-      email: 'owner@anabehotel.com',
-      passwordHash: hashPassword('Owner@Anabe2026!'),
+      email: ownerEmail,
+      passwordHash: hashPassword(ownerPassword),
       role: 'OWNER',
       permissions: [
         'manage_rooms',

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { api } from '../../lib/api.ts';
 import type { User } from '../../types/hotel.ts';
 import { Logo } from '../../components/Logo.tsx';
-import { ShieldCheck, Lock, Mail, ArrowRight, UserCheck, KeyRound } from 'lucide-react';
+import { ShieldCheck, Lock, Mail, ArrowRight, KeyRound } from 'lucide-react';
 
 interface AdminLoginPageProps {
   onLoginSuccess: (user: User) => void;
@@ -31,12 +31,6 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({
     } finally {
       setLoading(false);
     }
-  };
-
-  const fillQuickDemo = (demoEmail: string, demoPass: string) => {
-    setEmail(demoEmail);
-    setPassword(demoPass);
-    setError(null);
   };
 
   return (
@@ -103,49 +97,21 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({
           </button>
         </form>
 
-        {/* Quick Demo Credentials Helper */}
+        {/* Role-Based Login Hints */}
         <div className="pt-4 border-t border-[#ECE8DE] space-y-3">
           <div className="flex items-center gap-1.5 text-xs font-semibold text-[#1A1A18]">
             <KeyRound className="w-3.5 h-3.5 text-[#B89667]" />
-            <span>Quick Login Role Selection (Pre-seeded Accounts)</span>
+            <span>Staff Login Accounts</span>
           </div>
 
-          <div className="grid grid-cols-2 gap-2 text-xs">
-            <button
-              type="button"
-              onClick={() => fillQuickDemo('owner@anabehotel.com', 'Owner@Anabe2026!')}
-              className="p-2 text-left bg-[#FAF9F5] hover:bg-[#F2ECE0] border border-[#E0DCD2] rounded transition-colors cursor-pointer"
-            >
-              <div className="font-bold text-[#1A1A18]">1. OWNER</div>
-              <div className="text-[10px] text-[#7A7870]">Full control & finances</div>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => fillQuickDemo('manager@anabehotel.com', 'Manager@Anabe2026!')}
-              className="p-2 text-left bg-[#FAF9F5] hover:bg-[#F2ECE0] border border-[#E0DCD2] rounded transition-colors cursor-pointer"
-            >
-              <div className="font-bold text-[#1A1A18]">2. MANAGER</div>
-              <div className="text-[10px] text-[#7A7870]">Operations & rooms</div>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => fillQuickDemo('reception@anabehotel.com', 'Staff@Anabe2026!')}
-              className="p-2 text-left bg-[#FAF9F5] hover:bg-[#F2ECE0] border border-[#E0DCD2] rounded transition-colors cursor-pointer"
-            >
-              <div className="font-bold text-[#1A1A18]">3. RECEPTION</div>
-              <div className="text-[10px] text-[#7A7870]">Bookings & check-in</div>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => fillQuickDemo('housekeeping@anabehotel.com', 'Clean@Anabe2026!')}
-              className="p-2 text-left bg-[#FAF9F5] hover:bg-[#F2ECE0] border border-[#E0DCD2] rounded transition-colors cursor-pointer"
-            >
-              <div className="font-bold text-[#1A1A18]">4. HOUSEKEEPING</div>
-              <div className="text-[10px] text-[#7A7870]">Room cleaning status</div>
-            </button>
+          <div className="space-y-1.5 text-xs text-[#66655E]">
+            <p>Sign in with the credentials provided by hotel management:</p>
+            <ul className="list-disc pl-4 space-y-0.5 text-[10px] text-[#8A8880]">
+              <li><strong>Owner</strong> — Full hotel control, finances, and user management</li>
+              <li><strong>Manager</strong> — Operations, rooms, bookings, and facilities</li>
+              <li><strong>Reception</strong> — Bookings and guest check-in/check-out</li>
+              <li><strong>Housekeeping</strong> — Room cleaning status updates</li>
+            </ul>
           </div>
         </div>
 

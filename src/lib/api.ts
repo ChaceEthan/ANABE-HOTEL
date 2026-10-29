@@ -12,6 +12,19 @@ import type {
 } from '../types/hotel.ts';
 
 const BASE_URL = (import.meta.env.VITE_API_URL || '').replace(/\/+$/, '');
+const TOKEN_KEY = 'anabe_auth_token';
+
+function getStoredToken(): string | null {
+  try { return localStorage.getItem(TOKEN_KEY); } catch { return null; }
+}
+
+function storeToken(token: string): void {
+  try { localStorage.setItem(TOKEN_KEY, token); } catch { /* SSR / private browsing */ }
+}
+
+function clearToken(): void {
+  try { localStorage.removeItem(TOKEN_KEY); } catch { /* SSR / private browsing */ }
+}
 
 function resolveUrl(endpoint: string): string {
   if (endpoint.startsWith('http://') || endpoint.startsWith('https://')) return endpoint;
@@ -24,6 +37,12 @@ async function request<T>(endpoint: string, options: RequestInit = {}): Promise<
   const headers = new Headers(options.headers || {});
   if (options.body && !(options.body instanceof FormData)) headers.set('Content-Type', 'application/json');
 
+  // Attach Bearer token for cross-origin auth (cookie may not be sent cross-site)
+  const token = getStoredToken();
+  if (token && !headers.has('Authorization')) {
+    headers.set('Authorization', `Bearer ${token}`);
+  }
+
   const response = await fetch(url, {
     ...options,
     credentials: 'include',
@@ -34,6 +53,7 @@ async function request<T>(endpoint: string, options: RequestInit = {}): Promise<
 
   if (!response.ok) {
     if (response.status === 401 && !endpoint.endsWith('/auth/login')) {
+      clearToken();
       window.dispatchEvent(new Event('anabe:session-expired'));
     }
     throw new Error(data.error || `Request failed with status ${response.status}`);
@@ -90,13 +110,19 @@ export const api = {
     }),
 
   // Auth
-  login: (credentials: { email: string; password: string }) =>
-    request<{ user: User }>('/api/auth/login', {
+  login: async (credentials: { email: string; password: string }) => {
+    const res = await request<{ token?: string; user: User }>('/api/auth/login', {
       method: 'POST',
       body: JSON.stringify(credentials),
-    }),
+    });
+    if (res.token) storeToken(res.token);
+    return res;
+  },
   getMe: () => request<User>('/api/auth/me'),
-  logout: () => request<{ success: boolean }>('/api/auth/logout', { method: 'POST' }),
+  logout: async () => {
+    clearToken();
+    return request<{ success: boolean }>('/api/auth/logout', { method: 'POST' });
+  },
 
   // Admin
   getMetrics: () => request<DashboardMetrics>('/api/admin/metrics'),
@@ -223,10 +249,14 @@ export const api = {
     published: boolean;
   }) => {
     const query = new URLSearchParams(details as unknown as Record<string, string>);
-    const response = await fetch(`/api/admin/gallery/upload?${query.toString()}`, {
+    const uploadUrl = resolveUrl(`/api/admin/gallery/upload?${query.toString()}`);
+    const hdrs: Record<string, string> = { 'Content-Type': file.type || 'application/octet-stream' };
+    const tk = getStoredToken();
+    if (tk) hdrs['Authorization'] = `Bearer ${tk}`;
+    const response = await fetch(uploadUrl, {
       method: 'POST',
-      credentials: 'same-origin',
-      headers: { 'Content-Type': file.type || 'application/octet-stream' },
+      credentials: 'include',
+      headers: hdrs,
       body: file,
     });
     const data = await response.json().catch(() => ({}));

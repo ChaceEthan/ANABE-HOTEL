@@ -51,13 +51,26 @@ function getCookie(req: Request, name: string): string | undefined {
   return cookie ? decodeURIComponent(cookie.slice(prefix.length)) : undefined;
 }
 
+function isCrossOriginDeployment() {
+  return !!(process.env.VITE_APP_URL || process.env.FRONTEND_URL || process.env.CORS_ORIGIN);
+}
+
 function sessionCookieOptions() {
-  return { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'strict' as const, path: '/', maxAge: SESSION_SECONDS * 1000 };
+  const crossOrigin = isCrossOriginDeployment();
+  return {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: (crossOrigin ? 'none' : 'strict') as 'none' | 'strict',
+    path: '/',
+    maxAge: SESSION_SECONDS * 1000,
+  };
 }
 
 export function requireAuth(req: AuthRequest, res: Response, next: NextFunction) {
   const authHeader = req.headers.authorization;
-  const token = getCookie(req, SESSION_COOKIE) || (authHeader?.startsWith('Bearer ') ? authHeader.slice(7) : undefined);
+  const cookieToken = getCookie(req, SESSION_COOKIE);
+  const bearerToken = authHeader?.startsWith('Bearer ') ? authHeader.slice(7) : undefined;
+  const token = cookieToken || bearerToken;
   if (!token) return res.status(401).json({ error: 'Authentication required.', code: 'SESSION_INVALID' });
   const payload = verifyToken(token);
   if (!payload) return res.status(401).json({ error: 'Session expired or invalid.', code: 'SESSION_INVALID' });
@@ -65,7 +78,8 @@ export function requireAuth(req: AuthRequest, res: Response, next: NextFunction)
   const user = getDatabase().users.find((entry) => entry.id === payload.userId);
   if (!user || user.status !== 'ACTIVE') return res.status(401).json({ error: 'Session expired or invalid.', code: 'SESSION_INVALID' });
 
-  if (req.method !== 'GET' && req.method !== 'HEAD' && req.method !== 'OPTIONS' && getCookie(req, SESSION_COOKIE)) {
+  // CSRF protection applies only to cookie-based auth (not Bearer tokens)
+  if (req.method !== 'GET' && req.method !== 'HEAD' && req.method !== 'OPTIONS' && cookieToken && !bearerToken) {
     const origin = req.get('origin');
     const host = req.get('host');
     if (origin && host && new URL(origin).host !== host) {
@@ -390,25 +404,29 @@ apiRouter.post('/auth/login', (req: Request, res: Response) => {
   try {
     getJwtSecret();
     const token = generateToken(user);
+    // Set cookie for same-origin deployments
     res.cookie(SESSION_COOKIE, token, sessionCookieOptions());
+    // Return token in body for cross-origin deployments (Vercel frontend → Render backend)
+    res.json({
+      token,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        permissions: user.permissions,
+        status: user.status,
+      },
+    });
   } catch (error) {
     console.error('Authentication configuration error:', error instanceof Error ? error.message : 'Unknown configuration error.');
     return res.status(503).json({ error: 'Authentication is not configured on this server.', code: 'SERVER_CONFIGURATION' });
   }
-  res.json({
-    user: {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
-      permissions: user.permissions,
-      status: user.status,
-    },
-  });
 });
 
 apiRouter.post('/auth/logout', (_req: Request, res: Response) => {
-  res.clearCookie(SESSION_COOKIE, { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'strict', path: '/' });
+  const crossOrigin = isCrossOriginDeployment();
+  res.clearCookie(SESSION_COOKIE, { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: crossOrigin ? 'none' : 'strict', path: '/' });
   res.json({ success: true });
 });
 
@@ -660,7 +678,7 @@ apiRouter.post('/admin/rooms', requireAuth, requirePermission('manage_rooms'), (
     floor: Number(floor) || 1,
     status: 'AVAILABLE',
     amenities: Array.isArray(amenities) ? amenities : (type?.defaultAmenities || []),
-    images: Array.isArray(images) && images.length > 0 ? images : ['/src/assets/images/hotel_deluxe_room_1791471905013.jpg'],
+    images: Array.isArray(images) && images.length > 0 ? images : ['/images/hotel_deluxe_room_1791471905013.jpg'],
   };
 
   db.rooms.push(newRoom);
@@ -990,7 +1008,7 @@ apiRouter.post('/admin/facilities', requireAuth, requirePermission('manage_facil
     id: `fac_${Date.now()}`,
     name: name.trim(),
     description: description || '',
-    image: image || '/src/assets/images/hotel_swimming_pool_1791471894050.jpg',
+    image: image || '/images/hotel_swimming_pool_1791471894050.jpg',
     icon: icon || 'Sparkles',
     status: status || 'ACTIVE',
     displayOrder: db.facilities.length + 1,

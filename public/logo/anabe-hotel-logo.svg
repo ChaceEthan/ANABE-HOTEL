@@ -2,27 +2,37 @@
   <title id="title">ANABE HOTEL</title>
   <desc id="description">The ANABE HOTEL A monogram, wordmark, five stars, and hospitality tagline.</desc>
   <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4A94B"/>
+      <stop offset="50%" stop-color="#C5973E"/>
+      <stop offset="100%" stop-color="#A67C2E"/>
+    </linearGradient>
+    <linearGradient id="swooshGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#A67C2E"/>
+      <stop offset="50%" stop-color="#E8C872"/>
+      <stop offset="100%" stop-color="#C5973E"/>
+    </linearGradient>
     <g id="star">
-      <polygon points="0,-14 4.3,-4.3 14.7,-4.3 6.3,1.9 9.5,12 0,5.8 -9.5,12 -6.3,1.9 -14.7,-4.3 -4.3,-4.3" fill="#000"/>
+      <polygon points="0,-14 4.3,-4.3 14.7,-4.3 6.3,1.9 9.5,12 0,5.8 -9.5,12 -6.3,1.9 -14.7,-4.3 -4.3,-4.3" fill="#C5973E"/>
     </g>
   </defs>
-  <g transform="translate(750 270)" fill="#000">
-    <path d="M 0,-155 C -2,-155 -15,-125 -30,-85 L -140,195 C -162,248 -200,268 -245,274 L -245,285 L -135,285 L -135,274 C -175,270 -178,252 -160,210 L -125,125 L -40,125 L 0,22 L -65,22 L -20,-105 Z"/>
-    <path d="M 0,-155 C 3,-155 18,-115 35,-70 L 155,215 C 176,262 198,272 250,274 L 250,285 L 115,285 L 115,274 C 155,270 152,252 135,212 L 95,125 L 38,-15 L 0,-155 Z"/>
-    <path d="M -160,195 C -110,95 -10,38 120,42 C 185,44 240,65 295,95 C 240,96 175,98 120,115 C -5,152 -100,220 -160,285 C -166,260 -168,225 -160,195 Z"/>
-    <polygon points="-65,275 -65,148 -32,126 -32,275"/>
-    <polygon points="-20,275 -20,105 0,84 20,105 20,275"/>
-    <polygon points="32,275 32,126 65,148 65,275"/>
+  <g transform="translate(750 270)">
+    <path d="M 0,-155 C -2,-155 -15,-125 -30,-85 L -140,195 C -162,248 -200,268 -245,274 L -245,285 L -135,285 L -135,274 C -175,270 -178,252 -160,210 L -125,125 L -40,125 L 0,22 L -65,22 L -20,-105 Z" fill="url(#goldGrad)"/>
+    <path d="M 0,-155 C 3,-155 18,-115 35,-70 L 155,215 C 176,262 198,272 250,274 L 250,285 L 115,285 L 115,274 C 155,270 152,252 135,212 L 95,125 L 38,-15 L 0,-155 Z" fill="url(#goldGrad)"/>
+    <path d="M -160,195 C -110,95 -10,38 120,42 C 185,44 240,65 295,95 C 240,96 175,98 120,115 C -5,152 -100,220 -160,285 C -166,260 -168,225 -160,195 Z" fill="url(#swooshGrad)"/>
+    <polygon points="-65,275 -65,148 -32,126 -32,275" fill="url(#goldGrad)"/>
+    <polygon points="-20,275 -20,105 0,84 20,105 20,275" fill="url(#goldGrad)"/>
+    <polygon points="32,275 32,126 65,148 65,275" fill="url(#goldGrad)"/>
   </g>
-  <text x="750" y="695" text-anchor="middle" font-family="'Cormorant Garamond', 'Playfair Display', 'Cinzel', Georgia, serif" font-size="94" font-weight="600" letter-spacing="24" fill="#000">ANABE HOTEL</text>
-  <g transform="translate(0 755)" fill="#000">
-    <line x1="280" y1="0" x2="560" y2="0" stroke="#000" stroke-width="3" stroke-linecap="round"/>
+  <text x="750" y="695" text-anchor="middle" font-family="'Cormorant Garamond', 'Playfair Display', 'Cinzel', Georgia, serif" font-size="94" font-weight="600" letter-spacing="24" fill="#1B3A2D">ANABE HOTEL</text>
+  <g transform="translate(0 755)">
+    <line x1="280" y1="0" x2="560" y2="0" stroke="#C5973E" stroke-width="3" stroke-linecap="round"/>
     <use href="#star" x="610" y="0"/>
     <use href="#star" x="680" y="0"/>
     <use href="#star" x="750" y="0" transform="scale(1.15) translate(-98 -1)"/>
     <use href="#star" x="820" y="0"/>
     <use href="#star" x="890" y="0"/>
-    <line x1="940" y1="0" x2="1220" y2="0" stroke="#000" stroke-width="3" stroke-linecap="round"/>
+    <line x1="940" y1="0" x2="1220" y2="0" stroke="#C5973E" stroke-width="3" stroke-linecap="round"/>
   </g>
-  <text x="750" y="828" text-anchor="middle" font-family="'Plus Jakarta Sans', Montserrat, Arial, sans-serif" font-size="28" font-weight="500" letter-spacing="14" fill="#000">COMFORT  ·  LUXURY  ·  HOSPITALITY</text>
+  <text x="750" y="828" text-anchor="middle" font-family="'Plus Jakarta Sans', Montserrat, Arial, sans-serif" font-size="28" font-weight="500" letter-spacing="14" fill="#1B3A2D">COMFORT  ·  LUXURY  ·  HOSPITALITY</text>
 </svg>
