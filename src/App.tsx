@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Head } from './components/Head.tsx';
 import { Navbar } from './components/Navbar.tsx';
 import { Footer } from './components/Footer.tsx';
 import { BookingLookupModal } from './components/BookingLookupModal.tsx';
@@ -11,13 +10,12 @@ import { FacilitiesPage } from './pages/FacilitiesPage.tsx';
 import { GalleryPage } from './pages/GalleryPage.tsx';
 import { AboutPage } from './pages/AboutPage.tsx';
 import { ContactPage } from './pages/ContactPage.tsx';
-import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage.tsx';
+import { FaqPage } from './pages/FaqPage.tsx';
+import { PrivacyPage } from './pages/PrivacyPage.tsx';
 import { TermsPage } from './pages/TermsPage.tsx';
-import { FAQPage } from './pages/FAQPage.tsx';
-import { CookieConsentBanner } from './components/CookieConsentBanner.tsx';
 import { AdminLoginPage } from './pages/admin/AdminLoginPage.tsx';
 import { AdminDashboard } from './pages/admin/AdminDashboard.tsx';
-import { api, getStoredToken, clearStoredToken } from './lib/api.ts';
+import { api } from './lib/api.ts';
 import type { HotelSettings, Room, User } from './types/hotel.ts';
 
 export default function App() {
@@ -51,15 +49,11 @@ export default function App() {
         console.error('Failed to load settings:', err);
       }
 
-      const token = getStoredToken();
-      if (token) {
-        try {
-          const user = await api.getMe();
-          setCurrentUser(user);
-        } catch {
-          clearStoredToken();
-          setCurrentUser(null);
-        }
+      try {
+        const user = await api.getMe();
+        setCurrentUser(user);
+      } catch {
+        setCurrentUser(null);
       }
       setAuthChecked(true);
     }
@@ -68,9 +62,39 @@ export default function App() {
     const handlePopState = () => {
       setCurrentRoute(window.location.pathname || '/');
     };
+    const handleSessionExpired = () => {
+      setCurrentUser(null);
+      setCurrentRoute((route) => {
+        if (route.startsWith('/admin') && route !== '/admin/login') {
+          window.history.replaceState({}, '', '/admin/login');
+          return '/admin/login';
+        }
+        return route;
+      });
+    };
     window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
+    window.addEventListener('anabe:session-expired', handleSessionExpired);
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener('anabe:session-expired', handleSessionExpired);
+    };
   }, []);
+
+  // Inspect direct /rooms/:id deep links on load or route change
+  useEffect(() => {
+    if (currentRoute.startsWith('/rooms/') && currentRoute.length > 7) {
+      const roomIdOrNum = decodeURIComponent(currentRoute.slice(7));
+      api.getRoom(roomIdOrNum)
+        .then((room) => {
+          if (room) setInspectRoom(room);
+        })
+        .catch(() => {
+          // If room not found, smoothly revert to /rooms
+          window.history.replaceState({}, '', '/rooms');
+          setCurrentRoute('/rooms');
+        });
+    }
+  }, [currentRoute]);
 
   const navigate = (route: string, state?: any) => {
     if (route === '/rooms' && state) {
@@ -94,13 +118,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#FBFBFA] text-[#1A1A18] font-sans">
-      {/* Dynamic SEO, OpenGraph and Schema.org Structured Metadata */}
-      <Head
-        route={currentRoute}
-        settings={settings}
-        room={inspectRoom || (currentRoute === '/booking' ? selectedBookingRoom : null)}
-      />
-
       {/* Show Public Navbar on non-dashboard routes */}
       {(!isAdminRoute || currentRoute === '/admin/login') && (
         <Navbar
@@ -121,11 +138,15 @@ export default function App() {
           />
         )}
 
-        {currentRoute === '/rooms' && (
+        {(currentRoute === '/rooms' || currentRoute.startsWith('/rooms/')) && (
           <RoomsPage
             initialSearch={selectedBookingDates}
             onSelectRoom={handleSelectRoomForBooking}
-            onViewRoomDetails={(room) => setInspectRoom(room)}
+            onViewRoomDetails={(room) => {
+              setInspectRoom(room);
+              window.history.pushState({}, '', `/rooms/${encodeURIComponent(room.roomNumber)}`);
+              setCurrentRoute(`/rooms/${encodeURIComponent(room.roomNumber)}`);
+            }}
           />
         )}
 
@@ -150,17 +171,13 @@ export default function App() {
 
         {currentRoute === '/contact' && <ContactPage settings={settings} />}
 
-        {currentRoute === '/privacy' && (
-          <PrivacyPolicyPage settings={settings} onNavigate={navigate} />
-        )}
-
-        {currentRoute === '/terms' && (
-          <TermsPage settings={settings} onNavigate={navigate} />
-        )}
-
         {currentRoute === '/faq' && (
-          <FAQPage settings={settings} onNavigate={navigate} />
+          <FaqPage checkInTime={settings?.checkInTime} checkOutTime={settings?.checkOutTime} onNavigate={navigate} />
         )}
+
+        {currentRoute === '/privacy' && <PrivacyPage />}
+
+        {currentRoute === '/terms' && <TermsPage />}
 
         {currentRoute === '/admin/login' && (
           <AdminLoginPage
@@ -206,7 +223,13 @@ export default function App() {
       {/* Room Details Modal */}
       <RoomDetailsModal
         room={inspectRoom}
-        onClose={() => setInspectRoom(null)}
+        onClose={() => {
+          setInspectRoom(null);
+          if (currentRoute.startsWith('/rooms/')) {
+            window.history.pushState({}, '', '/rooms');
+            setCurrentRoute('/rooms');
+          }
+        }}
         onBookRoom={handleSelectRoomForBooking}
       />
 
@@ -215,9 +238,6 @@ export default function App() {
         isOpen={isLookupOpen}
         onClose={() => setIsLookupOpen(false)}
       />
-
-      {/* Discrete Privacy & Essential Storage Notice */}
-      <CookieConsentBanner onOpenPrivacy={() => navigate('/privacy')} />
     </div>
   );
 }

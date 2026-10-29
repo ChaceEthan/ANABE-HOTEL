@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { api } from '../lib/api.ts';
 import type { Room, Booking, PaymentMethod, HotelSettings } from '../types/hotel.ts';
-import { BookingSuccessAnimation } from '../components/BookingSuccessAnimation.tsx';
-import { Logo } from '../components/Logo.tsx';
 import {
   CheckCircle2,
   AlertCircle,
@@ -68,8 +66,17 @@ export const BookingPage: React.FC<BookingPageProps> = ({
   const [whatsAppNotice, setWhatsAppNotice] = useState<string | null>(null);
 
   // Hotel contact numbers for WhatsApp (international format: 250788845520, 250783218170)
-  const primaryWhatsAppNumber = '250788845520';
-  const secondaryWhatsAppNumber = '250783218170';
+  const formatWhatsAppNumber = (raw?: string, fallback = '250788845520') => {
+    if (!raw) return fallback;
+    const digits = raw.replace(/[^0-9]/g, '');
+    if (!digits) return fallback;
+    if (digits.startsWith('250')) return digits;
+    if (digits.startsWith('0')) return `250${digits.slice(1)}`;
+    return digits;
+  };
+
+  const primaryWhatsAppNumber = formatWhatsAppNumber(settings?.phone1, '250788845520');
+  const secondaryWhatsAppNumber = formatWhatsAppNumber(settings?.phone2, '250783218170');
 
   useEffect(() => {
     async function loadRooms() {
@@ -140,39 +147,26 @@ export const BookingPage: React.FC<BookingPageProps> = ({
     return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(text)}`;
   };
 
-  // Generate click-to-email URL (safe mailto fallback for pre-filled email client dispatch)
-  const getEmailUrl = (b: Booking) => {
-    const subject = `Booking Confirmation: ${b.bookingReference} - ${b.guestName} at ANABE HOTEL`;
-    const lines = [
-      'Dear ANABE HOTEL Reservations,',
+  const getBookingEmailUrl = (b: Booking) => {
+    const subject = `ANABE HOTEL booking ${b.bookingReference}`;
+    const body = [
+      'Hello ANABE HOTEL,',
       '',
-      'I have registered a reservation through your website and would like to confirm my booking details:',
-      '',
-      `Booking Reference: ${b.bookingReference}`,
-      `Guest Name: ${b.guestName}`,
-      `Phone: ${b.guestPhone}`,
-      `Email: ${b.guestEmail || 'Not specified'}`,
-      `Room: Room ${b.roomNumber} (${b.typeName || b.roomName || 'Standard Room'})`,
+      'I am contacting you about my reservation request:',
+      `Booking reference: ${b.bookingReference}`,
+      `Guest name: ${b.guestName}`,
+      `Room: ${b.roomName} (Room ${b.roomNumber})`,
       `Check-in: ${formatDisplayDate(b.checkIn)}`,
       `Check-out: ${formatDisplayDate(b.checkOut)}`,
-      `Number of Guests: ${b.guestsCount}`,
-      `Length of Stay: ${b.nights} night(s)`,
-      `Total Price: RWF ${b.totalPrice.toLocaleString()}`,
-      `Booking Status: ${b.status}`,
-      `Payment Option: ${b.paymentMethod}`,
-    ];
-
-    if (b.specialRequests && b.specialRequests.trim()) {
-      lines.push(`Special Requests: ${b.specialRequests.trim()}`);
-    }
-
-    lines.push('');
-    lines.push('Please let me know if any further information is needed to confirm my arrival.');
-    lines.push('');
-    lines.push('Thank you,');
-    lines.push(b.guestName);
-
-    return `mailto:info@anabehotel.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`;
+      `Guests: ${b.guestsCount}`,
+      `Nights: ${b.nights}`,
+      `Total: RWF ${b.totalPrice.toLocaleString()}`,
+      `Guest email: ${b.guestEmail}`,
+      `Guest phone: ${b.guestPhone}`,
+      '',
+      'Please let me know if you need any other information.',
+    ].join('\n');
+    return `mailto:owneranabehotel@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
   // Calculate nights and price
@@ -248,23 +242,17 @@ export const BookingPage: React.FC<BookingPageProps> = ({
   if (confirmedBooking) {
     const primaryWaUrl = getWhatsAppUrl(confirmedBooking, primaryWhatsAppNumber);
     const secondaryWaUrl = getWhatsAppUrl(confirmedBooking, secondaryWhatsAppNumber);
-    const emailUrl = getEmailUrl(confirmedBooking);
 
     return (
       <div className="max-w-3xl mx-auto px-4 py-16">
         <div className="bg-white rounded-xl border border-[#E2DED4] p-8 sm:p-12 shadow-lg space-y-8">
           <div className="text-center space-y-3 pb-8 border-b border-[#ECE8DE]">
-            {/* ANABE HOTEL Luxury Brand Identity */}
-            <div className="mb-1">
-              <Logo size="lg" variant="badge" />
+            <div className="w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center mx-auto text-emerald-600 border border-emerald-200">
+              <CheckCircle2 className="w-9 h-9" />
             </div>
-
-            {/* Celebratory Success Animation */}
-            <BookingSuccessAnimation
-              guestName={confirmedBooking.guestName}
-              roomNumber={confirmedBooking.roomNumber}
-            />
-
+            <span className="text-xs font-semibold uppercase tracking-widest text-emerald-700 block">
+              ✓ Booking Created
+            </span>
             <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1A1A18]">
               Thank You, {confirmedBooking.guestName}!
             </h1>
@@ -314,38 +302,6 @@ export const BookingPage: React.FC<BookingPageProps> = ({
             </div>
             <p className="text-[11px] text-emerald-700 italic">
               Note: WhatsApp will open with your pre-filled reservation details. Please press <strong>Send</strong> in WhatsApp to deliver the message to hotel reception.
-            </p>
-          </div>
-
-          {/* Email Option for Booking Communication */}
-          <div className="bg-[#FAF9F5] border border-[#E2DED4] rounded-lg p-5 space-y-3">
-            <div className="flex items-start gap-3">
-              <div className="p-2 bg-[#1A1A18] text-[#B89667] rounded-full shrink-0 mt-0.5">
-                <Mail className="w-4 h-4" />
-              </div>
-              <div className="space-y-1">
-                <h3 className="text-sm font-bold text-[#1A1A18]">
-                  Contact Reception by Email
-                </h3>
-                <p className="text-xs text-[#66655E] leading-relaxed">
-                  Prefer email communication? Click below to open your device's email application with your full booking confirmation details pre-filled for <strong>info@anabehotel.com</strong>.
-                </p>
-              </div>
-            </div>
-
-            <div className="pt-1">
-              <a
-                href={emailUrl}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 py-2.5 px-4 bg-white hover:bg-neutral-50 text-[#1A1A18] border border-[#D5D0C5] text-xs font-semibold uppercase tracking-wider rounded transition-colors"
-              >
-                <Mail className="w-4 h-4 text-[#B89667]" />
-                <span>Open in Email Application (info@anabehotel.com)</span>
-                <ExternalLink className="w-3.5 h-3.5 text-[#888]" />
-              </a>
-            </div>
-
-            <p className="text-[11px] text-[#7A7870] italic">
-              Note: This action opens your device's default email client. Please press <strong>Send</strong> in your email app to deliver the reservation message to ANABE HOTEL reception.
             </p>
           </div>
 
@@ -458,6 +414,14 @@ export const BookingPage: React.FC<BookingPageProps> = ({
               <Printer className="w-4 h-4" />
               Print Receipt
             </button>
+
+            <a
+              href={getBookingEmailUrl(confirmedBooking)}
+              className="w-full sm:w-auto px-5 py-2.5 border border-[#D5D0C5] hover:bg-neutral-100 text-xs font-semibold uppercase tracking-wider rounded flex items-center justify-center gap-2"
+            >
+              <Mail className="w-4 h-4" />
+              Contact by Email
+            </a>
 
             <button
               onClick={onNavigateHome}

@@ -108,9 +108,16 @@ CREATE TABLE IF NOT EXISTS gallery (
     id VARCHAR(64) PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     caption TEXT,
+    description TEXT,
     category VARCHAR(64) NOT NULL,
     image_url TEXT NOT NULL,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    media_type VARCHAR(16) DEFAULT 'IMAGE',
+    alt_text TEXT,
+    published BOOLEAN DEFAULT true,
+    storage_key TEXT,
+    display_order INT DEFAULT 0,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 -- 8. Activity Logs

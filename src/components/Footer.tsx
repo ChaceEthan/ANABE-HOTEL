@@ -1,5 +1,5 @@
 import React from 'react';
-import { Phone, Mail, MapPin, ShieldCheck, ArrowUpRight, Calendar, BedDouble, HelpCircle } from 'lucide-react';
+import { Phone, Mail, MapPin, ShieldCheck, ArrowUpRight } from 'lucide-react';
 import { Logo } from './Logo.tsx';
 import type { HotelSettings } from '../types/hotel.ts';
 
@@ -13,7 +13,7 @@ export const Footer: React.FC<FooterProps> = ({ settings, onNavigate, onOpenLook
   const hotelName = settings?.hotelName || 'ANABE HOTEL';
   const phone1 = settings?.phone1 || '0788 845 520';
   const phone2 = settings?.phone2 || '0783 218 170';
-  const email = settings?.email || 'info@anabehotel.com';
+  const email = 'owneranabehotel@gmail.com';
   const address = settings?.address || 'KG 15 Avenue, Luxury Boulevard';
   const city = settings?.city || 'Kigali';
   const country = settings?.country || 'Rwanda';
@@ -22,29 +22,14 @@ export const Footer: React.FC<FooterProps> = ({ settings, onNavigate, onOpenLook
     <footer className="bg-[#141518] text-[#D8D7D2] pt-16 pb-12 border-t border-[#25272C]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-14 border-b border-[#25272C]">
-          {/* Brand & Identity with Luxury Logo */}
+          {/* Brand & Identity */}
           <div className="space-y-4">
-            <button
-              onClick={() => onNavigate('/')}
-              className="inline-block cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B89667] rounded-xl"
-              aria-label="ANABE HOTEL Homepage"
-            >
-              <Logo size="md" variant="badge" interactive={true} />
-            </button>
+            <Logo tone="light" className="h-12 w-auto max-w-[220px]" alt={`${hotelName} logo`} />
             <p className="text-sm text-[#A09F98] leading-relaxed">
-              65 thoughtfully appointed guest rooms, serene swimming pool, high-speed escalators and elevators, offering unmatched hospitality and comfort in Rwanda.
+              65 thoughtfully appointed guest rooms, serene swimming pool, high-speed escalators and elevators, offering unmatched hospitality and comfort.
             </p>
             <div className="pt-2 text-xs text-[#787770]">
               Check-in: <span className="text-[#E0DFD8]">{settings?.checkInTime || '14:00'}</span> · Check-out: <span className="text-[#E0DFD8]">{settings?.checkOutTime || '11:00'}</span>
-            </div>
-            <div className="pt-2">
-              <button
-                onClick={() => onNavigate('/booking')}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-[#B89667] hover:bg-[#A38355] text-white text-xs font-semibold uppercase tracking-wider rounded transition-colors cursor-pointer"
-              >
-                <Calendar className="w-3.5 h-3.5" />
-                <span>Book a Stay</span>
-              </button>
             </div>
           </div>
 
@@ -69,7 +54,7 @@ export const Footer: React.FC<FooterProps> = ({ settings, onNavigate, onOpenLook
                   >
                     {phone2}
                   </a>
-                  <span className="text-xs text-[#807F78] block mt-1">Available 24/7 for bookings & WhatsApp</span>
+                  <span className="text-xs text-[#807F78] block mt-1">Available 24/7 for bookings & inquiries</span>
                 </div>
               </div>
 
@@ -101,19 +86,9 @@ export const Footer: React.FC<FooterProps> = ({ settings, onNavigate, onOpenLook
               <li>
                 <button
                   onClick={() => onNavigate('/rooms')}
-                  className="hover:text-[#FFFFFF] transition-colors text-left text-xs cursor-pointer flex items-center gap-1.5"
+                  className="hover:text-[#FFFFFF] transition-colors text-left text-xs cursor-pointer"
                 >
-                  <BedDouble className="w-3.5 h-3.5 text-[#B89667]" />
-                  <span>Rooms & Suites (65 Units)</span>
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => onNavigate('/booking')}
-                  className="hover:text-[#FFFFFF] transition-colors text-left text-xs cursor-pointer flex items-center gap-1.5"
-                >
-                  <Calendar className="w-3.5 h-3.5 text-[#B89667]" />
-                  <span>Direct Online Reservation</span>
+                  Accommodation Rooms (65 Units)
                 </button>
               </li>
               <li>
@@ -129,16 +104,7 @@ export const Footer: React.FC<FooterProps> = ({ settings, onNavigate, onOpenLook
                   onClick={() => onNavigate('/gallery')}
                   className="hover:text-[#FFFFFF] transition-colors text-left text-xs cursor-pointer"
                 >
-                  Photo Gallery Showcase
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => onNavigate('/faq')}
-                  className="hover:text-[#FFFFFF] transition-colors text-left text-xs cursor-pointer flex items-center gap-1.5"
-                >
-                  <HelpCircle className="w-3.5 h-3.5 text-[#B89667]" />
-                  <span>Frequently Asked Questions (FAQ)</span>
+                  Photo Gallery
                 </button>
               </li>
               <li>
@@ -154,9 +120,12 @@ export const Footer: React.FC<FooterProps> = ({ settings, onNavigate, onOpenLook
                   onClick={() => onNavigate('/contact')}
                   className="hover:text-[#FFFFFF] transition-colors text-left text-xs cursor-pointer"
                 >
-                  Contact Us & Online Inquiries
+                  Contact & Inquiries
                 </button>
               </li>
+              <li><button onClick={() => onNavigate('/faq')} className="hover:text-[#FFFFFF] transition-colors text-left text-xs cursor-pointer">Frequently Asked Questions</button></li>
+              <li><button onClick={() => onNavigate('/privacy')} className="hover:text-[#FFFFFF] transition-colors text-left text-xs cursor-pointer">Privacy Policy</button></li>
+              <li><button onClick={() => onNavigate('/terms')} className="hover:text-[#FFFFFF] transition-colors text-left text-xs cursor-pointer">Terms &amp; Conditions</button></li>
             </ul>
           </div>
 
@@ -187,54 +156,15 @@ export const Footer: React.FC<FooterProps> = ({ settings, onNavigate, onOpenLook
           </div>
         </div>
 
-        {/* Sub-footer with Legal, Privacy, Terms, and Contact */}
-        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[#7E7D76]">
+        {/* Quiet Sub-footer */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#6E6D66]">
           <div>
-            © {new Date().getFullYear()} {hotelName}. All rights reserved. Direct Reservations: {phone1} · {phone2}
+            © {new Date().getFullYear()} {hotelName}. All rights reserved.
           </div>
-
-          <div className="flex flex-wrap items-center gap-4 sm:gap-6 text-xs">
-            <button
-              onClick={() => onNavigate('/faq')}
-              className="text-[#9E9D96] hover:text-[#FFFFFF] transition-colors cursor-pointer"
-            >
-              FAQ
-            </button>
+          <div className="flex items-center gap-6">
+            <span>Direct Reservations: {phone1}</span>
             <span>·</span>
-            <button
-              onClick={() => onNavigate('/privacy')}
-              className="text-[#9E9D96] hover:text-[#FFFFFF] transition-colors cursor-pointer"
-            >
-              Privacy Policy
-            </button>
-            <span>·</span>
-            <button
-              onClick={() => onNavigate('/terms')}
-              className="text-[#9E9D96] hover:text-[#FFFFFF] transition-colors cursor-pointer"
-            >
-              Terms & Conditions
-            </button>
-            <span>·</span>
-            <button
-              onClick={() => onNavigate('/contact')}
-              className="text-[#9E9D96] hover:text-[#FFFFFF] transition-colors cursor-pointer"
-            >
-              Contact
-            </button>
-            <span>·</span>
-            <button
-              onClick={() => onNavigate('/booking')}
-              className="text-[#9E9D96] hover:text-[#FFFFFF] transition-colors cursor-pointer"
-            >
-              Booking
-            </button>
-            <span>·</span>
-            <button
-              onClick={() => onNavigate('/rooms')}
-              className="text-[#9E9D96] hover:text-[#FFFFFF] transition-colors cursor-pointer"
-            >
-              Rooms
-            </button>
+            <span>{phone2}</span>
           </div>
         </div>
       </div>

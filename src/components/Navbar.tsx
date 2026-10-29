@@ -32,18 +32,15 @@ export const Navbar: React.FC<NavbarProps> = ({
     setMobileMenuOpen(false);
   };
 
-  const hotelName = settings?.hotelName || 'ANABE HOTEL';
-
   return (
     <header className="sticky top-0 z-40 bg-[#FAF9F5]/95 backdrop-blur-md border-b border-[#E8E4DA] transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        {/* Zone 1: Luxury Brand Identity Logo linking to Homepage */}
         <button
           onClick={() => handleLinkClick('/')}
-          className="flex items-center gap-2 group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B89667] rounded-sm py-1"
-          aria-label="ANABE HOTEL - Return to Homepage"
+          aria-label="ANABE HOTEL home"
+          className="text-left group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B89667] rounded-sm"
         >
-          <Logo size="md" priority={true} interactive={true} />
+          <Logo className="h-9 w-auto max-w-[150px] sm:h-10 sm:max-w-[180px]" />
         </button>
 
         {/* Zone 2: 4-6 clean text navigation links with subtle underlines */}

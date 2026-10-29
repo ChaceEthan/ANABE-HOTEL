@@ -1,0 +1,37 @@
+services:
+  - type: web
+    name: anabe-hotel
+    runtime: node
+    plan: starter
+    region: oregon
+    buildCommand: npm install --legacy-peer-deps && npm run build
+    startCommand: npm start
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: HOTEL_NAME
+        value: ANABE HOTEL
+      - key: HOTEL_OWNER_EMAIL
+        value: owneranabehotel@gmail.com
+      - key: HOTEL_PRIMARY_PHONE
+        value: 0788 845 520
+      - key: HOTEL_SECONDARY_PHONE
+        value: 0783 218 170
+      - key: HOTEL_PRIMARY_WHATSAPP
+        value: 250788845520
+      - key: HOTEL_SECONDARY_WHATSAPP
+        value: 250783218170

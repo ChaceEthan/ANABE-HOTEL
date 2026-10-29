@@ -47,7 +47,7 @@ export function getDefaultSeedData(): DatabaseSchema {
     hotelName: 'ANABE HOTEL',
     phone1: '0788 845 520',
     phone2: '0783 218 170',
-    email: 'info@anabehotel.com',
+    email: 'owneranabehotel@gmail.com',
     address: 'KG 15 Avenue, Luxury Boulevard',
     city: 'Kigali',
     country: 'Rwanda',
@@ -206,6 +206,11 @@ export function getDefaultSeedData(): DatabaseSchema {
       caption: 'Architectural front facade of ANABE HOTEL at evening with welcoming ambient entrance.',
       category: 'Exterior',
       imageUrl: '/src/assets/images/hero_hotel_exterior_1791471883513.jpg',
+      mediaType: 'IMAGE',
+      altText: 'ANABE HOTEL exterior at evening',
+      published: true,
+      updatedAt: '2026-03-01T10:00:00Z',
+      displayOrder: 4,
       createdAt: '2026-03-01T10:00:00Z',
     },
     {
@@ -214,6 +219,11 @@ export function getDefaultSeedData(): DatabaseSchema {
       caption: 'The outdoor turquoise swimming pool and sun terrace surrounded by tropical garden greenery.',
       category: 'Swimming Pool',
       imageUrl: '/src/assets/images/hotel_swimming_pool_1791471894050.jpg',
+      mediaType: 'IMAGE',
+      altText: 'ANABE HOTEL swimming pool',
+      published: true,
+      updatedAt: '2026-03-02T11:00:00Z',
+      displayOrder: 3,
       createdAt: '2026-03-02T11:00:00Z',
     },
     {
@@ -222,6 +232,11 @@ export function getDefaultSeedData(): DatabaseSchema {
       caption: 'Carefully appointed king guest room with plush linens, warm oak finishes, and reading armchairs.',
       category: 'Rooms',
       imageUrl: '/src/assets/images/hotel_deluxe_room_1791471905013.jpg',
+      mediaType: 'IMAGE',
+      altText: 'Deluxe guest room at ANABE HOTEL',
+      published: true,
+      updatedAt: '2026-03-03T14:30:00Z',
+      displayOrder: 2,
       createdAt: '2026-03-03T14:30:00Z',
     },
     {
@@ -230,6 +245,11 @@ export function getDefaultSeedData(): DatabaseSchema {
       caption: 'Spacious hotel atrium featuring marble floors, escalator connection, glass elevators, and reception.',
       category: 'Lobby',
       imageUrl: '/src/assets/images/hotel_lobby_escalator_1791471914533.jpg',
+      mediaType: 'IMAGE',
+      altText: 'ANABE HOTEL lobby with escalators and elevators',
+      published: true,
+      updatedAt: '2026-03-04T16:00:00Z',
+      displayOrder: 1,
       createdAt: '2026-03-04T16:00:00Z',
     },
   ];
@@ -389,6 +409,49 @@ export function getDefaultSeedData(): DatabaseSchema {
   };
 }
 
+let isPostgresActive = false;
+
+export async function initDatabase(): Promise<DatabaseSchema> {
+  const { loadPostgresData, seedPostgres, testPostgresConnection } = await import('./postgres.ts');
+
+  if (process.env.DATABASE_URL) {
+    console.log('[ANABE HOTEL] Checking Neon PostgreSQL connection...');
+    const connected = await testPostgresConnection();
+    if (connected) {
+      try {
+        const pgData = await loadPostgresData();
+        if (pgData) {
+          dbInstance = pgData;
+          isPostgresActive = true;
+          console.log(`[ANABE HOTEL] Connected to persistent Neon PostgreSQL (${pgData.rooms.length} rooms).`);
+          saveDatabase(pgData); // cache to local file for offline resilience
+          return dbInstance;
+        } else {
+          // Database tables are empty; perform safe initial seeding
+          console.log('[ANABE HOTEL] PostgreSQL database empty. Seeding initial hotel data...');
+          const seed = getDefaultSeedData();
+          await seedPostgres(seed);
+          dbInstance = seed;
+          isPostgresActive = true;
+          console.log('[ANABE HOTEL] Seeded Neon PostgreSQL successfully with 65 rooms.');
+          saveDatabase(seed);
+          return dbInstance;
+        }
+      } catch (err: any) {
+        console.error('[ANABE HOTEL] PostgreSQL initialization warning:', err.message);
+      }
+    } else {
+      console.warn('[ANABE HOTEL] PostgreSQL not reachable at startup, falling back to local storage.');
+    }
+  }
+
+  return getDatabase();
+}
+
+export function isDatabasePostgres(): boolean {
+  return isPostgresActive;
+}
+
 export function getDatabase(): DatabaseSchema {
   if (dbInstance) return dbInstance;
   ensureDataDirectory();
@@ -397,6 +460,19 @@ export function getDatabase(): DatabaseSchema {
     try {
       const content = fs.readFileSync(DATA_FILE, 'utf-8');
       dbInstance = JSON.parse(content) as DatabaseSchema;
+      dbInstance.gallery = (dbInstance.gallery || []).map((item, index) => ({
+        ...item,
+        mediaType: item.mediaType || 'IMAGE',
+        description: item.description ?? item.caption ?? '',
+        altText: item.altText ?? item.title,
+        published: item.published ?? true,
+        updatedAt: item.updatedAt ?? item.createdAt,
+        displayOrder: item.displayOrder ?? index,
+      }));
+      if (['info@anabehotel.com', 'contact@anabehotel.com'].includes(dbInstance.hotelSettings.email)) {
+        dbInstance.hotelSettings.email = 'owneranabehotel@gmail.com';
+        saveDatabase(dbInstance);
+      }
       return dbInstance;
     } catch (err) {
       console.error('Failed reading database file, reinitializing default seed:', err);
@@ -425,6 +501,29 @@ export function saveDatabase(data?: DatabaseSchema) {
     }
     console.error('Error writing database to disk:', err);
   }
+
+  // If PostgreSQL is active, debounce synchronization to avoid locking
+  schedulePostgresSync(toSave);
+}
+
+let pgSyncTimeout: NodeJS.Timeout | null = null;
+let isSyncing = false;
+
+function schedulePostgresSync(toSave: DatabaseSchema) {
+  if (!isPostgresActive) return;
+  if (pgSyncTimeout) clearTimeout(pgSyncTimeout);
+  pgSyncTimeout = setTimeout(async () => {
+    if (isSyncing) return;
+    isSyncing = true;
+    try {
+      const { seedPostgres } = await import('./postgres.ts');
+      await seedPostgres(toSave);
+    } catch (err: any) {
+      console.warn('[ANABE HOTEL] Background PostgreSQL sync notice:', err.message);
+    } finally {
+      isSyncing = false;
+    }
+  }, 1000);
 }
 
 // -------------------------------------------------------------
@@ -459,7 +558,9 @@ export function isRoomAvailableForDates(
 }
 
 // Atomic Booking Creation with Server-side Availability Lock
-export function createBookingWithLock(bookingData: Omit<Booking, 'id' | 'bookingReference' | 'createdAt' | 'updatedAt'>): Booking {
+export async function createBookingWithLock(
+  bookingData: Omit<Booking, 'id' | 'bookingReference' | 'createdAt' | 'updatedAt'>
+): Promise<Booking> {
   const db = getDatabase();
 
   // Validate dates
@@ -476,7 +577,15 @@ export function createBookingWithLock(bookingData: Omit<Booking, 'id' | 'booking
     throw new Error(`Room with ID ${bookingData.roomId} does not exist.`);
   }
 
-  // Atomic re-check
+  if (isPostgresActive) {
+    const { createBookingPostgresWithLock } = await import('./postgres.ts');
+    const newBooking = await createBookingPostgresWithLock(bookingData);
+    db.bookings.unshift(newBooking);
+    saveDatabase(db);
+    return newBooking;
+  }
+
+  // Fallback in-memory atomic lock check
   const available = isRoomAvailableForDates(bookingData.roomId, bookingData.checkIn, bookingData.checkOut);
   if (!available) {
     throw new Error('This room is no longer available for the selected dates.');

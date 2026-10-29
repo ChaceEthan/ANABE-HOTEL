@@ -12,4 +12,16 @@ logs/
 .env.production
 .env*
 !.env.example
+.remote-clone/
+.neon
+neon.ts
+public/uploads/
 data/*.tmp*
+*.tmp
+*.temp
+*.swp
+*.swo
+*.pem
+*.key
+*.p12
+*.pfx

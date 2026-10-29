@@ -1,15 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Phone,
-  Mail,
-  MapPin,
-  CheckCircle2,
-  Clock,
-  Send,
-  MessageCircle,
-  ExternalLink,
-  MessageSquare
-} from 'lucide-react';
+import { Phone, Mail, MapPin, CheckCircle2, Clock, MessageSquare, Send } from 'lucide-react';
 import { api } from '../lib/api.ts';
 import type { HotelSettings } from '../types/hotel.ts';
 
@@ -21,12 +11,10 @@ export const ContactPage: React.FC<ContactPageProps> = ({ settings }) => {
   const hotelName = settings?.hotelName || 'ANABE HOTEL';
   const phone1 = settings?.phone1 || '0788 845 520';
   const phone2 = settings?.phone2 || '0783 218 170';
-  const email = settings?.email || 'info@anabehotel.com';
-  const address = settings?.address || 'KG 15 Avenue, Luxury Boulevard, Kigali, Rwanda';
-
-  // WhatsApp international format numbers
-  const primaryWaNumber = '250788845520';
-  const secondaryWaNumber = '250783218170';
+  const email = 'owneranabehotel@gmail.com';
+  const address = settings?.address || 'KG 15 Avenue, Luxury Boulevard';
+  const city = settings?.city || 'Kigali';
+  const country = settings?.country || 'Rwanda';
 
   const [name, setName] = useState('');
   const [guestEmail, setGuestEmail] = useState('');
@@ -39,21 +27,16 @@ export const ContactPage: React.FC<ContactPageProps> = ({ settings }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim() || !guestEmail.trim() || !message.trim()) {
-      setError('Please provide your name, email, and message details.');
-      return;
-    }
-
     setLoading(true);
     setError(null);
 
     try {
       await api.submitContact({
-        name: name.trim(),
-        email: guestEmail.trim(),
-        phone: phone.trim(),
-        subject: subject.trim(),
-        message: message.trim(),
+        name,
+        email: guestEmail,
+        phone,
+        subject,
+        message,
       });
       setSuccess(true);
       setName('');
@@ -61,45 +44,10 @@ export const ContactPage: React.FC<ContactPageProps> = ({ settings }) => {
       setPhone('');
       setMessage('');
     } catch (err: any) {
-      setError(err.message || 'Failed to submit inquiry. Please try again or reach us directly via WhatsApp.');
+      setError(err.message || 'Failed to submit inquiry.');
     } finally {
       setLoading(false);
     }
-  };
-
-  // Build WhatsApp URL with inquiry text
-  const getWhatsAppInquiryUrl = (targetNumber: string) => {
-    const lines = [
-      'Hello ANABE HOTEL,',
-      '',
-      `I am reaching out regarding: ${subject || 'Inquiry'}`,
-      name ? `Name: ${name}` : '',
-      phone ? `Phone: ${phone}` : '',
-      guestEmail ? `Email: ${guestEmail}` : '',
-      message ? `Message: ${message}` : 'I would like to inquire about room availability and reservations.',
-    ].filter(Boolean).join('\n');
-
-    return `https://wa.me/${targetNumber}?text=${encodeURIComponent(lines)}`;
-  };
-
-  // Build mailto URL with inquiry text
-  const getMailtoUrl = () => {
-    const subjectLine = `${subject || 'Guest Inquiry'} - ${name || 'Prospective Guest'}`;
-    const bodyLines = [
-      'Dear ANABE HOTEL Management & Front Desk,',
-      '',
-      name ? `Guest Name: ${name}` : '',
-      phone ? `Phone Number: ${phone}` : '',
-      guestEmail ? `Email: ${guestEmail}` : '',
-      '',
-      'INQUIRY DETAILS:',
-      message || 'I would like to inquire about room reservations at ANABE HOTEL.',
-      '',
-      'Thank you,',
-      name || 'Guest',
-    ].filter(Boolean).join('\n');
-
-    return `mailto:${email}?subject=${encodeURIComponent(subjectLine)}&body=${encodeURIComponent(bodyLines)}`;
   };
 
   return (
@@ -112,59 +60,19 @@ export const ContactPage: React.FC<ContactPageProps> = ({ settings }) => {
           Contact {hotelName}
         </h1>
         <p className="text-sm text-[#66655E] leading-relaxed">
-          For room reservations across our 65 accommodations, long-stay bookings, event coordination, or general guest assistance, our team is at your service 24/7.
+          For reservation inquiries, group bookings, extended corporate stays, or special arrangements, our owner and front desk team are at your service.
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
         {/* Contact Info Cards */}
         <div className="space-y-6">
-          {/* WhatsApp Direct Chat Card */}
-          <div className="bg-emerald-50/80 p-6 rounded-xl border border-emerald-200 shadow-xs space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="p-2 bg-[#25D366] text-white rounded-full">
-                <MessageCircle className="w-4 h-4" />
-              </div>
-              <h3 className="font-serif text-lg font-bold text-emerald-950">
-                Direct WhatsApp Chat
-              </h3>
-            </div>
-            <p className="text-xs text-emerald-800 leading-relaxed">
-              Message our reception desk directly for swift reservation checks and instant responses:
-            </p>
-            <div className="space-y-2 pt-1">
-              <a
-                href={getWhatsAppInquiryUrl(primaryWaNumber)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-2.5 px-3 bg-[#25D366] hover:bg-[#1EBE5D] text-white text-xs font-bold uppercase tracking-wider rounded flex items-center justify-between transition-colors shadow-xs"
-              >
-                <span>Primary WhatsApp (0788 845 520)</span>
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
-
-              <a
-                href={getWhatsAppInquiryUrl(secondaryWaNumber)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-2.5 px-3 bg-white hover:bg-neutral-50 text-emerald-900 border border-emerald-300 text-xs font-semibold uppercase tracking-wider rounded flex items-center justify-between transition-colors"
-              >
-                <span>Secondary Line (0783 218 170)</span>
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
-            </div>
-            <p className="text-[11px] text-emerald-700 italic">
-              Note: Clicking will open WhatsApp on your device. Please click Send to deliver your message.
-            </p>
-          </div>
-
-          {/* Telephone & Voice Lines */}
           <div className="bg-white p-6 rounded-xl border border-[#E2DED4] shadow-xs space-y-4">
             <h3 className="font-serif text-xl font-bold text-[#1A1A18]">
-              Telephone & Voice Lines
+              Owner Contact & Phone Lines
             </h3>
             <p className="text-xs text-[#66655E]">
-              Direct telephone lines to hotel reception and management:
+              Direct telephone lines to hotel management for swift reservations and assistance:
             </p>
             <div className="space-y-3 pt-2">
               <div className="flex items-start gap-3">
@@ -199,7 +107,6 @@ export const ContactPage: React.FC<ContactPageProps> = ({ settings }) => {
             </div>
           </div>
 
-          {/* Location & Schedule */}
           <div className="bg-white p-6 rounded-xl border border-[#E2DED4] shadow-xs space-y-4">
             <h3 className="font-serif text-xl font-bold text-[#1A1A18]">
               Location & Schedule
@@ -209,7 +116,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ settings }) => {
                 <MapPin className="w-4 h-4 text-[#B89667] shrink-0 mt-0.5" />
                 <div>
                   <span className="font-semibold text-[#1A1A18] block">Hotel Address</span>
-                  <span className="text-[#66655E]">{address}</span>
+                  <span className="text-[#66655E]">{address}, {city}, {country}</span>
                 </div>
               </div>
 
@@ -217,16 +124,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ settings }) => {
                 <Mail className="w-4 h-4 text-[#B89667] shrink-0 mt-0.5" />
                 <div>
                   <span className="font-semibold text-[#1A1A18] block">Email Inquiries</span>
-                  <a
-                    href={getMailtoUrl()}
-                    className="text-[#B89667] hover:underline"
-                    title="Click to open your email client"
-                  >
-                    {email}
-                  </a>
-                  <span className="text-[10px] text-[#8C8A82] block mt-0.5">
-                    (Opens default email application)
-                  </span>
+                  <a href={`mailto:${email}`} className="text-[#66655E] hover:text-[#1A1A18]">{email}</a>
                 </div>
               </div>
 
@@ -234,50 +132,35 @@ export const ContactPage: React.FC<ContactPageProps> = ({ settings }) => {
                 <Clock className="w-4 h-4 text-[#B89667] shrink-0 mt-0.5" />
                 <div>
                   <span className="font-semibold text-[#1A1A18] block">Hours</span>
-                  <span className="text-[#66655E]">Front Desk: 24/7 · Check-in: 14:00 · Check-out: 11:00</span>
+                  <span className="text-[#66655E]">Front Desk: 24/7 · Check-in: {settings?.checkInTime || '14:00'}</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Contact / Online Inquiry Form */}
-        <div className="lg:col-span-2 bg-white p-8 sm:p-10 rounded-xl border border-[#E2DED4] shadow-xs space-y-6">
-          <div>
-            <h2 className="font-serif text-2xl font-bold text-[#1A1A18] mb-1">
-              Send an Online Inquiry
-            </h2>
-            <p className="text-xs text-[#66655E]">
-              Fill out the inquiry form below to record your message directly into our front desk management system.
-            </p>
-          </div>
+        {/* Contact Form */}
+        <div className="lg:col-span-2 bg-white p-8 sm:p-10 rounded-xl border border-[#E2DED4] shadow-xs">
+          <h2 className="font-serif text-2xl font-bold text-[#1A1A18] mb-2">
+            Send Us a Message
+          </h2>
+          <p className="text-xs text-[#66655E] mb-6">
+            Complete the form below and our team will get back to you shortly.
+          </p>
 
           {success ? (
-            <div className="p-8 bg-emerald-50 border border-emerald-200 rounded-lg text-center space-y-4">
+            <div className="p-8 bg-emerald-50 border border-emerald-200 rounded-lg text-center space-y-3">
               <CheckCircle2 className="w-10 h-10 text-emerald-600 mx-auto" />
-              <h3 className="font-serif text-xl font-bold text-emerald-900">
-                Inquiry Recorded in Hotel Registry
-              </h3>
-              <p className="text-xs text-emerald-700 max-w-md mx-auto leading-relaxed">
-                Thank you for contacting ANABE HOTEL. Your message has been saved to our management system. Our reception team will reach out via your provided phone number or email promptly.
+              <h3 className="font-serif text-xl font-bold text-emerald-900">Message Received</h3>
+              <p className="text-xs text-emerald-700 max-w-md mx-auto">
+                Thank you for contacting ANABE HOTEL. Your message has been saved to our management system and we will respond promptly.
               </p>
-              <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
-                <button
-                  onClick={() => setSuccess(false)}
-                  className="px-5 py-2.5 bg-emerald-800 hover:bg-emerald-900 text-white text-xs font-semibold rounded uppercase tracking-wider cursor-pointer"
-                >
-                  Send Another Inquiry
-                </button>
-                <a
-                  href={getWhatsAppInquiryUrl(primaryWaNumber)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-5 py-2.5 bg-[#25D366] hover:bg-[#1EBE5D] text-white text-xs font-semibold rounded uppercase tracking-wider flex items-center gap-2"
-                >
-                  <MessageCircle className="w-4 h-4" />
-                  <span>Also Message on WhatsApp</span>
-                </a>
-              </div>
+              <button
+                onClick={() => setSuccess(false)}
+                className="mt-4 px-5 py-2 bg-emerald-800 text-white text-xs font-semibold rounded uppercase tracking-wider cursor-pointer"
+              >
+                Send Another Message
+              </button>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -290,7 +173,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ settings }) => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="text-[11px] font-semibold uppercase text-[#737169] block mb-1">
-                    Your Full Name *
+                    Your Name *
                   </label>
                   <input
                     type="text"
@@ -320,7 +203,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ settings }) => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="text-[11px] font-semibold uppercase text-[#737169] block mb-1">
-                    Phone / WhatsApp Number
+                    Phone Number
                   </label>
                   <input
                     type="tel"
@@ -333,7 +216,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ settings }) => {
 
                 <div>
                   <label className="text-[11px] font-semibold uppercase text-[#737169] block mb-1">
-                    Inquiry Subject
+                    Subject
                   </label>
                   <select
                     value={subject}
@@ -343,8 +226,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ settings }) => {
                     <option value="Room Booking Inquiry">Room Booking Inquiry</option>
                     <option value="Long-term Stay Rate">Long-term Stay Rate</option>
                     <option value="Corporate / Group Event">Corporate / Group Event</option>
-                    <option value="Facility Question (Pool & Elevators)">Facility Question (Pool & Elevators)</option>
-                    <option value="Airport Transfer or Direction Inquiry">Airport Transfer or Direction Inquiry</option>
+                    <option value="Facility Question">Facility Question</option>
                     <option value="Other">Other</option>
                   </select>
                 </div>
@@ -364,38 +246,14 @@ export const ContactPage: React.FC<ContactPageProps> = ({ settings }) => {
                 />
               </div>
 
-              <div className="pt-2 flex flex-col sm:flex-row items-center gap-3">
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full sm:w-auto px-8 py-3 bg-[#1A1A18] hover:bg-[#B89667] text-white text-xs font-semibold uppercase tracking-widest rounded transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
-                >
-                  {loading ? <Clock className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
-                  <span>Submit Inquiry to Hotel</span>
-                </button>
-
-                <a
-                  href={getWhatsAppInquiryUrl(primaryWaNumber)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto px-5 py-3 bg-[#25D366] hover:bg-[#1EBE5D] text-white text-xs font-semibold uppercase tracking-wider rounded transition-colors flex items-center justify-center gap-2"
-                >
-                  <MessageCircle className="w-4 h-4" />
-                  <span>Send via WhatsApp</span>
-                </a>
-
-                <a
-                  href={getMailtoUrl()}
-                  className="w-full sm:w-auto px-5 py-3 bg-white hover:bg-neutral-50 text-[#1A1A18] border border-[#D5D0C5] text-xs font-semibold uppercase tracking-wider rounded transition-colors flex items-center justify-center gap-2"
-                >
-                  <Mail className="w-4 h-4 text-[#B89667]" />
-                  <span>Open Email Client</span>
-                </a>
-              </div>
-
-              <p className="text-[11px] text-[#7A7870] italic pt-1">
-                Note: Submitting this form saves your inquiry directly into the ANABE HOTEL database. The WhatsApp and Email buttons open their respective applications on your device.
-              </p>
+              <button
+                type="submit"
+                disabled={loading}
+                className="px-8 py-3 bg-[#1A1A18] hover:bg-[#B89667] text-white text-xs font-semibold uppercase tracking-widest rounded transition-all flex items-center gap-2 cursor-pointer disabled:opacity-50"
+              >
+                {loading ? <Clock className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+                <span>Send Inquiry</span>
+              </button>
             </form>
           )}
         </div>

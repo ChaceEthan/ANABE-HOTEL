@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { api, setStoredToken } from '../../lib/api.ts';
-import { Logo } from '../../components/Logo.tsx';
+import { api } from '../../lib/api.ts';
 import type { User } from '../../types/hotel.ts';
+import { Logo } from '../../components/Logo.tsx';
 import { ShieldCheck, Lock, Mail, ArrowRight, UserCheck, KeyRound } from 'lucide-react';
 
 interface AdminLoginPageProps {
@@ -25,10 +25,9 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({
 
     try {
       const res = await api.login({ email, password });
-      setStoredToken(res.token);
       onLoginSuccess(res.user);
     } catch (err: any) {
-      setError(err.message || 'Login failed. Please check your credentials.');
+      setError(err.message || 'Sign-in failed. Please check your details and try again.');
     } finally {
       setLoading(false);
     }
@@ -43,23 +42,14 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4 py-12">
       <div className="max-w-md w-full bg-white rounded-xl border border-[#E2DED4] p-8 sm:p-10 shadow-lg space-y-6">
-        <div className="text-center space-y-3">
-          <button
-            type="button"
-            onClick={onNavigateHome}
-            className="inline-block mx-auto cursor-pointer focus:outline-none"
-            title="Return to ANABE HOTEL Homepage"
-          >
-            <Logo size="lg" />
-          </button>
-          <div>
-            <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#1A1A18]">
-              Management Portal
-            </h1>
-            <p className="text-xs text-[#7A7870] mt-1">
-              Secure staff, manager, and owner management console.
-            </p>
-          </div>
+        <div className="text-center space-y-2">
+          <Logo className="h-10 w-auto max-w-[220px] mx-auto" />
+          <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#1A1A18]">
+            Management Portal
+          </h1>
+          <p className="text-xs text-[#7A7870]">
+            Secure staff, manager, and owner management console.
+          </p>
         </div>
 
         {error && (

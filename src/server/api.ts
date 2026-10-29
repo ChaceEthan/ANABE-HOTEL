@@ -1,4 +1,8 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express from 'express';
+import type { Request, Response, NextFunction } from 'express';
+import crypto from 'node:crypto';
+import path from 'node:path';
+import fs from 'node:fs';
 import {
   getDatabase,
   saveDatabase,
@@ -11,8 +15,9 @@ import {
   verifyPassword,
   generateToken,
   verifyToken,
-  TokenPayload,
+  getJwtSecret,
 } from './auth.ts';
+import type { TokenPayload } from './auth.ts';
 import type {
   UserRole,
   RoomOperationalStatus,
@@ -20,7 +25,10 @@ import type {
   PaymentStatus,
   PaymentMethod,
   Room,
+  GalleryItem,
 } from '../types/hotel.ts';
+import { deleteStoredMedia, detectMedia, getMediaDirectory, mediaContentType, resolveStoredMedia, storeMedia } from './mediaStorage.ts';
+import { isCloudinaryConfigured, uploadBufferToCloudinary } from './cloudinary.ts';
 
 export const apiRouter = express.Router();
 
@@ -31,30 +39,53 @@ export interface AuthRequest extends Request {
   user?: TokenPayload;
 }
 
+const SESSION_COOKIE = 'anabe_session';
+const SESSION_SECONDS = 8 * 60 * 60;
+const loginAttempts = new Map<string, { count: number; resetAt: number }>();
+const dummyPasswordHash = hashPassword(crypto.randomBytes(32).toString('hex'));
+
+function getCookie(req: Request, name: string): string | undefined {
+  const cookies = req.headers.cookie?.split(';') || [];
+  const prefix = `${name}=`;
+  const cookie = cookies.map((entry) => entry.trim()).find((entry) => entry.startsWith(prefix));
+  return cookie ? decodeURIComponent(cookie.slice(prefix.length)) : undefined;
+}
+
+function sessionCookieOptions() {
+  return { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'strict' as const, path: '/', maxAge: SESSION_SECONDS * 1000 };
+}
+
 export function requireAuth(req: AuthRequest, res: Response, next: NextFunction) {
   const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return res.status(401).json({ error: 'Unauthorized: Authentication required.' });
-  }
-
-  const token = authHeader.split(' ')[1];
+  const token = getCookie(req, SESSION_COOKIE) || (authHeader?.startsWith('Bearer ') ? authHeader.slice(7) : undefined);
+  if (!token) return res.status(401).json({ error: 'Authentication required.', code: 'SESSION_INVALID' });
   const payload = verifyToken(token);
-  if (!payload) {
-    return res.status(401).json({ error: 'Unauthorized: Invalid or expired session token.' });
+  if (!payload) return res.status(401).json({ error: 'Session expired or invalid.', code: 'SESSION_INVALID' });
+
+  const user = getDatabase().users.find((entry) => entry.id === payload.userId);
+  if (!user || user.status !== 'ACTIVE') return res.status(401).json({ error: 'Session expired or invalid.', code: 'SESSION_INVALID' });
+
+  if (req.method !== 'GET' && req.method !== 'HEAD' && req.method !== 'OPTIONS' && getCookie(req, SESSION_COOKIE)) {
+    const origin = req.get('origin');
+    const host = req.get('host');
+    if (origin && host && new URL(origin).host !== host) {
+      return res.status(403).json({ error: 'Request origin is not allowed.', code: 'FORBIDDEN' });
+    }
   }
 
-  req.user = payload;
+  req.user = { ...payload, email: user.email, name: user.name, role: user.role, permissions: user.permissions };
   next();
 }
 
 export function requireRole(allowedRoles: UserRole[]) {
   return (req: AuthRequest, res: Response, next: NextFunction) => {
     if (!req.user) {
-      return res.status(401).json({ error: 'Unauthorized' });
+      return res.status(401).json({ error: 'Authentication required.', code: 'SESSION_INVALID' });
     }
     if (!allowedRoles.includes(req.user.role)) {
       return res.status(403).json({
-        error: `Forbidden: This action requires one of the following roles: ${allowedRoles.join(', ')}.`,
+        error: 'Insufficient permissions.',
+        code: 'FORBIDDEN',
       });
     }
     next();
@@ -64,7 +95,7 @@ export function requireRole(allowedRoles: UserRole[]) {
 export function requirePermission(permission: string) {
   return (req: AuthRequest, res: Response, next: NextFunction) => {
     if (!req.user) {
-      return res.status(401).json({ error: 'Unauthorized' });
+      return res.status(401).json({ error: 'Authentication required.', code: 'SESSION_INVALID' });
     }
     // OWNER has all permissions
     if (req.user.role === 'OWNER') {
@@ -72,7 +103,8 @@ export function requirePermission(permission: string) {
     }
     if (!req.user.permissions.includes(permission)) {
       return res.status(403).json({
-        error: `Forbidden: Missing required permission '${permission}'.`,
+        error: 'Insufficient permissions.',
+        code: 'FORBIDDEN',
       });
     }
     next();
@@ -99,7 +131,28 @@ apiRouter.get('/facilities', (_req: Request, res: Response) => {
 // Gallery preview and full collection
 apiRouter.get('/gallery', (_req: Request, res: Response) => {
   const db = getDatabase();
-  res.json(db.gallery);
+  res.json(db.gallery.filter((item) => item.published !== false).sort((a, b) => (b.displayOrder || 0) - (a.displayOrder || 0)));
+});
+
+apiRouter.get('/gallery/:id', (req: Request, res: Response) => {
+  const item = getDatabase().gallery.find((entry) => entry.id === req.params.id && entry.published !== false);
+  if (!item) return res.status(404).json({ error: 'Gallery item not found.' });
+  res.json(item);
+});
+
+apiRouter.get('/admin/gallery', requireAuth, requirePermission('manage_gallery'), (_req: AuthRequest, res: Response) => {
+  res.json(getDatabase().gallery.sort((a, b) => (b.displayOrder || 0) - (a.displayOrder || 0)));
+});
+
+apiRouter.get('/media/:id', async (req: Request, res: Response) => {
+  const item = getDatabase().gallery.find((entry) => entry.id === req.params.id && entry.published !== false);
+  if (!item?.storageKey) return res.status(404).json({ error: 'Media not found.' });
+  const filePath = await resolveStoredMedia(item.storageKey);
+  if (!filePath) return res.status(404).json({ error: 'Media file not found.' });
+  res.setHeader('Content-Type', mediaContentType(item.storageKey));
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('Cache-Control', 'public, max-age=3600');
+  res.sendFile(filePath);
 });
 
 // Public rooms list
@@ -190,7 +243,7 @@ apiRouter.get('/rooms/:id', (req: Request, res: Response) => {
 });
 
 // Create Public Booking (Enforcing Server-Side Double-Booking Protection)
-apiRouter.post('/bookings', (req: Request, res: Response) => {
+apiRouter.post('/bookings', async (req: Request, res: Response) => {
   try {
     const {
       roomId,
@@ -226,7 +279,7 @@ apiRouter.post('/bookings', (req: Request, res: Response) => {
     const pricePerNight = room.pricePerNight;
     const totalPrice = pricePerNight * nights;
 
-    const newBooking = createBookingWithLock({
+    const newBooking = await createBookingWithLock({
       roomId: room.id,
       roomNumber: room.roomNumber,
       roomName: room.name,
@@ -299,21 +352,28 @@ apiRouter.post('/contact', (req: Request, res: Response) => {
 
 apiRouter.post('/auth/login', (req: Request, res: Response) => {
   const { email, password } = req.body;
-  if (!email || !password) {
-    return res.status(400).json({ error: 'Email and password are required.' });
+  if (typeof email !== 'string' || typeof password !== 'string' || !email.trim() || !password || email.length > 254 || password.length > 1024) {
+    return res.status(400).json({ error: 'Valid email and password are required.', code: 'INVALID_INPUT' });
   }
+
+  const now = Date.now();
+  const ip = req.ip || 'unknown';
+  const attempt = loginAttempts.get(ip);
+  if (attempt && attempt.resetAt > now && attempt.count >= 5) {
+    return res.status(429).json({ error: 'Too many sign-in attempts. Try again later.', code: 'RATE_LIMITED' });
+  }
+  if (!attempt || attempt.resetAt <= now) loginAttempts.set(ip, { count: 0, resetAt: now + 15 * 60 * 1000 });
 
   const db = getDatabase();
   const user = db.users.find((u) => u.email.toLowerCase() === email.trim().toLowerCase());
 
-  if (!user || user.status === 'DISABLED') {
-    return res.status(401).json({ error: 'Invalid email or password.' });
+  const valid = verifyPassword(password, user?.passwordHash || dummyPasswordHash);
+  if (!user || user.status !== 'ACTIVE' || !valid) {
+    const current = loginAttempts.get(ip)!;
+    current.count += 1;
+    return res.status(401).json({ error: 'Invalid email or password.', code: 'INVALID_CREDENTIALS' });
   }
-
-  const valid = verifyPassword(password, user.passwordHash);
-  if (!valid) {
-    return res.status(401).json({ error: 'Invalid email or password.' });
-  }
+  loginAttempts.delete(ip);
 
   user.lastLoginAt = new Date().toISOString();
   saveDatabase(db);
@@ -327,9 +387,15 @@ apiRouter.post('/auth/login', (req: Request, res: Response) => {
     ip: req.ip,
   });
 
-  const token = generateToken(user);
+  try {
+    getJwtSecret();
+    const token = generateToken(user);
+    res.cookie(SESSION_COOKIE, token, sessionCookieOptions());
+  } catch (error) {
+    console.error('Authentication configuration error:', error instanceof Error ? error.message : 'Unknown configuration error.');
+    return res.status(503).json({ error: 'Authentication is not configured on this server.', code: 'SERVER_CONFIGURATION' });
+  }
   res.json({
-    token,
     user: {
       id: user.id,
       name: user.name,
@@ -339,6 +405,11 @@ apiRouter.post('/auth/login', (req: Request, res: Response) => {
       status: user.status,
     },
   });
+});
+
+apiRouter.post('/auth/logout', (_req: Request, res: Response) => {
+  res.clearCookie(SESSION_COOKIE, { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'strict', path: '/' });
+  res.json({ success: true });
 });
 
 apiRouter.get('/auth/me', requireAuth, (req: AuthRequest, res: Response) => {
@@ -516,7 +587,7 @@ apiRouter.patch('/admin/bookings/:id/payment', requireAuth, (req: AuthRequest, r
 });
 
 // Admin create manual reservation
-apiRouter.post('/admin/bookings', requireAuth, requirePermission('manage_bookings'), (req: AuthRequest, res: Response) => {
+apiRouter.post('/admin/bookings', requireAuth, requirePermission('manage_bookings'), async (req: AuthRequest, res: Response) => {
   try {
     const { roomId, checkIn, checkOut, guestName, guestEmail, guestPhone, guestsCount, notes, paymentMethod, paymentStatus } = req.body;
     const db = getDatabase();
@@ -528,7 +599,7 @@ apiRouter.post('/admin/bookings', requireAuth, requirePermission('manage_booking
     const nights = Math.ceil((checkOutDate.getTime() - checkInDate.getTime()) / (1000 * 60 * 60 * 24));
     if (nights <= 0) return res.status(400).json({ error: 'Invalid dates' });
 
-    const newBooking = createBookingWithLock({
+    const newBooking = await createBookingWithLock({
       roomId: room.id,
       roomNumber: room.roomNumber,
       roomName: room.name,
@@ -941,6 +1012,34 @@ apiRouter.post('/admin/facilities', requireAuth, requirePermission('manage_facil
   res.status(201).json(newFacility);
 });
 
+apiRouter.put('/admin/facilities/:id', requireAuth, requireRole(['OWNER', 'MANAGER']), (req: AuthRequest, res: Response) => {
+  const db = getDatabase();
+  const fac = db.facilities.find((f) => f.id === req.params.id);
+  if (!fac) return res.status(404).json({ error: 'Facility not found' });
+
+  const { name, description, image, icon, status, displayOrder } = req.body;
+  if (name !== undefined) fac.name = name.trim();
+  if (description !== undefined) fac.description = description;
+  if (image !== undefined) fac.image = image;
+  if (icon !== undefined) fac.icon = icon;
+  if (status !== undefined) fac.status = status;
+  if (displayOrder !== undefined) fac.displayOrder = Number(displayOrder);
+
+  saveDatabase(db);
+
+  logActivity({
+    userId: req.user!.userId,
+    userName: req.user!.name,
+    userRole: req.user!.role,
+    action: 'FACILITY_UPDATED',
+    details: `Facility '${fac.name}' updated.`,
+    resourceType: 'facility',
+    resourceId: fac.id,
+  });
+
+  res.json(fac);
+});
+
 apiRouter.delete('/admin/facilities/:id', requireAuth, requireRole(['OWNER', 'MANAGER']), (req: AuthRequest, res: Response) => {
   const db = getDatabase();
   const idx = db.facilities.findIndex((f) => f.id === req.params.id);
@@ -963,21 +1062,31 @@ apiRouter.delete('/admin/facilities/:id', requireAuth, requireRole(['OWNER', 'MA
   res.json({ success: true, message: `Facility '${deleted.name}' removed.` });
 });
 
-// Gallery Management (Add / Delete)
+// Add Gallery item with image URL directly
 apiRouter.post('/admin/gallery', requireAuth, requirePermission('manage_gallery'), (req: AuthRequest, res: Response) => {
-  const { title, caption, category, imageUrl } = req.body;
+  const { title, caption, description, category, imageUrl, mediaType, altText, published, displayOrder } = req.body;
   if (!title || !imageUrl) {
     return res.status(400).json({ error: 'Title and image URL are required.' });
   }
 
   const db = getDatabase();
-  const newItem = {
-    id: `gal_${Date.now()}`,
+  const id = `gal_${Date.now()}_${crypto.randomBytes(4).toString('hex')}`;
+  const now = new Date().toISOString();
+  const newItem: GalleryItem = {
+    id,
     title: title.trim(),
-    caption: caption || '',
-    category: category || 'Hotel',
+    caption: (caption || description || '').trim(),
+    description: (description || caption || '').trim(),
+    category: category || 'General',
     imageUrl: imageUrl.trim(),
-    createdAt: new Date().toISOString(),
+    mediaType: mediaType || 'IMAGE',
+    altText: altText || title.trim(),
+    published: published !== false,
+    displayOrder: displayOrder !== undefined ? Number(displayOrder) : db.gallery.length + 1,
+    createdAt: now,
+    updatedAt: now,
+    createdBy: req.user!.userId,
+    updatedBy: req.user!.userId,
   };
 
   db.gallery.unshift(newItem);
@@ -988,7 +1097,7 @@ apiRouter.post('/admin/gallery', requireAuth, requirePermission('manage_gallery'
     userName: req.user!.name,
     userRole: req.user!.role,
     action: 'GALLERY_ITEM_ADDED',
-    details: `Gallery photo '${newItem.title}' added under '${newItem.category}'.`,
+    details: `Gallery photo '${newItem.title}' added.`,
     resourceType: 'gallery',
     resourceId: newItem.id,
   });
@@ -996,7 +1105,163 @@ apiRouter.post('/admin/gallery', requireAuth, requirePermission('manage_gallery'
   res.status(201).json(newItem);
 });
 
-apiRouter.delete('/admin/gallery/:id', requireAuth, requirePermission('manage_gallery'), (req: AuthRequest, res: Response) => {
+// Unified protected upload endpoint (supports Cloudinary with local fallback)
+apiRouter.post('/admin/upload', requireAuth, async (req: AuthRequest, res: Response) => {
+  try {
+    const { data, folder } = req.body;
+    if (!data || typeof data !== 'string') {
+      return res.status(400).json({ error: 'Image data is required as a base64 data URL.' });
+    }
+
+    const matches = data.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+    if (!matches || matches.length !== 3) {
+      return res.status(400).json({ error: 'Invalid data URL format. Expected data:image/...;base64,...' });
+    }
+
+    const buffer = Buffer.from(matches[2], 'base64');
+    if (buffer.length > 10 * 1024 * 1024) {
+      return res.status(413).json({ error: 'File exceeds 10MB limit.' });
+    }
+
+    const detected = detectMedia(buffer);
+    if (!detected || detected.mediaType !== 'IMAGE') {
+      return res.status(415).json({ error: 'Supported formats are JPG, PNG, and WebP.' });
+    }
+
+    const targetFolder = folder === 'rooms' ? 'anabe-hotel/rooms' : folder === 'facilities' ? 'anabe-hotel/facilities' : 'anabe-hotel/gallery';
+
+    if (isCloudinaryConfigured()) {
+      const uploadRes = await uploadBufferToCloudinary(buffer, {
+        folder: targetFolder,
+        resourceType: 'image',
+      });
+      return res.status(201).json({
+        url: uploadRes.secure_url,
+        publicId: uploadRes.public_id,
+        format: uploadRes.format,
+      });
+    }
+
+    // Fallback: save to public/images or public/uploads
+    const filename = `upload_${Date.now()}_${crypto.randomBytes(4).toString('hex')}.${detected.extension}`;
+    const uploadsDir = path.resolve(process.cwd(), 'public/images');
+    await fs.promises.mkdir(uploadsDir, { recursive: true });
+    await fs.promises.writeFile(path.join(uploadsDir, filename), buffer);
+
+    return res.status(201).json({
+      url: `/images/${filename}`,
+      format: detected.extension,
+    });
+  } catch (err: any) {
+    console.error('[ANABE HOTEL] Upload error:', err);
+    return res.status(500).json({ error: err.message || 'Image upload failed.' });
+  }
+});
+
+// Media content is streamed as a raw request body; file signatures determine accepted formats.
+apiRouter.post('/admin/gallery/upload', requireAuth, requirePermission('manage_gallery'), async (req: AuthRequest, res: Response) => {
+  const title = typeof req.query.title === 'string' ? req.query.title.trim() : '';
+  const description = typeof req.query.description === 'string' ? req.query.description.trim() : '';
+  const category = typeof req.query.category === 'string' ? req.query.category : 'General';
+  const altText = typeof req.query.altText === 'string' ? req.query.altText.trim() : '';
+  const published = req.query.published === 'true';
+  const validCategories = ['Rooms', 'Swimming Pool', 'Facilities', 'Restaurant', 'Events', 'General', 'Exterior', 'Lobby', 'Hotel'];
+  if (!title || title.length > 160 || description.length > 5000 || altText.length > 300 || !validCategories.includes(category)) {
+    return res.status(400).json({ error: 'Provide a title, supported category, and text within the allowed lengths.' });
+  }
+  if (Number(req.headers['content-length']) > 100 * 1024 * 1024) {
+    return res.status(413).json({ error: 'Media files may not exceed 100 MB.' });
+  }
+
+  try {
+    const chunks: Buffer[] = [];
+    let totalBytes = 0;
+    for await (const chunk of req) {
+      const buffer = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk);
+      totalBytes += buffer.length;
+      if (totalBytes > 100 * 1024 * 1024) return res.status(413).json({ error: 'Media files may not exceed 100 MB.' });
+      chunks.push(buffer);
+    }
+    const fileBuffer = Buffer.concat(chunks);
+    const detected = detectMedia(fileBuffer);
+    if (!detected) return res.status(415).json({ error: 'Supported uploads are JPG, PNG, WebP, MP4, and WebM files.' });
+
+    const id = crypto.randomUUID();
+    let imageUrl = `/api/media/${id}`;
+    let storageKey: string | undefined = undefined;
+
+    if (isCloudinaryConfigured()) {
+      try {
+        const cRes = await uploadBufferToCloudinary(fileBuffer, {
+          folder: 'anabe-hotel/gallery',
+          resourceType: detected.mediaType === 'VIDEO' ? 'video' : 'image',
+        });
+        imageUrl = cRes.secure_url;
+        storageKey = cRes.public_id;
+      } catch (cErr: any) {
+        console.warn('[ANABE HOTEL] Cloudinary upload failed, falling back to local media storage:', cErr.message);
+      }
+    }
+
+    if (imageUrl.startsWith('/api/media')) {
+      const directory = getMediaDirectory() || path.resolve(process.cwd(), 'public/images');
+      storageKey = await storeMedia(id, detected, fileBuffer);
+      imageUrl = `/images/${id}.${detected.extension}`;
+    }
+
+    const now = new Date().toISOString();
+    const db = getDatabase();
+    const item: GalleryItem = {
+      id,
+      title,
+      caption: description,
+      description,
+      category: category as GalleryItem['category'],
+      imageUrl,
+      mediaType: detected.mediaType,
+      altText: detected.mediaType === 'IMAGE' ? altText : '',
+      published,
+      storageKey,
+      createdAt: now,
+      updatedAt: now,
+      createdBy: req.user!.userId,
+      updatedBy: req.user!.userId,
+      displayOrder: db.gallery.length ? Math.max(...db.gallery.map((entry) => entry.displayOrder || 0)) + 1 : 1,
+    };
+    db.gallery.unshift(item);
+    saveDatabase(db);
+    logActivity({ userId: req.user!.userId, userName: req.user!.name, userRole: req.user!.role, action: 'GALLERY_MEDIA_UPLOADED', details: `Gallery media '${item.title}' uploaded.`, resourceType: 'gallery', resourceId: item.id });
+    return res.status(201).json(item);
+  } catch (error) {
+    return res.status(400).json({ error: error instanceof Error ? error.message : 'Media upload failed.' });
+  }
+});
+
+apiRouter.patch('/admin/gallery/:id', requireAuth, requirePermission('manage_gallery'), (req: AuthRequest, res: Response) => {
+  const db = getDatabase();
+  const item = db.gallery.find((entry) => entry.id === req.params.id);
+  if (!item) return res.status(404).json({ error: 'Gallery item not found.' });
+  const { title, description, category, altText, published, displayOrder } = req.body;
+  const validCategories = ['Rooms', 'Swimming Pool', 'Facilities', 'Restaurant', 'Events', 'General', 'Exterior', 'Lobby', 'Hotel'];
+  if (title !== undefined && (typeof title !== 'string' || !title.trim() || title.length > 160)) return res.status(400).json({ error: 'Title must contain 1 to 160 characters.' });
+  if (description !== undefined && (typeof description !== 'string' || description.length > 5000)) return res.status(400).json({ error: 'Description must be 5000 characters or fewer.' });
+  if (category !== undefined && !validCategories.includes(category)) return res.status(400).json({ error: 'Unsupported gallery category.' });
+  if (altText !== undefined && (typeof altText !== 'string' || altText.length > 300)) return res.status(400).json({ error: 'Alternative text must be 300 characters or fewer.' });
+  if (published !== undefined && typeof published !== 'boolean') return res.status(400).json({ error: 'Publication status must be true or false.' });
+  if (displayOrder !== undefined && (!Number.isInteger(displayOrder) || displayOrder < 0 || displayOrder > 100000)) return res.status(400).json({ error: 'Display order must be a non-negative integer.' });
+  if (title !== undefined) item.title = title.trim();
+  if (description !== undefined) { item.description = description; item.caption = description; }
+  if (category !== undefined) item.category = category;
+  if (altText !== undefined) item.altText = altText;
+  if (published !== undefined) item.published = published;
+  if (displayOrder !== undefined) item.displayOrder = displayOrder;
+  item.updatedAt = new Date().toISOString();
+  item.updatedBy = req.user!.userId;
+  saveDatabase(db);
+  res.json(item);
+});
+
+apiRouter.delete('/admin/gallery/:id', requireAuth, requirePermission('manage_gallery'), async (req: AuthRequest, res: Response) => {
   const db = getDatabase();
   const idx = db.gallery.findIndex((g) => g.id === req.params.id);
   if (idx === -1) return res.status(404).json({ error: 'Gallery item not found' });
@@ -1004,6 +1269,7 @@ apiRouter.delete('/admin/gallery/:id', requireAuth, requirePermission('manage_ga
   const item = db.gallery[idx];
   db.gallery.splice(idx, 1);
   saveDatabase(db);
+  if (item.storageKey) await deleteStoredMedia(item.storageKey).catch(() => undefined);
 
   logActivity({
     userId: req.user!.userId,

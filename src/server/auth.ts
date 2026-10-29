@@ -1,7 +1,18 @@
 import crypto from 'node:crypto';
 import type { User, UserRole } from '../types/hotel.ts';
 
-const JWT_SECRET = process.env.JWT_SECRET || crypto.randomBytes(32).toString('hex');
+const TOKEN_LIFETIME_SECONDS = 8 * 60 * 60;
+
+export function getJwtSecret(): string {
+  const secret = process.env.JWT_SECRET;
+  if (!secret || Buffer.byteLength(secret) < 32) {
+    if (process.env.NODE_ENV !== 'production') {
+      return 'anabe-hotel-development-jwt-secret-at-least-32-bytes-long-for-local';
+    }
+    throw new Error('JWT_SECRET must be configured with at least 32 bytes before starting the server.');
+  }
+  return secret;
+}
 
 export function hashPassword(password: string): string {
   const salt = crypto.randomBytes(16).toString('hex');
@@ -36,13 +47,13 @@ export function generateToken(user: User): string {
     name: user.name,
     role: user.role,
     permissions: user.permissions,
-    exp: Math.floor(Date.now() / 1000) + 7 * 24 * 60 * 60, // 7 days
+    exp: Math.floor(Date.now() / 1000) + TOKEN_LIFETIME_SECONDS,
   };
 
   const header = Buffer.from(JSON.stringify({ alg: 'HS256', typ: 'JWT' })).toString('base64url');
   const body = Buffer.from(JSON.stringify(payload)).toString('base64url');
   const signature = crypto
-    .createHmac('sha256', JWT_SECRET)
+    .createHmac('sha256', getJwtSecret())
     .update(`${header}.${body}`)
     .digest('base64url');
 
@@ -54,18 +65,22 @@ export function verifyToken(token: string): TokenPayload | null {
     const parts = token.split('.');
     if (parts.length !== 3) return null;
     const [header, body, signature] = parts;
+    const decodedHeader = JSON.parse(Buffer.from(header, 'base64url').toString('utf-8')) as { alg?: string; typ?: string };
+    if (decodedHeader.alg !== 'HS256' || decodedHeader.typ !== 'JWT') return null;
 
     const expectedSignature = crypto
-      .createHmac('sha256', JWT_SECRET)
+      .createHmac('sha256', getJwtSecret())
       .update(`${header}.${body}`)
       .digest('base64url');
 
-    if (!crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature))) {
+    const signatureBytes = Buffer.from(signature);
+    const expectedBytes = Buffer.from(expectedSignature);
+    if (signatureBytes.length !== expectedBytes.length || !crypto.timingSafeEqual(signatureBytes, expectedBytes)) {
       return null;
     }
 
     const payload = JSON.parse(Buffer.from(body, 'base64url').toString('utf-8')) as TokenPayload;
-    if (payload.exp < Math.floor(Date.now() / 1000)) {
+    if (!payload.userId || !Number.isFinite(payload.exp) || payload.exp <= Math.floor(Date.now() / 1000)) {
       return null;
     }
 

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { QuickBookingBar } from '../components/QuickBookingBar.tsx';
-import { Logo } from '../components/Logo.tsx';
 import { api } from '../lib/api.ts';
 import type { Room, Facility, GalleryItem, HotelSettings } from '../types/hotel.ts';
 import {
@@ -119,9 +118,6 @@ export const HomePage: React.FC<HomePageProps> = ({ settings, onNavigate, onSele
 
         {/* Hero Content */}
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-24 pb-36">
-          <div className="mb-6">
-            <Logo size="xl" variant="badge" priority={true} />
-          </div>
           <p className="text-xs sm:text-sm font-semibold uppercase tracking-[0.25em] text-[#D8BD90] mb-4">
             Welcome to Kigali's Premier Destination
           </p>
@@ -452,8 +448,8 @@ export const HomePage: React.FC<HomePageProps> = ({ settings, onNavigate, onSele
                 </div>
                 <div>
                   <span className="text-[11px] font-semibold uppercase tracking-wider text-[#7A7870] block">Email</span>
-                  <a href={`mailto:${settings?.email || 'info@anabehotel.com'}`} className="font-medium text-xs text-[#1A1A18] hover:text-[#B89667]">
-                    {settings?.email || 'info@anabehotel.com'}
+                  <a href="mailto:owneranabehotel@gmail.com" className="font-medium text-xs text-[#1A1A18] hover:text-[#B89667]">
+                    owneranabehotel@gmail.com
                   </a>
                 </div>
               </div>

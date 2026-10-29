@@ -108,8 +108,17 @@ export interface GalleryItem {
   id: string;
   title: string;
   caption: string;
-  category: 'Hotel' | 'Rooms' | 'Swimming Pool' | 'Facilities' | 'Exterior' | 'Lobby';
+  description?: string;
+  category: 'Hotel' | 'Rooms' | 'Swimming Pool' | 'Facilities' | 'Exterior' | 'Lobby' | 'Restaurant' | 'Events' | 'General';
   imageUrl: string;
+  mediaType?: 'IMAGE' | 'VIDEO';
+  altText?: string;
+  published?: boolean;
+  storageKey?: string;
+  updatedAt?: string;
+  createdBy?: string;
+  updatedBy?: string;
+  displayOrder?: number;
   createdAt: string;
 }
 

@@ -1,0 +1,13 @@
+import React from 'react';
+import { Head } from '../components/Head.tsx';
+
+export const PrivacyPage: React.FC = () => (
+  <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 space-y-8 text-sm leading-7 text-[#55544E]">
+    <Head title="Privacy Policy | ANABE HOTEL" description="How ANABE HOTEL handles booking and inquiry information on its website." path="/privacy" />
+    <header className="space-y-3"><p className="text-xs font-semibold uppercase tracking-widest text-[#B89667]">Guest Information</p><h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#1A1A18]">Privacy Policy</h1><p>Last updated: October 8, 2026</p></header>
+    <section><h2 className="font-serif text-2xl font-semibold text-[#1A1A18]">Information collected</h2><p>When you submit a booking request, the application collects your name, contact details, selected room and dates, guest count, and any special requests. Contact form submissions include the details you provide, such as your name, email, phone number, subject, and message.</p></section>
+    <section><h2 className="font-serif text-2xl font-semibold text-[#1A1A18]">How information is used and stored</h2><p>Booking and inquiry information is used to record and respond to requests, check reservations, and support hotel operations. Records are stored by the application's configured backend database. The application does not currently define an automatic retention schedule; records remain until removed through available administrative or database processes.</p></section>
+    <section><h2 className="font-serif text-2xl font-semibold text-[#1A1A18]">Services and payment</h2><p>The website can open WhatsApp with a prepared booking message, but you choose whether to send it and WhatsApp handles that interaction under its own terms. The site loads typefaces from Google Fonts. No payment processor is currently integrated, and the website does not process online payments. Gallery hosting depends on the storage service configured by the hotel; media storage may be unavailable until configured.</p></section>
+    <section><h2 className="font-serif text-2xl font-semibold text-[#1A1A18]">Your requests and contact</h2><p>You may ask about access, correction, or deletion of your personal information by contacting <a className="underline text-[#80613D]" href="mailto:owneranabehotel@gmail.com">owneranabehotel@gmail.com</a>. We may need to retain certain booking records for operational or legal reasons and will respond to your request.</p></section>
+  </article>
+);

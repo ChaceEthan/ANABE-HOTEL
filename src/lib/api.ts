@@ -11,37 +11,31 @@ import type {
   ContactMessage,
 } from '../types/hotel.ts';
 
-const TOKEN_KEY = 'anabe_auth_token';
+const BASE_URL = (import.meta.env.VITE_API_URL || '').replace(/\/+$/, '');
 
-export function getStoredToken(): string | null {
-  return localStorage.getItem(TOKEN_KEY);
-}
-
-export function setStoredToken(token: string) {
-  localStorage.setItem(TOKEN_KEY, token);
-}
-
-export function clearStoredToken() {
-  localStorage.removeItem(TOKEN_KEY);
+function resolveUrl(endpoint: string): string {
+  if (endpoint.startsWith('http://') || endpoint.startsWith('https://')) return endpoint;
+  const clean = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+  return BASE_URL ? `${BASE_URL}${clean}` : clean;
 }
 
 async function request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
-  const token = getStoredToken();
+  const url = resolveUrl(endpoint);
   const headers = new Headers(options.headers || {});
-  headers.set('Content-Type', 'application/json');
+  if (options.body && !(options.body instanceof FormData)) headers.set('Content-Type', 'application/json');
 
-  if (token) {
-    headers.set('Authorization', `Bearer ${token}`);
-  }
-
-  const response = await fetch(endpoint, {
+  const response = await fetch(url, {
     ...options,
+    credentials: 'include',
     headers,
   });
 
   const data = await response.json().catch(() => ({}));
 
   if (!response.ok) {
+    if (response.status === 401 && !endpoint.endsWith('/auth/login')) {
+      window.dispatchEvent(new Event('anabe:session-expired'));
+    }
     throw new Error(data.error || `Request failed with status ${response.status}`);
   }
 
@@ -97,11 +91,12 @@ export const api = {
 
   // Auth
   login: (credentials: { email: string; password: string }) =>
-    request<{ token: string; user: User }>('/api/auth/login', {
+    request<{ user: User }>('/api/auth/login', {
       method: 'POST',
       body: JSON.stringify(credentials),
     }),
   getMe: () => request<User>('/api/auth/me'),
+  logout: () => request<{ success: boolean }>('/api/auth/logout', { method: 'POST' }),
 
   // Admin
   getMetrics: () => request<DashboardMetrics>('/api/admin/metrics'),
@@ -182,10 +177,33 @@ export const api = {
       method: 'POST',
       body: JSON.stringify(facility),
     }),
+  updateFacility: (id: string, facility: Partial<Facility>) =>
+    request<Facility>(`/api/admin/facilities/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(facility),
+    }),
   deleteFacility: (id: string) =>
     request<{ success: boolean; message: string }>(`/api/admin/facilities/${id}`, {
       method: 'DELETE',
     }),
+  uploadImage: async (file: File, folder: 'rooms' | 'facilities' | 'gallery' = 'rooms'): Promise<{ url: string; publicId?: string; format: string }> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = async () => {
+        try {
+          const res = await request<{ url: string; publicId?: string; format: string }>('/api/admin/upload', {
+            method: 'POST',
+            body: JSON.stringify({ data: reader.result, folder }),
+          });
+          resolve(res);
+        } catch (err) {
+          reject(err);
+        }
+      };
+      reader.onerror = () => reject(new Error('Failed reading file for upload.'));
+      reader.readAsDataURL(file);
+    });
+  },
   addGalleryItem: (item: Partial<GalleryItem>) =>
     request<GalleryItem>('/api/admin/gallery', {
       method: 'POST',
@@ -194,6 +212,31 @@ export const api = {
   deleteGalleryItem: (id: string) =>
     request<{ success: boolean; message: string }>(`/api/admin/gallery/${id}`, {
       method: 'DELETE',
+    }),
+  getAdminGallery: () => request<GalleryItem[]>('/api/admin/gallery'),
+  getGalleryItem: (id: string) => request<GalleryItem>(`/api/gallery/${encodeURIComponent(id)}`),
+  uploadGalleryMedia: async (file: File, details: {
+    title: string;
+    description: string;
+    category: string;
+    altText: string;
+    published: boolean;
+  }) => {
+    const query = new URLSearchParams(details as unknown as Record<string, string>);
+    const response = await fetch(`/api/admin/gallery/upload?${query.toString()}`, {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': file.type || 'application/octet-stream' },
+      body: file,
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.error || `Request failed with status ${response.status}`);
+    return data as GalleryItem;
+  },
+  updateGalleryItem: (id: string, details: Partial<GalleryItem>) =>
+    request<GalleryItem>(`/api/admin/gallery/${encodeURIComponent(id)}`, {
+      method: 'PATCH',
+      body: JSON.stringify(details),
     }),
   getLogs: () => request<ActivityLog[]>('/api/admin/logs'),
   getContactMessages: () => request<ContactMessage[]>('/api/admin/contact-messages'),

@@ -4,7 +4,7 @@
       "id": "usr_owner_01",
       "name": "Hotel Owner",
       "email": "owner@anabehotel.com",
-      "passwordHash": "d0274c253a8e44238368b7cbea54da03:1241b5807b6f0cf42e33c129c288e67627c57e4edd335014c28fd7f5832aeddd7b8310a9b14106154681f5aa2da8aa6075d63638d143d3fb4aef73a22c98472a",
+      "passwordHash": "e97058e4be9739744619fee8e71f09e5:af42e584a885e7dee88a45208315a057586112128ae256f17f85fb67566ee693724b280a9f820b4aebc1439975b0bd396dc9ee874e2f5286eb10ca58b86dac2b",
       "role": "OWNER",
       "permissions": [
         "manage_rooms",
@@ -19,14 +19,14 @@
         "delete_records"
       ],
       "status": "ACTIVE",
-      "createdAt": "2026-01-01T08:00:00Z",
-      "lastLoginAt": "2026-10-08T16:39:31.936Z"
+      "createdAt": "2026-10-29T16:37:06.827Z",
+      "lastLoginAt": "2026-10-29T17:07:46.779Z"
     },
     {
       "id": "usr_manager_01",
       "name": "Operations Manager",
       "email": "manager@anabehotel.com",
-      "passwordHash": "97cab8161a3697f17ebc69c4eb6d3c5b:fd5d7d43df227778f5c93d82970f4944609cf6067ca586a2d23bb75f11edbb124c764e814a6bb4f57074dc73368f026eb194ddee99c9e23c87bbd3af47f6c1c6",
+      "passwordHash": "5b925d87240cb90d8b5a26f6f1669772:d3719e6137a1a03a7fa95aaf25f048d7a492ec7730817460fb0ccb33e551086ec584c8bd19b63a0460d6de53f1f0b5cf8a7c01b4ba4e5df9ddf1abc3cd500516",
       "role": "MANAGER",
       "permissions": [
         "manage_rooms",
@@ -37,39 +37,40 @@
         "cleaning_updates"
       ],
       "status": "ACTIVE",
-      "createdAt": "2026-01-10T09:00:00Z"
+      "createdAt": "2026-10-29T16:37:06.827Z"
     },
     {
       "id": "usr_staff_reception",
       "name": "Front Desk Reception",
       "email": "reception@anabehotel.com",
-      "passwordHash": "6307d2f1e3d8e5a9b2a921df8ee12291:c66d8ea5275182576a1fc018af83536708efadb881e3b51c159a1399491d95db218a511bed633283991a5126446993880bef7f3c9d1413d0467b9a545d7e5451",
+      "passwordHash": "b5fea7d9a2b0e4ea16ade47d7249193c:5529919181481c4e46609a6556c2b2745cd17cb76debe7bbda68eda63e66583ab9b778efe092cc207ccb340d83f8b55556d416419e1274f64ca4f97b63328e13",
       "role": "STAFF",
       "permissions": [
         "manage_bookings",
         "checkin_checkout"
       ],
       "status": "ACTIVE",
-      "createdAt": "2026-01-15T10:00:00Z"
+      "createdAt": "2026-10-29T16:37:06.827Z",
+      "lastLoginAt": "2026-10-29T17:07:46.885Z"
     },
     {
       "id": "usr_staff_housekeeping",
       "name": "Housekeeping Supervisor",
       "email": "housekeeping@anabehotel.com",
-      "passwordHash": "47166a5381c94a6612697c1d442d0fca:adaa5ed4f82258cd9b6a8b6bc49934bb5b66402e576887a62c309539a788df9f08f08c95db5bfe2faf52ea50783615ce0866758ecc069b05179fb433f025661b",
+      "passwordHash": "8d1ecc5215d0d215db57a2f784abf41d:51a80f30cb2f39a86769999b649875071bd6102499e96ede38d35b3bbee00f81aff6e99dd151f8b4da49dd69aec8a43985507310f235eb01a3d185503bd1e891",
       "role": "STAFF",
       "permissions": [
         "cleaning_updates"
       ],
       "status": "ACTIVE",
-      "createdAt": "2026-01-20T11:00:00Z"
+      "createdAt": "2026-10-29T16:37:06.827Z"
     }
   ],
   "hotelSettings": {
     "hotelName": "ANABE HOTEL",
     "phone1": "0788 845 520",
     "phone2": "0783 218 170",
-    "email": "info@anabehotel.com",
+    "email": "owneranabehotel@gmail.com",
     "address": "KG 15 Avenue, Luxury Boulevard",
     "city": "Kigali",
     "country": "Rwanda",
@@ -174,6 +175,8 @@
       "description": "Ideal for solo business travelers with dedicated workspace, high-speed Wi-Fi, and plush bedding.",
       "pricePerNight": 65000,
       "maxGuests": 1,
+      "floor": 1,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -187,8 +190,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 1,
       "featured": false
     },
     {
@@ -200,6 +201,8 @@
       "description": "Comfortable double accommodations featuring queen-size bed, city or courtyard views, and modern comforts.",
       "pricePerNight": 90000,
       "maxGuests": 2,
+      "floor": 1,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -214,8 +217,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 1,
       "featured": false
     },
     {
@@ -227,6 +228,8 @@
       "description": "Two twin beds with premium linens, soundproofing, and ensuite bath, ideal for colleagues or friends.",
       "pricePerNight": 95000,
       "maxGuests": 2,
+      "floor": 1,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -241,8 +244,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 1,
       "featured": false
     },
     {
@@ -254,6 +255,8 @@
       "description": "Comfortable double accommodations featuring queen-size bed, city or courtyard views, and modern comforts.",
       "pricePerNight": 90000,
       "maxGuests": 2,
+      "floor": 1,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -268,8 +271,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 1,
       "featured": false
     },
     {
@@ -281,6 +282,8 @@
       "description": "Ideal for solo business travelers with dedicated workspace, high-speed Wi-Fi, and plush bedding.",
       "pricePerNight": 65000,
       "maxGuests": 1,
+      "floor": 1,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -294,8 +297,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 1,
       "featured": false
     },
     {
@@ -307,6 +308,8 @@
       "description": "Two twin beds with premium linens, soundproofing, and ensuite bath, ideal for colleagues or friends.",
       "pricePerNight": 95000,
       "maxGuests": 2,
+      "floor": 1,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -321,8 +324,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 1,
       "featured": false
     },
     {
@@ -334,6 +335,8 @@
       "description": "Ideal for solo business travelers with dedicated workspace, high-speed Wi-Fi, and plush bedding.",
       "pricePerNight": 65000,
       "maxGuests": 1,
+      "floor": 1,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -347,8 +350,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 1,
       "featured": false
     },
     {
@@ -360,6 +361,8 @@
       "description": "Comfortable double accommodations featuring queen-size bed, city or courtyard views, and modern comforts.",
       "pricePerNight": 90000,
       "maxGuests": 2,
+      "floor": 1,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -374,8 +377,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 1,
       "featured": false
     },
     {
@@ -387,6 +388,8 @@
       "description": "Two twin beds with premium linens, soundproofing, and ensuite bath, ideal for colleagues or friends.",
       "pricePerNight": 95000,
       "maxGuests": 2,
+      "floor": 1,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -401,8 +404,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 1,
       "featured": false
     },
     {
@@ -414,6 +415,8 @@
       "description": "Comfortable double accommodations featuring queen-size bed, city or courtyard views, and modern comforts.",
       "pricePerNight": 90000,
       "maxGuests": 2,
+      "floor": 1,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -428,8 +431,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 1,
       "featured": false
     },
     {
@@ -441,6 +442,8 @@
       "description": "Ideal for solo business travelers with dedicated workspace, high-speed Wi-Fi, and plush bedding.",
       "pricePerNight": 65000,
       "maxGuests": 1,
+      "floor": 1,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -454,8 +457,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 1,
       "featured": false
     },
     {
@@ -467,6 +468,8 @@
       "description": "Two twin beds with premium linens, soundproofing, and ensuite bath, ideal for colleagues or friends.",
       "pricePerNight": 95000,
       "maxGuests": 2,
+      "floor": 1,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -481,8 +484,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 1,
       "featured": false
     },
     {
@@ -494,6 +495,8 @@
       "description": "Ideal for solo business travelers with dedicated workspace, high-speed Wi-Fi, and plush bedding.",
       "pricePerNight": 65000,
       "maxGuests": 1,
+      "floor": 1,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -507,8 +510,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 1,
       "featured": false
     },
     {
@@ -520,6 +521,8 @@
       "description": "Comfortable double accommodations featuring queen-size bed, city or courtyard views, and modern comforts.",
       "pricePerNight": 90000,
       "maxGuests": 2,
+      "floor": 1,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -534,8 +537,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 1,
       "featured": false
     },
     {
@@ -547,6 +548,8 @@
       "description": "Two twin beds with premium linens, soundproofing, and ensuite bath, ideal for colleagues or friends.",
       "pricePerNight": 95000,
       "maxGuests": 2,
+      "floor": 1,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -561,8 +564,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 1,
       "featured": false
     },
     {
@@ -574,6 +575,8 @@
       "description": "Comfortable double accommodations featuring queen-size bed, city or courtyard views, and modern comforts.",
       "pricePerNight": 90000,
       "maxGuests": 2,
+      "floor": 1,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -588,8 +591,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 1,
       "featured": false
     },
     {
@@ -601,6 +602,8 @@
       "description": "Ideal for solo business travelers with dedicated workspace, high-speed Wi-Fi, and plush bedding.",
       "pricePerNight": 65000,
       "maxGuests": 1,
+      "floor": 2,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -614,8 +617,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 2,
       "featured": false
     },
     {
@@ -627,6 +628,8 @@
       "description": "Comfortable double accommodations featuring queen-size bed, city or courtyard views, and modern comforts.",
       "pricePerNight": 90000,
       "maxGuests": 2,
+      "floor": 2,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -641,8 +644,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 2,
       "featured": false
     },
     {
@@ -654,6 +655,8 @@
       "description": "Two twin beds with premium linens, soundproofing, and ensuite bath, ideal for colleagues or friends.",
       "pricePerNight": 95000,
       "maxGuests": 2,
+      "floor": 2,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -668,8 +671,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 2,
       "featured": false
     },
     {
@@ -681,6 +682,8 @@
       "description": "Comfortable double accommodations featuring queen-size bed, city or courtyard views, and modern comforts.",
       "pricePerNight": 90000,
       "maxGuests": 2,
+      "floor": 2,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -695,8 +698,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 2,
       "featured": false
     },
     {
@@ -708,6 +709,8 @@
       "description": "Ideal for solo business travelers with dedicated workspace, high-speed Wi-Fi, and plush bedding.",
       "pricePerNight": 65000,
       "maxGuests": 1,
+      "floor": 2,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -721,8 +724,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 2,
       "featured": false
     },
     {
@@ -734,6 +735,8 @@
       "description": "Two twin beds with premium linens, soundproofing, and ensuite bath, ideal for colleagues or friends.",
       "pricePerNight": 95000,
       "maxGuests": 2,
+      "floor": 2,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -748,8 +751,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 2,
       "featured": false
     },
     {
@@ -761,6 +762,8 @@
       "description": "Ideal for solo business travelers with dedicated workspace, high-speed Wi-Fi, and plush bedding.",
       "pricePerNight": 65000,
       "maxGuests": 1,
+      "floor": 2,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -774,8 +777,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 2,
       "featured": false
     },
     {
@@ -787,6 +788,8 @@
       "description": "Comfortable double accommodations featuring queen-size bed, city or courtyard views, and modern comforts.",
       "pricePerNight": 90000,
       "maxGuests": 2,
+      "floor": 2,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -801,8 +804,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 2,
       "featured": false
     },
     {
@@ -814,6 +815,8 @@
       "description": "Two twin beds with premium linens, soundproofing, and ensuite bath, ideal for colleagues or friends.",
       "pricePerNight": 95000,
       "maxGuests": 2,
+      "floor": 2,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -828,8 +831,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 2,
       "featured": false
     },
     {
@@ -841,6 +842,8 @@
       "description": "Comfortable double accommodations featuring queen-size bed, city or courtyard views, and modern comforts.",
       "pricePerNight": 90000,
       "maxGuests": 2,
+      "floor": 2,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -855,8 +858,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 2,
       "featured": false
     },
     {
@@ -868,6 +869,8 @@
       "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
       "pricePerNight": 135000,
       "maxGuests": 2,
+      "floor": 2,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -883,8 +886,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 2,
       "featured": false
     },
     {
@@ -896,6 +897,8 @@
       "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
       "pricePerNight": 135000,
       "maxGuests": 2,
+      "floor": 2,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -911,8 +914,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 2,
       "featured": false
     },
     {
@@ -924,6 +925,8 @@
       "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
       "pricePerNight": 135000,
       "maxGuests": 2,
+      "floor": 2,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -939,8 +942,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 2,
       "featured": false
     },
     {
@@ -952,6 +953,8 @@
       "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
       "pricePerNight": 135000,
       "maxGuests": 2,
+      "floor": 2,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -967,8 +970,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 2,
       "featured": false
     },
     {
@@ -980,6 +981,8 @@
       "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
       "pricePerNight": 135000,
       "maxGuests": 2,
+      "floor": 2,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -995,8 +998,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 2,
       "featured": false
     },
     {
@@ -1008,6 +1009,8 @@
       "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
       "pricePerNight": 135000,
       "maxGuests": 2,
+      "floor": 2,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -1023,8 +1026,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 2,
       "featured": false
     },
     {
@@ -1036,6 +1037,8 @@
       "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
       "pricePerNight": 135000,
       "maxGuests": 2,
+      "floor": 3,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -1051,8 +1054,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 3,
       "featured": false
     },
     {
@@ -1064,6 +1065,8 @@
       "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
       "pricePerNight": 135000,
       "maxGuests": 2,
+      "floor": 3,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -1079,8 +1082,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 3,
       "featured": false
     },
     {
@@ -1092,6 +1093,8 @@
       "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
       "pricePerNight": 135000,
       "maxGuests": 2,
+      "floor": 3,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -1107,8 +1110,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 3,
       "featured": false
     },
     {
@@ -1120,6 +1121,8 @@
       "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
       "pricePerNight": 135000,
       "maxGuests": 2,
+      "floor": 3,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -1135,8 +1138,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 3,
       "featured": false
     },
     {
@@ -1148,6 +1149,8 @@
       "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
       "pricePerNight": 135000,
       "maxGuests": 2,
+      "floor": 3,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -1163,8 +1166,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 3,
       "featured": false
     },
     {
@@ -1176,6 +1177,8 @@
       "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
       "pricePerNight": 135000,
       "maxGuests": 2,
+      "floor": 3,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -1191,8 +1194,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 3,
       "featured": false
     },
     {
@@ -1204,6 +1205,8 @@
       "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
       "pricePerNight": 135000,
       "maxGuests": 2,
+      "floor": 3,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -1219,8 +1222,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 3,
       "featured": false
     },
     {
@@ -1232,6 +1233,8 @@
       "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
       "pricePerNight": 135000,
       "maxGuests": 2,
+      "floor": 3,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -1247,8 +1250,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 3,
       "featured": false
     },
     {
@@ -1260,6 +1261,8 @@
       "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
       "pricePerNight": 135000,
       "maxGuests": 2,
+      "floor": 3,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -1275,8 +1278,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 3,
       "featured": false
     },
     {
@@ -1288,6 +1289,8 @@
       "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
       "pricePerNight": 135000,
       "maxGuests": 2,
+      "floor": 3,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -1303,8 +1306,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 3,
       "featured": false
     },
     {
@@ -1316,6 +1317,8 @@
       "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
       "pricePerNight": 135000,
       "maxGuests": 2,
+      "floor": 3,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -1331,8 +1334,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 3,
       "featured": false
     },
     {
@@ -1344,6 +1345,8 @@
       "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
       "pricePerNight": 135000,
       "maxGuests": 2,
+      "floor": 3,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -1359,8 +1362,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 3,
       "featured": false
     },
     {
@@ -1372,6 +1373,8 @@
       "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
       "pricePerNight": 135000,
       "maxGuests": 2,
+      "floor": 3,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -1387,8 +1390,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 3,
       "featured": false
     },
     {
@@ -1400,6 +1401,8 @@
       "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
       "pricePerNight": 135000,
       "maxGuests": 2,
+      "floor": 3,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -1415,8 +1418,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 3,
       "featured": false
     },
     {
@@ -1428,6 +1429,8 @@
       "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
       "pricePerNight": 135000,
       "maxGuests": 2,
+      "floor": 3,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -1443,8 +1446,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 3,
       "featured": false
     },
     {
@@ -1456,6 +1457,8 @@
       "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
       "pricePerNight": 135000,
       "maxGuests": 2,
+      "floor": 3,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -1471,8 +1474,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 3,
       "featured": false
     },
     {
@@ -1484,6 +1485,8 @@
       "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
       "pricePerNight": 135000,
       "maxGuests": 2,
+      "floor": 4,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -1499,8 +1502,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 4,
       "featured": false
     },
     {
@@ -1512,6 +1513,8 @@
       "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
       "pricePerNight": 135000,
       "maxGuests": 2,
+      "floor": 4,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -1527,8 +1530,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 4,
       "featured": false
     },
     {
@@ -1540,6 +1541,8 @@
       "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
       "pricePerNight": 135000,
       "maxGuests": 2,
+      "floor": 4,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -1555,8 +1558,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 4,
       "featured": false
     },
     {
@@ -1568,6 +1569,8 @@
       "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
       "pricePerNight": 135000,
       "maxGuests": 2,
+      "floor": 4,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -1583,8 +1586,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 4,
       "featured": false
     },
     {
@@ -1596,6 +1597,8 @@
       "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
       "pricePerNight": 135000,
       "maxGuests": 2,
+      "floor": 4,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -1611,8 +1614,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 4,
       "featured": false
     },
     {
@@ -1624,6 +1625,8 @@
       "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
       "pricePerNight": 135000,
       "maxGuests": 2,
+      "floor": 4,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -1639,8 +1642,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 4,
       "featured": false
     },
     {
@@ -1652,6 +1653,8 @@
       "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
       "pricePerNight": 135000,
       "maxGuests": 2,
+      "floor": 4,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -1667,8 +1670,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 4,
       "featured": false
     },
     {
@@ -1680,6 +1681,8 @@
       "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
       "pricePerNight": 135000,
       "maxGuests": 2,
+      "floor": 4,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -1695,8 +1698,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 4,
       "featured": false
     },
     {
@@ -1708,6 +1709,8 @@
       "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
       "pricePerNight": 135000,
       "maxGuests": 2,
+      "floor": 4,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -1723,8 +1726,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 4,
       "featured": false
     },
     {
@@ -1736,6 +1737,8 @@
       "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
       "pricePerNight": 135000,
       "maxGuests": 2,
+      "floor": 4,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -1751,8 +1754,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 4,
       "featured": false
     },
     {
@@ -1764,6 +1765,8 @@
       "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
       "pricePerNight": 135000,
       "maxGuests": 2,
+      "floor": 4,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -1779,8 +1782,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 4,
       "featured": false
     },
     {
@@ -1792,6 +1793,8 @@
       "description": "Spacious retreat featuring an oversized king bed, lounge seating, floor-to-ceiling windows, and luxury bathroom amenities.",
       "pricePerNight": 135000,
       "maxGuests": 2,
+      "floor": 4,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Air Conditioning",
@@ -1807,8 +1810,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 4,
       "featured": false
     },
     {
@@ -1820,6 +1821,8 @@
       "description": "Expansive two-room layout with separate living salon, dining table, panoramic views, and personalized turndown service.",
       "pricePerNight": 220000,
       "maxGuests": 3,
+      "floor": 4,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Individual Climate Control",
@@ -1835,8 +1838,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 4,
       "featured": false
     },
     {
@@ -1848,6 +1849,8 @@
       "description": "Expansive two-room layout with separate living salon, dining table, panoramic views, and personalized turndown service.",
       "pricePerNight": 220000,
       "maxGuests": 3,
+      "floor": 4,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Individual Climate Control",
@@ -1863,8 +1866,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 4,
       "featured": false
     },
     {
@@ -1876,6 +1877,8 @@
       "description": "Expansive two-room layout with separate living salon, dining table, panoramic views, and personalized turndown service.",
       "pricePerNight": 220000,
       "maxGuests": 3,
+      "floor": 4,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Individual Climate Control",
@@ -1891,8 +1894,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 4,
       "featured": false
     },
     {
@@ -1904,6 +1905,8 @@
       "description": "Expansive two-room layout with separate living salon, dining table, panoramic views, and personalized turndown service.",
       "pricePerNight": 220000,
       "maxGuests": 3,
+      "floor": 4,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Individual Climate Control",
@@ -1919,8 +1922,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 4,
       "featured": false
     },
     {
@@ -1932,6 +1933,8 @@
       "description": "Expansive two-room layout with separate living salon, dining table, panoramic views, and personalized turndown service.",
       "pricePerNight": 220000,
       "maxGuests": 3,
+      "floor": 4,
+      "status": "AVAILABLE",
       "amenities": [
         "High-speed Wi-Fi",
         "Individual Climate Control",
@@ -1947,8 +1950,6 @@
         "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
         "/src/assets/images/hero_hotel_exterior_1791471883513.jpg"
       ],
-      "status": "AVAILABLE",
-      "floor": 4,
       "featured": false
     }
   ],
@@ -1958,29 +1959,105 @@
       "roomNumber": "101",
       "roomName": "Standard Single Room 101",
       "typeName": "Standard Single Room",
-      "checkIn": "2026-11-01",
-      "checkOut": "2026-11-04",
-      "nights": 3,
-      "guestsCount": 1,
-      "guestName": "WhatsApp Test Guest",
-      "guestEmail": "guest@example.com",
+      "checkIn": "2026-12-21",
+      "checkOut": "2026-12-26",
+      "nights": 5,
+      "guestsCount": 2,
+      "guestName": "Alice Kayitesi",
+      "guestEmail": "alice.k@example.rw",
       "guestPhone": "+250788111222",
+      "specialRequests": "High floor preferred",
       "pricePerNight": 65000,
-      "totalPrice": 195000,
+      "totalPrice": 325000,
+      "status": "CANCELLED",
+      "paymentStatus": "PAYMENT_PENDING",
+      "paymentMethod": "MTN MoMo",
+      "id": "bkg_1793293669716_z0b97",
+      "bookingReference": "ANB-20261029-WI7N",
+      "createdAt": "2026-10-29T17:07:49.716Z",
+      "updatedAt": "2026-10-29T17:07:52.438Z"
+    },
+    {
+      "id": "bkg_1793293257627_ri0h5",
+      "bookingReference": "ANB-20261029-HS8O",
+      "roomId": "room_101",
+      "roomNumber": "101",
+      "roomName": "Standard Single Room 101",
+      "typeName": "Standard Single Room",
+      "checkIn": "2026-12-14",
+      "checkOut": "2026-12-19",
+      "nights": 5,
+      "guestsCount": 2,
+      "guestName": "Alice Kayitesi",
+      "guestEmail": "alice.k@example.rw",
+      "guestPhone": "+250788111222",
+      "specialRequests": "High floor preferred",
+      "pricePerNight": 65000,
+      "totalPrice": 325000,
       "status": "PENDING",
       "paymentStatus": "PAYMENT_PENDING",
       "paymentMethod": "MTN MoMo",
-      "id": "bkg_1791477917226_6svmk",
-      "bookingReference": "ANB-20261008-1G5T",
-      "createdAt": "2026-10-08T16:45:17.226Z",
-      "updatedAt": "2026-10-08T16:45:17.226Z"
+      "transactionReference": null,
+      "amountPaid": 0,
+      "createdAt": "2026-10-29T17:00:57.627Z",
+      "updatedAt": "2026-10-29T17:00:57.627Z"
+    },
+    {
+      "id": "bkg_1793292796611_12bwk",
+      "bookingReference": "ANB-20261029-6AA6",
+      "roomId": "room_101",
+      "roomNumber": "101",
+      "roomName": "Standard Single Room 101",
+      "typeName": "Standard Single Room",
+      "checkIn": "2026-12-08",
+      "checkOut": "2026-12-13",
+      "nights": 5,
+      "guestsCount": 2,
+      "guestName": "Alice Kayitesi",
+      "guestEmail": "alice.k@example.rw",
+      "guestPhone": "+250788111222",
+      "specialRequests": "High floor preferred",
+      "pricePerNight": 65000,
+      "totalPrice": 325000,
+      "status": "PENDING",
+      "paymentStatus": "PAYMENT_PENDING",
+      "paymentMethod": "MTN MoMo",
+      "transactionReference": null,
+      "amountPaid": 0,
+      "createdAt": "2026-10-29T16:53:16.611Z",
+      "updatedAt": "2026-10-29T16:53:16.611Z"
+    },
+    {
+      "id": "bkg_1793292598214_6f0km",
+      "bookingReference": "ANB-20261029-S483",
+      "roomId": "room_101",
+      "roomNumber": "101",
+      "roomName": "Standard Single Room 101",
+      "typeName": "Standard Single Room",
+      "checkIn": "2026-11-20",
+      "checkOut": "2026-11-25",
+      "nights": 5,
+      "guestsCount": 2,
+      "guestName": "Alice Kayitesi",
+      "guestEmail": "alice.k@example.rw",
+      "guestPhone": "+250788111222",
+      "specialRequests": "High floor preferred",
+      "pricePerNight": 65000,
+      "totalPrice": 325000,
+      "status": "PENDING",
+      "paymentStatus": "PAYMENT_PENDING",
+      "paymentMethod": "MTN MoMo",
+      "transactionReference": null,
+      "amountPaid": 0,
+      "createdAt": "2026-10-29T16:49:58.214Z",
+      "updatedAt": "2026-10-29T16:49:58.214Z"
     },
     {
       "id": "bkg_101_sample",
       "bookingReference": "ANB-2026-8812",
       "roomId": "room_204",
       "roomNumber": "204",
-      "roomName": "Standard Double 204",
+      "roomName": "Standard Double Room 204",
       "typeName": "Standard Double Room",
       "checkIn": "2026-10-10",
       "checkOut": "2026-10-15",
@@ -1996,8 +2073,9 @@
       "paymentStatus": "PAYMENT_PENDING",
       "paymentMethod": "MTN MoMo",
       "transactionReference": "MOMO-REF-992144",
-      "createdAt": "2026-10-01T12:00:00Z",
-      "updatedAt": "2026-10-01T12:00:00Z"
+      "amountPaid": 0,
+      "createdAt": "2026-10-29T16:37:06.827Z",
+      "updatedAt": "2026-10-29T16:37:06.827Z"
     },
     {
       "id": "bkg_102_sample",
@@ -2020,9 +2098,9 @@
       "paymentMethod": "Bank / Card",
       "transactionReference": "CARD-TX-551029",
       "amountPaid": 660000,
-      "paidAt": "2026-10-08T09:00:00Z",
-      "createdAt": "2026-10-02T15:30:00Z",
-      "updatedAt": "2026-10-08T09:15:00Z"
+      "paidAt": "2026-10-08T09:00:00.000Z",
+      "createdAt": "2026-10-29T16:37:06.827Z",
+      "updatedAt": "2026-10-29T16:37:06.827Z"
     }
   ],
   "facilities": [
@@ -2068,86 +2146,126 @@
       "id": "gal_1",
       "title": "ANABE HOTEL Grand Twilight View",
       "caption": "Architectural front facade of ANABE HOTEL at evening with welcoming ambient entrance.",
+      "description": "Architectural front facade of ANABE HOTEL at evening with welcoming ambient entrance.",
       "category": "Exterior",
       "imageUrl": "/src/assets/images/hero_hotel_exterior_1791471883513.jpg",
-      "createdAt": "2026-03-01T10:00:00Z"
+      "mediaType": "IMAGE",
+      "altText": "ANABE HOTEL exterior at evening",
+      "published": true,
+      "displayOrder": 4,
+      "createdAt": "2026-10-29T16:37:06.827Z",
+      "updatedAt": "2026-10-29T17:00:58.446Z"
     },
     {
       "id": "gal_2",
       "title": "Serene Swimming Pool",
       "caption": "The outdoor turquoise swimming pool and sun terrace surrounded by tropical garden greenery.",
+      "description": "The outdoor turquoise swimming pool and sun terrace surrounded by tropical garden greenery.",
       "category": "Swimming Pool",
       "imageUrl": "/src/assets/images/hotel_swimming_pool_1791471894050.jpg",
-      "createdAt": "2026-03-02T11:00:00Z"
+      "mediaType": "IMAGE",
+      "altText": "ANABE HOTEL swimming pool",
+      "published": true,
+      "displayOrder": 3,
+      "createdAt": "2026-10-29T16:37:06.827Z",
+      "updatedAt": "2026-10-29T17:00:58.446Z"
     },
     {
       "id": "gal_3",
       "title": "Deluxe Guest Room",
       "caption": "Carefully appointed king guest room with plush linens, warm oak finishes, and reading armchairs.",
+      "description": "Carefully appointed king guest room with plush linens, warm oak finishes, and reading armchairs.",
       "category": "Rooms",
       "imageUrl": "/src/assets/images/hotel_deluxe_room_1791471905013.jpg",
-      "createdAt": "2026-03-03T14:30:00Z"
+      "mediaType": "IMAGE",
+      "altText": "Deluxe guest room at ANABE HOTEL",
+      "published": true,
+      "displayOrder": 2,
+      "createdAt": "2026-10-29T16:37:06.827Z",
+      "updatedAt": "2026-10-29T17:00:58.446Z"
     },
     {
       "id": "gal_4",
       "title": "Grand Lobby & Escalators",
       "caption": "Spacious hotel atrium featuring marble floors, escalator connection, glass elevators, and reception.",
+      "description": "Spacious hotel atrium featuring marble floors, escalator connection, glass elevators, and reception.",
       "category": "Lobby",
       "imageUrl": "/src/assets/images/hotel_lobby_escalator_1791471914533.jpg",
-      "createdAt": "2026-03-04T16:00:00Z"
+      "mediaType": "IMAGE",
+      "altText": "ANABE HOTEL lobby with escalators and elevators",
+      "published": true,
+      "displayOrder": 1,
+      "createdAt": "2026-10-29T16:37:06.827Z",
+      "updatedAt": "2026-10-29T17:00:58.446Z"
     }
   ],
   "activityLogs": [
     {
-      "userId": "guest_portal",
-      "userName": "WhatsApp Test Guest",
-      "userRole": "STAFF",
-      "action": "BOOKING_CREATED",
-      "details": "Booking ANB-20261008-1G5T created for Room 101 (2026-11-01 to 2026-11-04). Total: 195000 RWF.",
+      "userId": "usr_owner_01",
+      "userName": "Hotel Owner",
+      "userRole": "OWNER",
+      "action": "BOOKING_STATUS_CHANGED",
+      "details": "Booking ANB-20261029-WI7N status changed from PENDING to CANCELLED.",
       "resourceType": "booking",
-      "resourceId": "bkg_1791477917226_6svmk",
-      "id": "log_1791477917227_pwct",
-      "timestamp": "2026-10-08T16:45:17.227Z"
+      "resourceId": "bkg_1793293669716_z0b97",
+      "id": "log_1793293672441_cfae",
+      "timestamp": "2026-10-29T17:07:52.441Z"
     },
     {
-      "userId": "usr_owner_01",
-      "userName": "Hotel Owner",
-      "userRole": "OWNER",
-      "action": "USER_LOGIN",
-      "details": "Hotel Owner (OWNER) logged in successfully.",
-      "ip": "127.0.0.1",
-      "id": "log_1791477571937_gapr",
-      "timestamp": "2026-10-08T16:39:31.937Z"
-    },
-    {
-      "userId": "usr_owner_01",
-      "userName": "Hotel Owner",
-      "userRole": "OWNER",
-      "action": "USER_LOGIN",
-      "details": "Hotel Owner (OWNER) logged in successfully.",
-      "ip": "127.0.0.1",
-      "id": "log_1791474371486_d86a",
-      "timestamp": "2026-10-08T15:46:11.486Z"
-    },
-    {
-      "id": "log_01",
-      "userId": "usr_owner_01",
-      "userName": "Hotel Owner",
-      "userRole": "OWNER",
-      "action": "SYSTEM_INITIALIZED",
-      "details": "ANABE HOTEL system initialized with 65 rooms across 4 floors.",
-      "timestamp": "2026-01-01T08:00:00Z"
-    },
-    {
-      "id": "log_02",
       "userId": "usr_staff_reception",
       "userName": "Front Desk Reception",
       "userRole": "STAFF",
-      "action": "GUEST_CHECKED_IN",
-      "details": "Guest Claire Uwera checked into Executive Suite 415 (Ref: ANB-2026-4491).",
+      "action": "USER_LOGIN",
+      "details": "Front Desk Reception (STAFF) logged in successfully.",
+      "ip": "127.0.0.1",
+      "id": "log_1793293666888_cuzf",
+      "timestamp": "2026-10-29T17:07:46.888Z"
+    },
+    {
+      "userId": "usr_owner_01",
+      "userName": "Hotel Owner",
+      "userRole": "OWNER",
+      "action": "USER_LOGIN",
+      "details": "Hotel Owner (OWNER) logged in successfully.",
+      "ip": "127.0.0.1",
+      "id": "log_1793293666782_p49o",
+      "timestamp": "2026-10-29T17:07:46.782Z"
+    },
+    {
+      "id": "log_1793293257941_puun",
+      "userId": "guest_portal",
+      "userName": "Alice Kayitesi",
+      "userRole": "STAFF",
+      "action": "BOOKING_CREATED",
+      "details": "Booking ANB-20261029-HS8O created for Room 101 (2026-12-14 to 2026-12-19). Total: 325000 RWF.",
       "resourceType": "booking",
-      "resourceId": "bkg_102_sample",
-      "timestamp": "2026-10-08T09:15:00Z"
+      "resourceId": "bkg_1793293257627_ri0h5",
+      "ip": null,
+      "timestamp": "2026-10-29T17:00:57.627Z"
+    },
+    {
+      "id": "log_1793292796914_amn9",
+      "userId": "guest_portal",
+      "userName": "Alice Kayitesi",
+      "userRole": "STAFF",
+      "action": "BOOKING_CREATED",
+      "details": "Booking ANB-20261029-6AA6 created for Room 101 (2026-12-08 to 2026-12-13). Total: 325000 RWF.",
+      "resourceType": "booking",
+      "resourceId": "bkg_1793292796611_12bwk",
+      "ip": null,
+      "timestamp": "2026-10-29T16:53:16.611Z"
+    },
+    {
+      "id": "log_1793292598509_453g",
+      "userId": "guest_portal",
+      "userName": "Alice Kayitesi",
+      "userRole": "STAFF",
+      "action": "BOOKING_CREATED",
+      "details": "Booking ANB-20261029-S483 created for Room 101 (2026-11-20 to 2026-11-25). Total: 325000 RWF.",
+      "resourceType": "booking",
+      "resourceId": "bkg_1793292598214_6f0km",
+      "ip": null,
+      "timestamp": "2026-10-29T16:49:58.214Z"
     }
   ],
   "contactMessages": []

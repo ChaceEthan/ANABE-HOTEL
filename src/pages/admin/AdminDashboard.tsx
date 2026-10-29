@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { api, clearStoredToken } from '../../lib/api.ts';
+import { api } from '../../lib/api.ts';
 import { Logo } from '../../components/Logo.tsx';
 import type {
   User,
@@ -42,7 +42,11 @@ import {
   Phone,
   Edit,
   Trash2,
-  Lock
+  Lock,
+  Waves,
+  Building,
+  ArrowUpRight,
+  Upload,
 } from 'lucide-react';
 
 interface AdminDashboardProps {
@@ -85,6 +89,25 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   const [roomFormMaxGuests, setRoomFormMaxGuests] = useState(2);
   const [roomFormFloor, setRoomFormFloor] = useState(1);
   const [roomFormDescription, setRoomFormDescription] = useState('');
+  const [roomFormImages, setRoomFormImages] = useState<string[]>([]);
+  const [uploadingImage, setUploadingImage] = useState(false);
+
+  // Facility Modal State
+  const [isFacilityModalOpen, setIsFacilityModalOpen] = useState(false);
+  const [editingFacility, setEditingFacility] = useState<Facility | null>(null);
+  const [facilityFormName, setFacilityFormName] = useState('');
+  const [facilityFormDescription, setFacilityFormDescription] = useState('');
+  const [facilityFormImage, setFacilityFormImage] = useState('');
+  const [facilityFormIcon, setFacilityFormIcon] = useState('Sparkles');
+  const [facilityFormStatus, setFacilityFormStatus] = useState<RoomOperationalStatus | 'ACTIVE' | 'MAINTENANCE'>('ACTIVE');
+
+  // Gallery Modal State
+  const [isGalleryModalOpen, setIsGalleryModalOpen] = useState(false);
+  const [galleryFilterCategory, setGalleryFilterCategory] = useState('ALL');
+  const [galleryFormTitle, setGalleryFormTitle] = useState('');
+  const [galleryFormDescription, setGalleryFormDescription] = useState('');
+  const [galleryFormCategory, setGalleryFormCategory] = useState<GalleryItem['category']>('General');
+  const [galleryFormImageUrl, setGalleryFormImageUrl] = useState('');
 
   // Add User Modal (Owner)
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
@@ -181,6 +204,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           maxGuests: roomFormMaxGuests,
           floor: roomFormFloor,
           description: roomFormDescription,
+          images: roomFormImages.length > 0 ? roomFormImages : undefined,
         });
         notify(`Room ${editingRoom.roomNumber} updated successfully.`);
       } else {
@@ -192,14 +216,96 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           maxGuests: roomFormMaxGuests,
           floor: roomFormFloor,
           description: roomFormDescription,
+          images: roomFormImages.length > 0 ? roomFormImages : undefined,
         });
         notify(`Room ${roomFormNumber} created successfully.`);
       }
       setIsRoomModalOpen(false);
       setEditingRoom(null);
+      setRoomFormImages([]);
       refreshData();
     } catch (err: any) {
       notify(err.message || 'Failed to save room.');
+    }
+  };
+
+  // Facility handlers
+  const handleSaveFacility = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      if (editingFacility) {
+        await api.updateFacility(editingFacility.id, {
+          name: facilityFormName,
+          description: facilityFormDescription,
+          image: facilityFormImage || '/images/hotel_swimming_pool_1791471894050.jpg',
+          icon: facilityFormIcon,
+          status: facilityFormStatus as any,
+        });
+        notify(`Facility '${facilityFormName}' updated.`);
+      } else {
+        await api.createFacility({
+          name: facilityFormName,
+          description: facilityFormDescription,
+          image: facilityFormImage || '/images/hotel_swimming_pool_1791471894050.jpg',
+          icon: facilityFormIcon,
+          status: facilityFormStatus as any,
+        });
+        notify(`Facility '${facilityFormName}' created.`);
+      }
+      setIsFacilityModalOpen(false);
+      setEditingFacility(null);
+      refreshData();
+    } catch (err: any) {
+      notify(err.message || 'Failed to save facility.');
+    }
+  };
+
+  const handleDeleteFacility = async (id: string, name: string) => {
+    if (!window.confirm(`Delete facility '${name}'?`)) return;
+    try {
+      await api.deleteFacility(id);
+      notify(`Facility '${name}' removed.`);
+      refreshData();
+    } catch (err: any) {
+      notify(err.message || 'Failed to delete facility.');
+    }
+  };
+
+  // Gallery handlers
+  const handleSaveGalleryItem = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!galleryFormTitle || !galleryFormImageUrl) {
+      notify('Title and image are required.');
+      return;
+    }
+    try {
+      await api.addGalleryItem({
+        title: galleryFormTitle,
+        description: galleryFormDescription,
+        caption: galleryFormDescription,
+        category: galleryFormCategory,
+        imageUrl: galleryFormImageUrl,
+        published: true,
+      });
+      notify(`Photo '${galleryFormTitle}' added to gallery.`);
+      setIsGalleryModalOpen(false);
+      setGalleryFormTitle('');
+      setGalleryFormDescription('');
+      setGalleryFormImageUrl('');
+      refreshData();
+    } catch (err: any) {
+      notify(err.message || 'Failed to add photo.');
+    }
+  };
+
+  const handleDeleteGalleryItem = async (id: string, title: string) => {
+    if (!window.confirm(`Delete photo '${title}' from gallery?`)) return;
+    try {
+      await api.deleteGalleryItem(id);
+      notify(`Photo '${title}' removed.`);
+      refreshData();
+    } catch (err: any) {
+      notify(err.message || 'Failed to delete photo.');
     }
   };
 
@@ -306,16 +412,12 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     <div className="min-h-screen bg-[#F5F4EE] flex flex-col">
       {/* Top Bar for Admin */}
       <header className="bg-[#121316] text-white px-4 sm:px-6 py-3.5 flex items-center justify-between border-b border-neutral-800">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
           <button
             onClick={onNavigateHome}
-            className="flex items-center gap-2.5 hover:opacity-90 transition-opacity cursor-pointer"
-            title="Return to ANABE HOTEL Homepage"
+            className="font-serif text-lg sm:text-xl font-bold tracking-widest uppercase hover:text-[#B89667] transition-colors cursor-pointer"
           >
-            <Logo size="xs" variant="badge" />
-            <span className="font-serif text-base sm:text-lg font-bold tracking-widest uppercase hidden md:inline">
-              {hotelSettings?.hotelName || 'ANABE HOTEL'}
-            </span>
+            {hotelSettings?.hotelName || 'ANABE HOTEL'}
           </button>
           <span className="text-xs text-neutral-400 hidden sm:inline">|</span>
           <span className="text-xs text-[#D8BD90] font-medium hidden sm:inline">
@@ -341,8 +443,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
           <button
             onClick={() => {
-              clearStoredToken();
-              onLogout();
+              api.logout().catch(() => undefined).finally(onLogout);
             }}
             className="px-3 py-1.5 bg-neutral-800 hover:bg-red-950/80 hover:text-red-200 text-neutral-300 text-xs font-medium rounded transition-colors flex items-center gap-1.5 cursor-pointer"
           >
@@ -365,10 +466,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         {/* Navigation Sidebar */}
         <aside className="w-full md:w-64 bg-white border-r border-[#E2DED4] p-4 flex flex-col justify-between shrink-0">
           <div className="space-y-1">
-            <div className="mb-3 flex items-center justify-center">
-              <Logo size="sm" variant="badge" />
+            <div className="px-3 pb-4">
+              <Logo className="h-8 w-auto max-w-[170px]" />
             </div>
-            <div className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#8C8A82]">
+            <div className="px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-[#8C8A82]">
               Management Modules
             </div>
 
@@ -632,6 +733,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                         setRoomFormNumber('');
                         setRoomFormName('');
                         setRoomFormDescription('');
+                        setRoomFormImages([]);
                         setIsRoomModalOpen(true);
                       }}
                       className="px-4 py-2 border border-[#B89667] text-[#B89667] hover:bg-[#FAF6EF] text-xs font-semibold rounded uppercase tracking-wider flex items-center gap-1.5 cursor-pointer"
@@ -665,6 +767,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                       setRoomFormNumber('');
                       setRoomFormName('');
                       setRoomFormDescription('');
+                      setRoomFormImages([]);
                       setIsRoomModalOpen(true);
                     }}
                     className="px-4 py-2.5 bg-[#1A1A18] hover:bg-[#B89667] text-white text-xs font-semibold uppercase tracking-wider rounded flex items-center gap-2 cursor-pointer"
@@ -732,6 +835,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                                   setRoomFormMaxGuests(room.maxGuests);
                                   setRoomFormFloor(room.floor);
                                   setRoomFormDescription(room.description);
+                                  setRoomFormImages(room.images || []);
                                   setIsRoomModalOpen(true);
                                 }}
                                 className="p-1 text-[#7A7870] hover:text-[#1A1A18] rounded cursor-pointer"
@@ -1004,6 +1108,162 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                       ))}
                   </div>
                 </div>
+              </div>
+            </div>
+          )}
+
+          {/* TAB: FACILITIES MANAGEMENT */}
+          {activeTab === 'facilities' && (user.role === 'OWNER' || user.role === 'MANAGER') && (
+            <div className="space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#1A1A18]">
+                    Facilities Management
+                  </h1>
+                  <p className="text-xs text-[#66655E]">
+                    Manage hotel signature amenities and infrastructure: Swimming Pool, Elevators, Escalators, and Accommodation Rooms.
+                  </p>
+                </div>
+                <button
+                  onClick={() => {
+                    setEditingFacility(null);
+                    setFacilityFormName('');
+                    setFacilityFormDescription('');
+                    setFacilityFormImage('/images/hotel_swimming_pool_1791471894050.jpg');
+                    setFacilityFormIcon('Sparkles');
+                    setFacilityFormStatus('ACTIVE');
+                    setIsFacilityModalOpen(true);
+                  }}
+                  className="px-4 py-2.5 bg-[#1A1A18] hover:bg-[#B89667] text-white text-xs font-semibold uppercase tracking-wider rounded flex items-center gap-2 cursor-pointer"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>Add Facility</span>
+                </button>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {facilities.map((fac) => (
+                  <div key={fac.id} className="bg-white rounded-lg border border-[#E2DED4] overflow-hidden shadow-xs flex flex-col justify-between">
+                    <div>
+                      <div className="h-44 bg-neutral-100 relative overflow-hidden">
+                        {fac.image ? (
+                          <img src={fac.image} alt={fac.name} className="w-full h-full object-cover" />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-neutral-400">No Image</div>
+                        )}
+                        <span className={`absolute top-2 right-2 text-[10px] font-bold px-2 py-0.5 rounded ${fac.status === 'ACTIVE' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}`}>
+                          {fac.status}
+                        </span>
+                      </div>
+                      <div className="p-4 space-y-2">
+                        <div className="flex items-center gap-2">
+                          <span className="p-1.5 bg-[#FAF6EF] text-[#B89667] rounded-full border border-[#E6D4B7]">
+                            <Sparkles className="w-3.5 h-3.5" />
+                          </span>
+                          <h3 className="font-serif text-lg font-bold text-[#1A1A18]">{fac.name}</h3>
+                        </div>
+                        <p className="text-xs text-[#66655E] line-clamp-3 leading-relaxed">{fac.description}</p>
+                      </div>
+                    </div>
+                    <div className="p-4 pt-0 border-t border-[#F0ECE2] flex items-center justify-end gap-2 mt-2">
+                      <button
+                        onClick={() => {
+                          setEditingFacility(fac);
+                          setFacilityFormName(fac.name);
+                          setFacilityFormDescription(fac.description);
+                          setFacilityFormImage(fac.image);
+                          setFacilityFormIcon(fac.icon);
+                          setFacilityFormStatus(fac.status as any);
+                          setIsFacilityModalOpen(true);
+                        }}
+                        className="px-2.5 py-1 text-xs text-[#1A1A18] hover:bg-[#FAF9F5] border border-[#D5D0C5] rounded flex items-center gap-1 cursor-pointer"
+                      >
+                        <Edit className="w-3 h-3" />
+                        <span>Edit</span>
+                      </button>
+                      <button
+                        onClick={() => handleDeleteFacility(fac.id, fac.name)}
+                        className="px-2.5 py-1 text-xs text-red-600 hover:bg-red-50 border border-red-200 rounded flex items-center gap-1 cursor-pointer"
+                      >
+                        <Trash2 className="w-3 h-3" />
+                        <span>Delete</span>
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* TAB: GALLERY MANAGEMENT */}
+          {activeTab === 'gallery' && (user.role === 'OWNER' || user.role === 'MANAGER') && (
+            <div className="space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#1A1A18]">
+                    Photo Gallery Management
+                  </h1>
+                  <p className="text-xs text-[#66655E]">
+                    Curate photographs displayed on the public gallery and room listings. Upload directly to Cloudinary.
+                  </p>
+                </div>
+                <button
+                  onClick={() => {
+                    setGalleryFormTitle('');
+                    setGalleryFormDescription('');
+                    setGalleryFormImageUrl('');
+                    setGalleryFormCategory('General');
+                    setIsGalleryModalOpen(true);
+                  }}
+                  className="px-4 py-2.5 bg-[#1A1A18] hover:bg-[#B89667] text-white text-xs font-semibold uppercase tracking-wider rounded flex items-center gap-2 cursor-pointer"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>Upload Photo</span>
+                </button>
+              </div>
+
+              {/* Category Filter Pills */}
+              <div className="flex gap-2 overflow-x-auto pb-1">
+                {['ALL', 'Rooms', 'Swimming Pool', 'Facilities', 'Exterior', 'Lobby', 'General'].map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => setGalleryFilterCategory(cat)}
+                    className={`px-3 py-1 text-xs font-medium rounded-full cursor-pointer transition-colors ${galleryFilterCategory === cat ? 'bg-[#1A1A18] text-white' : 'bg-white border border-[#E2DED4] text-[#66655E] hover:bg-[#FAF9F5]'}`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+
+              {/* Gallery Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {gallery
+                  .filter((item) => galleryFilterCategory === 'ALL' || item.category === galleryFilterCategory)
+                  .map((item) => (
+                    <div key={item.id} className="bg-white rounded-lg border border-[#E2DED4] overflow-hidden shadow-xs flex flex-col justify-between group">
+                      <div>
+                        <div className="h-44 bg-neutral-100 relative overflow-hidden">
+                          <img src={item.imageUrl} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" />
+                          <span className="absolute top-2 left-2 text-[10px] bg-black/60 text-white px-2 py-0.5 rounded font-mono">
+                            {item.category}
+                          </span>
+                        </div>
+                        <div className="p-3">
+                          <h4 className="text-xs font-bold text-[#1A1A18] truncate">{item.title}</h4>
+                          <p className="text-[11px] text-[#7A7870] line-clamp-2 mt-1">{item.caption || item.description}</p>
+                        </div>
+                      </div>
+                      <div className="p-3 pt-0 flex justify-end">
+                        <button
+                          onClick={() => handleDeleteGalleryItem(item.id, item.title)}
+                          className="p-1 text-red-500 hover:text-red-700 hover:bg-red-50 rounded cursor-pointer"
+                          title="Delete photo"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
               </div>
             </div>
           )}
@@ -1392,6 +1652,53 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 />
               </div>
 
+              <div>
+                <label className="text-[11px] font-semibold uppercase text-[#737169] block mb-1">
+                  Room Photographs
+                </label>
+                {roomFormImages.length > 0 && (
+                  <div className="flex flex-wrap gap-2 mb-2">
+                    {roomFormImages.map((img, i) => (
+                      <div key={i} className="relative w-16 h-12 rounded overflow-hidden border border-[#D5D0C5] group">
+                        <img src={img} alt="" className="w-full h-full object-cover" />
+                        <button
+                          type="button"
+                          onClick={() => setRoomFormImages(roomFormImages.filter((_, idx) => idx !== i))}
+                          className="absolute inset-0 bg-black/60 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                        >
+                          <X className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <label className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#FAF9F5] hover:bg-[#F0ECE2] text-[#1A1A18] text-xs font-medium rounded cursor-pointer border border-[#D5D0C5]">
+                  <Upload className="w-3.5 h-3.5 text-[#B89667]" />
+                  <span>{uploadingImage ? 'Uploading photo...' : '+ Upload Room Photo'}</span>
+                  <input
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp"
+                    className="hidden"
+                    disabled={uploadingImage}
+                    onChange={async (e) => {
+                      const file = e.target.files?.[0];
+                      if (!file) return;
+                      setUploadingImage(true);
+                      try {
+                        const res = await api.uploadImage(file, 'rooms');
+                        setRoomFormImages([...roomFormImages, res.url]);
+                        notify('Room image uploaded successfully.');
+                      } catch (err: any) {
+                        notify(err.message || 'Image upload failed.');
+                      } finally {
+                        setUploadingImage(false);
+                        e.target.value = '';
+                      }
+                    }}
+                  />
+                </label>
+              </div>
+
               <button
                 type="submit"
                 className="w-full py-2.5 bg-[#1A1A18] hover:bg-[#B89667] text-white text-xs font-semibold uppercase tracking-wider rounded transition-colors cursor-pointer"
@@ -1478,6 +1785,245 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 className="w-full py-2.5 bg-[#1A1A18] hover:bg-[#B89667] text-white text-xs font-semibold uppercase tracking-wider rounded transition-colors cursor-pointer"
               >
                 Create Account
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+      {/* Add / Edit Facility Modal */}
+      {isFacilityModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
+          <div className="bg-white rounded-lg max-w-md w-full p-6 shadow-xl border border-[#E2DED4]">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="font-serif text-xl font-bold text-[#1A1A18]">
+                {editingFacility ? `Edit Facility: ${editingFacility.name}` : 'Add Hotel Facility'}
+              </h3>
+              <button onClick={() => setIsFacilityModalOpen(false)}>
+                <X className="w-5 h-5 text-neutral-500 cursor-pointer" />
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveFacility} className="space-y-4">
+              <div>
+                <label className="text-[11px] font-semibold uppercase text-[#737169] block mb-1">
+                  Facility Name *
+                </label>
+                <input
+                  type="text"
+                  value={facilityFormName}
+                  onChange={(e) => setFacilityFormName(e.target.value)}
+                  required
+                  placeholder="e.g. Swimming Pool"
+                  className="w-full px-3 py-2 text-xs bg-[#FAF9F5] border border-[#D5D0C5] rounded"
+                />
+              </div>
+
+              <div>
+                <label className="text-[11px] font-semibold uppercase text-[#737169] block mb-1">
+                  Description
+                </label>
+                <textarea
+                  rows={3}
+                  value={facilityFormDescription}
+                  onChange={(e) => setFacilityFormDescription(e.target.value)}
+                  placeholder="Describe this facility feature..."
+                  className="w-full px-3 py-2 text-xs bg-[#FAF9F5] border border-[#D5D0C5] rounded"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="text-[11px] font-semibold uppercase text-[#737169] block mb-1">
+                    Icon
+                  </label>
+                  <select
+                    value={facilityFormIcon}
+                    onChange={(e) => setFacilityFormIcon(e.target.value)}
+                    className="w-full px-3 py-2 text-xs bg-[#FAF9F5] border border-[#D5D0C5] rounded"
+                  >
+                    <option value="Waves">Waves (Swimming Pool)</option>
+                    <option value="Building">Building (Elevator)</option>
+                    <option value="ArrowUpRight">ArrowUpRight (Escalator)</option>
+                    <option value="BedDouble">BedDouble (Rooms)</option>
+                    <option value="Sparkles">Sparkles (General)</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="text-[11px] font-semibold uppercase text-[#737169] block mb-1">
+                    Operational Status
+                  </label>
+                  <select
+                    value={facilityFormStatus}
+                    onChange={(e) => setFacilityFormStatus(e.target.value as any)}
+                    className="w-full px-3 py-2 text-xs bg-[#FAF9F5] border border-[#D5D0C5] rounded"
+                  >
+                    <option value="ACTIVE">ACTIVE</option>
+                    <option value="MAINTENANCE">MAINTENANCE</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label className="text-[11px] font-semibold uppercase text-[#737169] block mb-1">
+                  Facility Image
+                </label>
+                <div className="flex gap-2 items-center">
+                  <input
+                    type="text"
+                    value={facilityFormImage}
+                    onChange={(e) => setFacilityFormImage(e.target.value)}
+                    placeholder="/images/... or https://..."
+                    className="flex-1 px-3 py-2 text-xs bg-[#FAF9F5] border border-[#D5D0C5] rounded"
+                  />
+                  <label className="px-3 py-2 bg-[#FAF9F5] hover:bg-[#F0ECE2] border border-[#D5D0C5] text-xs rounded cursor-pointer shrink-0">
+                    <span>{uploadingImage ? 'Uploading...' : 'Upload'}</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      disabled={uploadingImage}
+                      onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        setUploadingImage(true);
+                        try {
+                          const res = await api.uploadImage(file, 'facilities');
+                          setFacilityFormImage(res.url);
+                          notify('Facility image uploaded successfully.');
+                        } catch (err: any) {
+                          notify(err.message || 'Image upload failed.');
+                        } finally {
+                          setUploadingImage(false);
+                          e.target.value = '';
+                        }
+                      }}
+                    />
+                  </label>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                className="w-full py-2.5 bg-[#1A1A18] hover:bg-[#B89667] text-white text-xs font-semibold uppercase tracking-wider rounded transition-colors cursor-pointer"
+              >
+                Save Facility
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Upload Photo to Gallery Modal */}
+      {isGalleryModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
+          <div className="bg-white rounded-lg max-w-md w-full p-6 shadow-xl border border-[#E2DED4]">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="font-serif text-xl font-bold text-[#1A1A18]">
+                Upload Photo to Hotel Gallery
+              </h3>
+              <button onClick={() => setIsGalleryModalOpen(false)}>
+                <X className="w-5 h-5 text-neutral-500 cursor-pointer" />
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveGalleryItem} className="space-y-4">
+              <div>
+                <label className="text-[11px] font-semibold uppercase text-[#737169] block mb-1">
+                  Photo Title *
+                </label>
+                <input
+                  type="text"
+                  value={galleryFormTitle}
+                  onChange={(e) => setGalleryFormTitle(e.target.value)}
+                  required
+                  placeholder="e.g. Swimming Pool Sunset"
+                  className="w-full px-3 py-2 text-xs bg-[#FAF9F5] border border-[#D5D0C5] rounded"
+                />
+              </div>
+
+              <div>
+                <label className="text-[11px] font-semibold uppercase text-[#737169] block mb-1">
+                  Category *
+                </label>
+                <select
+                  value={galleryFormCategory}
+                  onChange={(e) => setGalleryFormCategory(e.target.value as any)}
+                  className="w-full px-3 py-2 text-xs bg-[#FAF9F5] border border-[#D5D0C5] rounded"
+                >
+                  <option value="Rooms">Rooms</option>
+                  <option value="Swimming Pool">Swimming Pool</option>
+                  <option value="Facilities">Facilities</option>
+                  <option value="Exterior">Exterior</option>
+                  <option value="Lobby">Lobby</option>
+                  <option value="Restaurant">Restaurant</option>
+                  <option value="General">General</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="text-[11px] font-semibold uppercase text-[#737169] block mb-1">
+                  Caption / Description
+                </label>
+                <textarea
+                  rows={2}
+                  value={galleryFormDescription}
+                  onChange={(e) => setGalleryFormDescription(e.target.value)}
+                  placeholder="Brief photo description..."
+                  className="w-full px-3 py-2 text-xs bg-[#FAF9F5] border border-[#D5D0C5] rounded"
+                />
+              </div>
+
+              <div>
+                <label className="text-[11px] font-semibold uppercase text-[#737169] block mb-1">
+                  Photo File or URL *
+                </label>
+                <div className="flex gap-2 items-center">
+                  <input
+                    type="text"
+                    value={galleryFormImageUrl}
+                    onChange={(e) => setGalleryFormImageUrl(e.target.value)}
+                    placeholder="https://... or upload below"
+                    required
+                    className="flex-1 px-3 py-2 text-xs bg-[#FAF9F5] border border-[#D5D0C5] rounded"
+                  />
+                  <label className="px-3 py-2 bg-[#FAF9F5] hover:bg-[#F0ECE2] border border-[#D5D0C5] text-xs rounded cursor-pointer shrink-0">
+                    <span>{uploadingImage ? 'Uploading...' : 'Upload'}</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      disabled={uploadingImage}
+                      onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        setUploadingImage(true);
+                        try {
+                          const res = await api.uploadImage(file, 'gallery');
+                          setGalleryFormImageUrl(res.url);
+                          notify('Photo uploaded to Cloudinary successfully.');
+                        } catch (err: any) {
+                          notify(err.message || 'Image upload failed.');
+                        } finally {
+                          setUploadingImage(false);
+                          e.target.value = '';
+                        }
+                      }}
+                    />
+                  </label>
+                </div>
+                {galleryFormImageUrl && (
+                  <div className="mt-2 h-24 rounded overflow-hidden border border-[#D5D0C5]">
+                    <img src={galleryFormImageUrl} alt="Preview" className="w-full h-full object-cover" />
+                  </div>
+                )}
+              </div>
+
+              <button
+                type="submit"
+                className="w-full py-2.5 bg-[#1A1A18] hover:bg-[#B89667] text-white text-xs font-semibold uppercase tracking-wider rounded transition-colors cursor-pointer"
+              >
+                Add to Gallery
               </button>
             </form>
           </div>

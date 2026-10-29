@@ -1,110 +1,37 @@
 import React from 'react';
 
-export type LogoSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-export type LogoVariant = 'default' | 'badge' | 'monogram';
+export type LogoVariant = 'header' | 'primary' | 'monogram';
 
-export interface LogoProps {
-  /**
-   * Preset sizing:
-   * 'xs': h-7 (topbars, minimal compact spaces)
-   * 'sm': h-9 (compact mobile headers, sidebars)
-   * 'md': h-12 (standard navigation bar, footers)
-   * 'lg': h-16 (auth cards, receipts, hero badges)
-   * 'xl': h-20 (prominent display, showcase sections)
-   */
-  size?: LogoSize;
-  /**
-   * Presentation variant:
-   * 'default': crisp image with transparent/natural background
-   * 'badge': light ivory contrast tile with subtle border, ideal for dark footers and hero scrims
-   * 'monogram': square gold 'A' monogram badge derived from the emblem
-   */
+interface LogoProps {
   variant?: LogoVariant;
-  /**
-   * Enable luxury hover interaction (smooth scale and sheen transition)
-   */
-  interactive?: boolean;
-  /**
-   * Custom alt text, defaults to "ANABE HOTEL Logo"
-   */
-  alt?: string;
-  /**
-   * Optional extra container or image classes
-   */
+  tone?: 'dark' | 'light';
   className?: string;
-  /**
-   * Optional click handler
-   */
-  onClick?: () => void;
-  /**
-   * High priority loading (e.g. for above-the-fold navbar and hero)
-   */
-  priority?: boolean;
+  alt?: string;
 }
 
-const sizeClasses: Record<LogoSize, { img: string; width: number; height: number }> = {
-  xs: { img: 'h-7 w-auto', width: 70, height: 28 },
-  sm: { img: 'h-9 w-auto', width: 90, height: 36 },
-  md: { img: 'h-11 sm:h-12 w-auto', width: 120, height: 48 },
-  lg: { img: 'h-14 sm:h-16 w-auto', width: 160, height: 64 },
-  xl: { img: 'h-16 sm:h-20 w-auto', width: 200, height: 80 },
+const logoAssets: Record<LogoVariant, { src: string; width: number; height: number }> = {
+  header: { src: '/logo/anabe-hotel-header.svg', width: 1000, height: 220 },
+  primary: { src: '/logo/anabe-hotel-logo.svg', width: 940, height: 735 },
+  monogram: { src: '/logo/anabe-hotel-monogram.svg', width: 560, height: 560 },
 };
 
 export const Logo: React.FC<LogoProps> = ({
-  size = 'md',
-  variant = 'default',
-  interactive = true,
-  alt = 'ANABE HOTEL Logo',
+  variant = 'header',
+  tone = 'dark',
   className = '',
-  onClick,
-  priority = false,
+  alt = 'ANABE HOTEL',
 }) => {
-  const { img: sizeClass, width, height } = sizeClasses[size];
+  const asset = logoAssets[variant];
 
-  const imageSrc =
-    variant === 'monogram'
-      ? '/favicon.png'
-      : '/anabe-hotel-logo.png';
-
-  const hoverEffect = interactive
-    ? 'transition-transform duration-200 ease-out hover:scale-103 group-hover:scale-103 active:scale-98'
-    : '';
-
-  const imgElement = (
+  return (
     <img
-      src={imageSrc}
+      src={asset.src}
       alt={alt}
-      width={width}
-      height={height}
-      loading={priority ? 'eager' : 'lazy'}
+      width={asset.width}
+      height={asset.height}
+      loading="eager"
       decoding="async"
-      className={`object-contain ${sizeClass} ${hoverEffect} ${variant !== 'badge' ? className : ''}`}
+      className={`block object-contain ${tone === 'light' ? 'brightness-0 invert' : ''} ${className}`}
     />
   );
-
-  if (variant === 'badge') {
-    const badgePadding =
-      size === 'xs' || size === 'sm' ? 'p-1.5' : 'p-2.5 sm:p-3';
-
-    return (
-      <div
-        onClick={onClick}
-        className={`inline-flex items-center justify-center bg-[#FAF8F5] border border-[#2D3039]/20 rounded-xl shadow-xs transition-all duration-200 ${badgePadding} ${
-          interactive ? 'hover:border-[#B89667] hover:shadow-md' : ''
-        } ${className}`}
-      >
-        {imgElement}
-      </div>
-    );
-  }
-
-  if (onClick) {
-    return (
-      <div onClick={onClick} className={`inline-block cursor-pointer ${className}`}>
-        {imgElement}
-      </div>
-    );
-  }
-
-  return imgElement;
 };
