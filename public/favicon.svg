@@ -1,18 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
     <linearGradient id="favGold" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#D4A94B"/>
-      <stop offset="30%" stop-color="#E8C872"/>
-      <stop offset="70%" stop-color="#C5973E"/>
-      <stop offset="100%" stop-color="#A67C2E"/>
+      <stop offset="0%" stop-color="#C8A95A"/>
+      <stop offset="30%" stop-color="#E8D48B"/>
+      <stop offset="70%" stop-color="#C8A95A"/>
+      <stop offset="100%" stop-color="#A68B3E"/>
     </linearGradient>
     <linearGradient id="favSwoosh" x1="0%" y1="100%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#A67C2E"/>
-      <stop offset="50%" stop-color="#E8C872"/>
-      <stop offset="100%" stop-color="#C5973E"/>
+      <stop offset="0%" stop-color="#8B0000"/>
+      <stop offset="50%" stop-color="#C41E3A"/>
+      <stop offset="100%" stop-color="#8B0000"/>
     </linearGradient>
   </defs>
-  <rect width="512" height="512" rx="108" fill="#1B3A2D"/>
+  <rect width="512" height="512" rx="108" fill="#1A1A1A"/>
   <g transform="translate(256, 252) scale(0.82)">
     <path d="M 0,-155 C -2,-155 -15,-125 -30,-85 L -140,195 C -162,248 -200,268 -245,274 L -245,285 L -135,285 L -135,274 C -175,270 -178,252 -160,210 L -125,125 L -40,125 L 0,22 L -65,22 L -20,-105 Z" fill="url(#favGold)"/>
     <path d="M 0,-155 C 3,-155 18,-115 35,-70 L 155,215 C 176,262 198,272 250,274 L 250,285 L 115,285 L 115,274 C 155,270 152,252 135,212 L 95,125 L 38,-15 L 0,-155 Z" fill="url(#favGold)"/>

@@ -2,14 +2,14 @@
   <title id="title">ANABE HOTEL A monogram</title>
   <defs>
     <linearGradient id="monoGold" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#D4A94B"/>
-      <stop offset="50%" stop-color="#C5973E"/>
-      <stop offset="100%" stop-color="#A67C2E"/>
+      <stop offset="0%" stop-color="#1A1A1A"/>
+      <stop offset="50%" stop-color="#2C2C2C"/>
+      <stop offset="100%" stop-color="#1A1A1A"/>
     </linearGradient>
     <linearGradient id="monoSwoosh" x1="0%" y1="100%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#A67C2E"/>
-      <stop offset="50%" stop-color="#E8C872"/>
-      <stop offset="100%" stop-color="#C5973E"/>
+      <stop offset="0%" stop-color="#8B0000"/>
+      <stop offset="50%" stop-color="#C41E3A"/>
+      <stop offset="100%" stop-color="#8B0000"/>
     </linearGradient>
   </defs>
   <g transform="translate(750 270)">

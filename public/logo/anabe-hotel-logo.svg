@@ -3,17 +3,17 @@
   <desc id="description">The ANABE HOTEL A monogram, wordmark, five stars, and hospitality tagline.</desc>
   <defs>
     <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#D4A94B"/>
-      <stop offset="50%" stop-color="#C5973E"/>
-      <stop offset="100%" stop-color="#A67C2E"/>
+      <stop offset="0%" stop-color="#1A1A1A"/>
+      <stop offset="50%" stop-color="#2C2C2C"/>
+      <stop offset="100%" stop-color="#1A1A1A"/>
     </linearGradient>
     <linearGradient id="swooshGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#A67C2E"/>
-      <stop offset="50%" stop-color="#E8C872"/>
-      <stop offset="100%" stop-color="#C5973E"/>
+      <stop offset="0%" stop-color="#8B0000"/>
+      <stop offset="50%" stop-color="#C41E3A"/>
+      <stop offset="100%" stop-color="#8B0000"/>
     </linearGradient>
     <g id="star">
-      <polygon points="0,-14 4.3,-4.3 14.7,-4.3 6.3,1.9 9.5,12 0,5.8 -9.5,12 -6.3,1.9 -14.7,-4.3 -4.3,-4.3" fill="#C5973E"/>
+      <polygon points="0,-14 4.3,-4.3 14.7,-4.3 6.3,1.9 9.5,12 0,5.8 -9.5,12 -6.3,1.9 -14.7,-4.3 -4.3,-4.3" fill="#C8A95A"/>
     </g>
   </defs>
   <g transform="translate(750 270)">
@@ -24,15 +24,15 @@
     <polygon points="-20,275 -20,105 0,84 20,105 20,275" fill="url(#goldGrad)"/>
     <polygon points="32,275 32,126 65,148 65,275" fill="url(#goldGrad)"/>
   </g>
-  <text x="750" y="695" text-anchor="middle" font-family="'Cormorant Garamond', 'Playfair Display', 'Cinzel', Georgia, serif" font-size="94" font-weight="600" letter-spacing="24" fill="#1B3A2D">ANABE HOTEL</text>
+  <text x="750" y="695" text-anchor="middle" font-family="'Cormorant Garamond', 'Playfair Display', 'Cinzel', Georgia, serif" font-size="94" font-weight="600" letter-spacing="24" fill="#1A1A1A">ANABE HOTEL</text>
   <g transform="translate(0 755)">
-    <line x1="280" y1="0" x2="560" y2="0" stroke="#C5973E" stroke-width="3" stroke-linecap="round"/>
+    <line x1="280" y1="0" x2="560" y2="0" stroke="#C8A95A" stroke-width="3" stroke-linecap="round"/>
     <use href="#star" x="610" y="0"/>
     <use href="#star" x="680" y="0"/>
     <use href="#star" x="750" y="0" transform="scale(1.15) translate(-98 -1)"/>
     <use href="#star" x="820" y="0"/>
     <use href="#star" x="890" y="0"/>
-    <line x1="940" y1="0" x2="1220" y2="0" stroke="#C5973E" stroke-width="3" stroke-linecap="round"/>
+    <line x1="940" y1="0" x2="1220" y2="0" stroke="#C8A95A" stroke-width="3" stroke-linecap="round"/>
   </g>
-  <text x="750" y="828" text-anchor="middle" font-family="'Plus Jakarta Sans', Montserrat, Arial, sans-serif" font-size="28" font-weight="500" letter-spacing="14" fill="#1B3A2D">COMFORT  ·  LUXURY  ·  HOSPITALITY</text>
+  <text x="750" y="828" text-anchor="middle" font-family="'Plus Jakarta Sans', Montserrat, Arial, sans-serif" font-size="28" font-weight="500" letter-spacing="14" fill="#1A1A1A">COMFORT  ·  LUXURY  ·  HOSPITALITY</text>
 </svg>

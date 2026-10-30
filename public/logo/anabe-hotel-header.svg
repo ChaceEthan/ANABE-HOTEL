@@ -2,14 +2,14 @@
   <title id="title">ANABE HOTEL</title>
   <defs>
     <linearGradient id="hdrGold" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#D4A94B"/>
-      <stop offset="50%" stop-color="#C5973E"/>
-      <stop offset="100%" stop-color="#A67C2E"/>
+      <stop offset="0%" stop-color="#1A1A1A"/>
+      <stop offset="50%" stop-color="#2C2C2C"/>
+      <stop offset="100%" stop-color="#1A1A1A"/>
     </linearGradient>
     <linearGradient id="hdrSwoosh" x1="0%" y1="100%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#A67C2E"/>
-      <stop offset="50%" stop-color="#E8C872"/>
-      <stop offset="100%" stop-color="#C5973E"/>
+      <stop offset="0%" stop-color="#8B0000"/>
+      <stop offset="50%" stop-color="#C41E3A"/>
+      <stop offset="100%" stop-color="#8B0000"/>
     </linearGradient>
   </defs>
   <g transform="translate(110 110) scale(0.37)">
@@ -20,6 +20,6 @@
     <polygon points="-20,275 -20,105 0,84 20,105 20,275" fill="url(#hdrGold)"/>
     <polygon points="32,275 32,126 65,148 65,275" fill="url(#hdrGold)"/>
   </g>
-  <text x="230" y="105" font-family="'Cormorant Garamond', 'Playfair Display', Georgia, serif" font-size="76" font-weight="600" letter-spacing="8" fill="#1B3A2D">ANABE HOTEL</text>
-  <text x="234" y="155" font-family="'Plus Jakarta Sans', Montserrat, Arial, sans-serif" font-size="17" font-weight="500" letter-spacing="5" fill="#1B3A2D">COMFORT · LUXURY · HOSPITALITY</text>
+  <text x="230" y="105" font-family="'Cormorant Garamond', 'Playfair Display', Georgia, serif" font-size="76" font-weight="600" letter-spacing="8" fill="#1A1A1A">ANABE HOTEL</text>
+  <text x="234" y="155" font-family="'Plus Jakarta Sans', Montserrat, Arial, sans-serif" font-size="17" font-weight="500" letter-spacing="5" fill="#1A1A1A">COMFORT · LUXURY · HOSPITALITY</text>
 </svg>
